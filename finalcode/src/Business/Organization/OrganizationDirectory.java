@@ -5,7 +5,6 @@
 
 package Business.Organization;
 import Business.Organization.Organization;
-import Business.Organization.Organization.Type;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +22,16 @@ public class OrganizationDirectory {
     public ArrayList<Organization> getOrganizationList() {
         return organizationList;
     }
+    public Organization searchOrganization(Organization o){
+        for(Organization or:organizationList){
+            if(or.getOrganizationID()==o.getOrganizationID())
+                return or;
+        
+        }
+        System.out.println("在organization directory里没找到对应的organization");
+        return null;
     
+    }
     public Organization createOrganization(String orgtype){
         Organization organization = null;
         if (orgtype.equals("BS_BookManagementOrganization")){

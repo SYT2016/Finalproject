@@ -27,7 +27,15 @@ public class EnterpriseDirectory {
     public EnterpriseDirectory(){
         enterpriseList=new ArrayList<Enterprise>();
     }
+    public Enterprise searchEnterprise(Enterprise en){
+    for(Enterprise e:enterpriseList){
+        if(e.getEnterpriseID()==en.getEnterpriseID())
+            return e;
     
+    }
+    System.out.println("在enterprisedirectory里没找到对应的enterprise");
+        return null;
+    }
     //Create enterprise
     //Five type "Type-BookStore""Type-DeliveryCompany" "Type-Printer" "Type-Publisher" "Type-Population" 
 //PopulationEnterprise只有一个不可创建多个

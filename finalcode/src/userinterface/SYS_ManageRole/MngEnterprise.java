@@ -5,20 +5,15 @@
  */
 package userinterface.SYS_ManageRole;
 
-import Business.Customer.Customer;
-import Business.DeliveryMan.DeliveryMan;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import static Business.Role.Role.RoleType.DeliveryMan;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
-
 import static userinterface.MainJFrame.dB4OUtil;
-
 import static userinterface.MainJFrame.system;
 /**
  *
@@ -38,16 +33,15 @@ public class MngEnterprise extends javax.swing.JPanel {
     public MngEnterprise(JPanel userProcessContainer) {
          initComponents();
          this.userProcessContainer=userProcessContainer;
-         populateSupplierCombo();
+         populateCombo();
         
     }
-    public void populateSupplierCombo(){
+    public void populateCombo(){
         b1.removeAllItems();
         for(Network nt:system.getNetworkDirectory().getNetworkList()){//把现有的network名字加到combox里面，因为要在network里面创建enterprise
             b1.addItem(nt.getName());  
         }
        
-
          populateTable();
     
     }

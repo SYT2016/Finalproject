@@ -16,40 +16,36 @@ import java.util.ArrayList;
  */
 public abstract class Organization {
 
-    private String orgtypename;//部门类别
+    //部门类别
+    private String orgtypename;
+    
+    //所属enterprise的类别BS,Deli,PB,PT,SYS
+    private String enterpriseType;
     private WorkQueue workQueue;
-   // private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
     private int organizationID;
     private static int counter=0;
     
-    public enum Type{
-        RestaurantAdmin("RestaurantAdmin"),
-        Customer("Customer"),
-        DeliveryMan("Delivery"),
-        SysAdmin("Sysadmin");
-        
-        private String value;
-        private Type(String value) {
-            this.value = value;
-        }
-        public String getValue() {
-            return value;
-        }
-    }
 
-    public Organization(String orgtypename) {
+
+    public Organization(String orgtypename,String enterpriseType ) {
         this.orgtypename = orgtypename;//部门类别
+        this.enterpriseType=enterpriseType;
         workQueue = new WorkQueue();
      //   employeeDirectory = new EmployeeDirectory();
         userAccountDirectory = new UserAccountDirectory();
         organizationID = counter;
         ++counter;
     }
-    public Organization(){
-        
-    }
-    //public abstract ArrayList<Role> getSupportedRole();
+       public Organization(){
+                   workQueue = new WorkQueue();
+     //   employeeDirectory = new EmployeeDirectory();
+        userAccountDirectory = new UserAccountDirectory();
+        organizationID = counter;
+        ++counter;
+       
+       }
+
     
     public UserAccountDirectory getUserAccountDirectory() {
         return userAccountDirectory;
@@ -84,6 +80,22 @@ public abstract class Organization {
     @Override
     public String toString() {
         return orgtypename;
+    }
+
+    public String getOrgtypename() {
+        return orgtypename;
+    }
+
+    public void setOrgtypename(String orgtypename) {
+        this.orgtypename = orgtypename;
+    }
+
+    public String getEnterpriseType() {
+        return enterpriseType;
+    }
+
+    public void setEnterpriseType(String enterpriseType) {
+        this.enterpriseType = enterpriseType;
     }
     
     

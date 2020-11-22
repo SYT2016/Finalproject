@@ -11,6 +11,7 @@ package Business.Enterprise;
  */
 public class DeliveryEnterprise extends Enterprise {
     
+    
     public DeliveryEnterprise(String EnterpriseName) {
         super(EnterpriseName, "Type-DeliveryCompany");//enterprise名字+类型 
     }

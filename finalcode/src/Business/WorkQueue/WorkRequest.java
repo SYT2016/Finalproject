@@ -14,10 +14,11 @@ import java.util.Date;
  */
 public abstract class WorkRequest {
 
-    private String message;
+    private String message;//备注
     private UserAccount sender;
     private UserAccount receiver;
-    private String status;
+    private String status;//request是否已经处理
+    
     private Date requestDate;
     private Date resolveDate;
     private Order order;

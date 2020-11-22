@@ -18,9 +18,12 @@ public class UserAccount {
     
     private String username;
     private String password;
-    private Employee employee;//是否是员工？如果是员工的话就在employee里面存这个员工所属的organization和enterprise，如果是普通顾客就不用存
+    private Employee employee;
+    //是否是员工？如果是员工的话就在employee里面存这个员工所属的organization和enterprise，
+    //如果是普通顾客就不用存
     private Role role;
     private WorkQueue workQueue;
+    private String address;
     private ArrayList<Order> userorderlist;
 
     public UserAccount() {
@@ -79,6 +82,14 @@ public class UserAccount {
     @Override
     public String toString() {
         return username;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
     

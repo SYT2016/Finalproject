@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.SystemAdminWorkArea;
+package userinterface.SYS_ManageRole;
 
 import Business.EcoSystem;
 
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import userinterface.PP_PrintingMemberRole.PringtingRoleJPanel;
 import userinterface.SYS_ManageRole.MngEnterprise;
 import userinterface.SYS_ManageRole.MngNet;
 
@@ -50,8 +51,6 @@ public class SYSAdminWorkAreaJPanel extends javax.swing.JPanel {
         btnManageEnterprise = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-
-        setLayout(new java.awt.BorderLayout());
 
         jSplitPane.setDividerLocation(0);
         jSplitPane.setDividerSize(0);
@@ -115,22 +114,31 @@ public class SYSAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jSplitPane.setLeftComponent(jPanel3);
 
-        add(jSplitPane, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseActionPerformed
-                MngEnterprise mngEnterprise = new MngEnterprise(userProcessContainer);
-                userProcessContainer.add("mngEnterprise", mngEnterprise);
-                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-                layout.next(userProcessContainer);
+        MngEnterprise mngEnterprise = new MngEnterprise(userProcessContainer);
+        userProcessContainer.add("mngEnterprise", mngEnterprise);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageEnterpriseActionPerformed
 
     private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
 
-                MngNet mngNet = new MngNet(userProcessContainer);
-                userProcessContainer.add("mngNet", mngNet);
-                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-                layout.next(userProcessContainer);
+        MngNet mngNet = new MngNet(userProcessContainer);
+        userProcessContainer.add("mngNet", mngNet);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageNetworkActionPerformed
 
 

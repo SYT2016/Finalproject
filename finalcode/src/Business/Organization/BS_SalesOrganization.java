@@ -9,10 +9,11 @@ package Business.Organization;
  *
  * @author 16104
  */
-//商业部 
+//商业部 不着急写 最后再说
 public class BS_SalesOrganization extends Organization{
     public BS_SalesOrganization(){
-        super("BS_SalesOrganization");//设置部门类别
+        super("BS_SalesOrganization","BS");//设置部门类别
+        
     }
     
 }

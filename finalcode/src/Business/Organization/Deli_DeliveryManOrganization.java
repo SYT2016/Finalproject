@@ -17,8 +17,12 @@ import java.util.ArrayList;
 //快递员部门，专门负责上门取件和派件
 public class Deli_DeliveryManOrganization extends Organization{
     
+    
     public Deli_DeliveryManOrganization(){
-        super("Deli_DeliveryManOrganization");//设置部门类别
+        super("Deli_DeliveryManOrganization","Deli");//设置部门类别
+        
     }
+
+
     
 }

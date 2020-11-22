@@ -14,9 +14,13 @@ import Business.Enterprise.EnterpriseDirectory;
 public class Network {
     private String name;
     private EnterpriseDirectory enterpriseDirectory;
+    private int networkID;
+    private static int counter=0;
     
     public Network(){
         enterpriseDirectory=new EnterpriseDirectory();
+        networkID=counter;
+        ++counter;
     }
     public String getName() {
         return name;
@@ -28,6 +32,14 @@ public class Network {
 
     public EnterpriseDirectory getEnterpriseDirectory() {
         return enterpriseDirectory;
+    }
+
+    public int getNetworkID() {
+        return networkID;
+    }
+
+    public void setNetworkID(int networkID) {
+        this.networkID = networkID;
     }
     
     @Override

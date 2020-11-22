@@ -12,7 +12,7 @@ package Business.Organization;
 //存储这一片network的所有人的信息 =系统管理员
 public class SYS_Organization extends Organization { 
     public SYS_Organization(){
-        super("SYS_Organization");//设置部门类别
+        super("SYS_Organization","SYS");//设置部门类别
     }
     
 }

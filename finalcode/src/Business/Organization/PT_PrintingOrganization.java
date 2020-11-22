@@ -13,7 +13,7 @@ package Business.Organization;
 //如果该工人正在工作，那么其他的印刷任务不能分配给这个人
 public class PT_PrintingOrganization extends Organization{
     public PT_PrintingOrganization(){
-        super("PT_PrintingOrganization");//设置部门类别
+        super("PT_PrintingOrganization","PT");//设置部门类别
     }
     
 }

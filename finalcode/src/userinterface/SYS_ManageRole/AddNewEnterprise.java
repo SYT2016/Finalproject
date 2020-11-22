@@ -5,19 +5,14 @@
  */
 package userinterface.SYS_ManageRole;
 
-import Business.Customer.Customer;
-import Business.DeliveryMan.DeliveryMan;
+import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-
-import Business.UserAccount.UserAccount;
+import Business.Role.Enterprise_ManageRole;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.MainJFrame;
-
 import static userinterface.MainJFrame.dB4OUtil;
-
 import static userinterface.MainJFrame.system;
 
 /**
@@ -31,7 +26,7 @@ public class AddNewEnterprise extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     private Network selectednetwork;
-    String[] EnterpriseType = {"Type-BookStore","Type-DeliveryCompany","Type-Printer","Type-Publisher","Type-System"};
+    String[] EnterpriseType = {"Type-BookStore","Type-DeliveryCompany","Type-Printer","Type-Publisher"};
     public AddNewEnterprise() {
         initComponents();
     }
@@ -39,14 +34,15 @@ public class AddNewEnterprise extends javax.swing.JPanel {
     public AddNewEnterprise(JPanel userProcessContainer) {
          initComponents();
          this.userProcessContainer=userProcessContainer;
-         populateSupplierCombo();
+         populateCombo();
     }
-      public void populateSupplierCombo(){
+      public void populateCombo(){
         boxx.removeAllItems();
         for(Network nt:system.getNetworkDirectory().getNetworkList()){//把现有的network名字加到combox里面，因为要在network里面创建enterprise
             boxx.addItem(nt.getName());  
         }
         //populateTable();
+        boxxx.removeAllItems();
         for(int i=0;i<EnterpriseType.length;i++)//把enterprise的类型加到combox里面
         boxxx.addItem(EnterpriseType[i]);
     
@@ -69,6 +65,10 @@ public class AddNewEnterprise extends javax.swing.JPanel {
         boxx = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         boxxx = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        t2 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        t3 = new javax.swing.JTextField();
 
         jLabel2.setFont(new java.awt.Font("宋体", 1, 48)); // NOI18N
         jLabel2.setText("Add New Enterprise");
@@ -104,61 +104,88 @@ public class AddNewEnterprise extends javax.swing.JPanel {
 
         boxxx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel5.setText("Enterprise Manager password：");
+
+        t2.setFont(new java.awt.Font("宋体", 1, 48)); // NOI18N
+
+        jLabel6.setText("Enterprise Manager Username：");
+
+        t3.setFont(new java.awt.Font("宋体", 1, 48)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(94, 94, 94)
+                                        .addComponent(boxxx, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(boxx, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(94, 94, 94)
-                                .addComponent(boxxx, 0, 352, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(94, 94, 94)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(boxx, 0, 352, Short.MAX_VALUE)
-                                    .addComponent(t1))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1)))
+                .addContainerGap(385, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(372, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(414, 414, 414))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(124, 124, 124)
                     .addComponent(jLabel3)
-                    .addContainerGap(743, Short.MAX_VALUE)))
+                    .addContainerGap(833, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jLabel2)
                 .addGap(92, 92, 92)
                 .addComponent(boxx, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(67, 67, 67)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(boxxx, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(143, 143, 143))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(77, 77, 77))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(216, 216, 216)
@@ -182,8 +209,17 @@ public class AddNewEnterprise extends javax.swing.JPanel {
         //并把该新的enterprise所属于的network存入进去以备不时之需
         newEnterprise.setNetwork(selectednetwork);
         
+        //创建该enterprise的老板"Enterprise_ManageRole"
+        Enterprise_ManageRole enterprise_ManageRole  =new Enterprise_ManageRole();
+        //存一个这个老板属于哪个enterprise
+        Employee employee=new Employee();
+        employee.setEnterprise(newEnterprise);
+        //创建老板的useraccount
+        system.getUserAccountDirectory().createUserAccount(t2.getText(), t3.getText(), employee,enterprise_ManageRole);
         
-        JOptionPane.showMessageDialog(null, "Add Network Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        JOptionPane.showMessageDialog(null, "Add New Enterprise Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
         dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -205,6 +241,10 @@ public class AddNewEnterprise extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField t1;
+    private javax.swing.JTextField t2;
+    private javax.swing.JTextField t3;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,28 +25,7 @@ public abstract class Role {
     public void setRolename(String rolename) {
         this.rolename = rolename;
     }
-    
-    public enum RoleType{
-        RestaurantAdmin("RestaurantAdmin"),
-        Customer("Customer"),
-        DeliveryMan("Delivery"),
-        SysAdmin("Sysadmin");
-        
-        private String value;
-        private RoleType(String value){
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-    
+  
   //  public abstract JPanel createWorkArea(JPanel userProcessContainer, 
  //           UserAccount account,  
   //          EcoSystem business);

@@ -11,9 +11,9 @@ import java.util.ArrayList;
  *
  * @author 16104
  */
-public  class Order {
+public class Order {
     private int id;
-    private String status;
+    private String status;//"preparing“ ”“delivering”“received”
     private String comments;
     private static int count=0;
     

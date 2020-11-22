@@ -17,6 +17,16 @@ public class NetworkDirectory {
         networkList=new ArrayList<Network>();
     
     }
+    public Network searchNetwork(Network o){
+        for(Network  or:networkList){
+            if(or.getNetworkID()==o.getNetworkID())
+                return or;
+        
+        }
+        System.out.println("network directory里没找到对应的network");
+        return null;
+    
+    }
 
     public Network createNetwork(String networkName){
         Network network=new Network();

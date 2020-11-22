@@ -15,25 +15,21 @@ import java.util.ArrayList;
  *
  * @author 16104
  */
-//管理部，负责增添图书+可以增删查改员工+给出版商下订单
+//管理部，负责增添图书+给出版商下订单
 public class BS_BookManagementOrganization extends Organization {
     
-    private ArrayList<UserAccount> employeelist;//整个书店的所有员工
+    
     private BookDirectory bookDirectory;//整个书店的所有书
-    private OrderDirectory orderDirectory;//整个书店的所有订单
-                                            //整个书店的所有订单（处理完的，没处理的在workqueue里，workqueue在父类ordanization里）
+    private OrderDirectory orderDirectory;
+    //整个书店的所有订单
+    //整个书店的所有订单（处理完的，没处理的在workqueue里，workqueue在父类ordanization里）
     
     public BS_BookManagementOrganization(){
-        super("BS_BookManagementOrganization");//设置部门类别
+        super("BS_BookManagementOrganization","BS");//设置部门类别
+        this.bookDirectory=new BookDirectory ();
+        this.orderDirectory=new OrderDirectory();
     }
 
-    public ArrayList<UserAccount> getEmployeelist() {
-        return employeelist;
-    }
-
-    public void setEmployeelist(ArrayList<UserAccount> employeelist) {
-        this.employeelist = employeelist;
-    }
 
     public BookDirectory getBookDirectory() {
         return bookDirectory;

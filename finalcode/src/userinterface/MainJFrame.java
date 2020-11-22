@@ -6,14 +6,17 @@ package userinterface;
 
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
-import Business.Role.Role.RoleType;
 import Business.Role.SYS_ManageRole;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.SystemAdminWorkArea.SYSAdminWorkAreaJPanel;
+import userinterface.Enterprise_ManageRole.EnterpriseManageWorkAreaJPanel;
+import userinterface.PP_PrintingMemberRole.PringtingRoleJPanel;
+import userinterface.SYS_ManageRole.AddNewEnterprise;
+import userinterface.SYS_ManageRole.SYS;
+import userinterface.SYS_ManageRole.SYSAdminWorkAreaJPanel;
 
 
 /**
@@ -38,9 +41,9 @@ public class MainJFrame extends javax.swing.JFrame {
         system = dB4OUtil.retrieveSystem();          
         userAccountDirectory=system.getUserAccountDirectory();
         
-        this.setSize(1680, 1050);
-      
-       // insertU();
+        this.setSize(2000, 1200);
+      if(userAccountDirectory.getUserAccountList().isEmpty())
+        insertU();
         
     }
 
@@ -65,7 +68,8 @@ public class MainJFrame extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1800, 1200));
+        setPreferredSize(new java.awt.Dimension(405, 1800));
+        setResizable(false);
 
         jSplitPane1.setDividerSize(0);
 
@@ -148,24 +152,25 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
-        // Get user name
-        
+        // Get user name    
         String username=userNameJTextField.getText();
         String password=passwordField.getText();
        
         system = dB4OUtil.retrieveSystem();
-        System.out.println("你输入的账号和密码是："+username+password);
+    //    System.out.println("你输入的账号和密码是："+username+password);
         UserAccount useraccount=system.getUserAccountDirectory().authenticateUser(username, password);
         if(useraccount!=null){
             //获得useraccount里面存储的rolename=roletype，以此来判断是哪一种role在登陆
             String rolename=useraccount.getRole().getRolename();
-            System.out.println("你输入的用户名对应的rolemname是："+rolename);
+        System.out.println("你输入的用户名对应的rolemname是："+rolename);
 //Role Type包括：
 //"BS_BookManageRole","BS_CustomerRole","BS_SecondHandManageRole"
 //"Deli_DeliveryManRole","Deli_DeliveryManageRole"
 //"PT_ManageRole","PT_PrintingMemberRole"
 //"SYS_ManageRole"
 //"PB_ManageRole"
+//"Enterprise_ManageRole"
+//__________________下面未完成 待续———————————————————— 
             if(rolename.equals("BS_BookManageRole"))
             {
                 //AdminWorkAreaJPanel adminWorkAreaJPanel = new AdminWorkAreaJPanel(container,system.getRestaurantDirectory().RestaurantSearch(username));
@@ -173,26 +178,77 @@ public class MainJFrame extends javax.swing.JFrame {
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
-            else if(rolename.equals(RoleType.Customer.toString()))
+            else if(rolename.equals("BS_CustomerRole"))
             {
               //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
               //  container.add("CustomerChooseRes", customerChooseRes);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
-            else if(rolename.equals(RoleType.DeliveryMan.toString()))
+            else if(rolename.equals("BS_SecondHandManageRole"))
+            {
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+            }
+            else if(rolename.equals("Deli_DeliveryManRole"))
+            {
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+            }
+            else if(rolename.equals("Deli_DeliveryManageRole"))
+            {
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+            }
+            else if(rolename.equals("PT_ManageRole"))
+            {
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+            }
+            else if(rolename.equals("PT_PrintingMemberRole"))
+            {
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+            }
+           else if(rolename.equals("PB_ManageRole"))
             {
                // DeliveryManWorkAreaJPanel deliveryManWorkAreaJPanel = new DeliveryManWorkAreaJPanel(container,system.getDeliveryManDirectory().DeliveryManSearch(username));
               //  container.add("deliveryManWorkAreaJPanel", deliveryManWorkAreaJPanel);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
+            else if(rolename.equals("Enterprise_ManageRole"))
+            {
+                  System.out.println("mammmmmmmmmmmmmmmmmmmm");
+             EnterpriseManageWorkAreaJPanel enterpriseManageWorkAreaJPanel = new EnterpriseManageWorkAreaJPanel(container,useraccount);
+          container.add("enterpriseManageWorkAreaJPanel", enterpriseManageWorkAreaJPanel);
+               CardLayout layout = (CardLayout) container.getLayout();
+
+                layout.next(container);
+            }
             else if(rolename.equals("SYS_ManageRole"));
             {
-                 SYSAdminWorkAreaJPanel sYSAdminWorkAreaJPanel = new SYSAdminWorkAreaJPanel(container,system);
-                container.add("systemAdminWorkAreaJPanel", sYSAdminWorkAreaJPanel);
-                CardLayout layout = (CardLayout) container.getLayout();
-                layout.next(container);
+               //SYSAdminWorkAreaJPanel sYSAdminWorkAreaJPanel = new SYSAdminWorkAreaJPanel(container,system);
+             //  container.add("sYSAdminWorkAreaJPanel", sYSAdminWorkAreaJPanel);
+              // CardLayout layout = (CardLayout) container.getLayout();
+             //  layout.next(container);
+               
+               PringtingRoleJPanel sYSAdminWorkAreaJPanel = new PringtingRoleJPanel(container,system);
+               container.add("sYSAdminWorkAreaJPanel", sYSAdminWorkAreaJPanel);
+               CardLayout layout = (CardLayout) container.getLayout();
+               layout.next(container);
+                
+
             }
             
         }
@@ -267,9 +323,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void insertU(){
            
-         SYS_ManageRole sYS_ManageRole  =new SYS_ManageRole();
-        //System.out.println(sYS_ManageRole.getRolename());
-        //system.getUserAccountDirectory().createUserAccount("syt", 123, employee, role);
+        SYS_ManageRole sYS_ManageRole  =new SYS_ManageRole();
         system.getUserAccountDirectory().createUserAccount("SYS-user1", "123", sYS_ManageRole);
        
          dB4OUtil.storeSystem(system);

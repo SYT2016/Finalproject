@@ -12,6 +12,6 @@ package Business.Organization;
 //二手书处理部
 public class BS_SecondHandOrganization extends Organization{
     public BS_SecondHandOrganization(){
-        super("BS_SecondHandOrganization");//设置部门类别
+        super("BS_SecondHandOrganization","BS");//设置部门类别
     }
 }

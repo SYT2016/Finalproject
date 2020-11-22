@@ -23,13 +23,18 @@ public abstract class Enterprise {
 //Five type "BookStore""DeliveryCompany" "Printer" "Publisher" "Population" 
 //PopulationEnterprise只有一个不可创建多个
     
-    private OrganizationDirectory organizationDirectory;
-    
+    private OrganizationDirectory organizationDirectory;//该公司的部门
+    private int enterpriseID;
+    private static int counter=0;
     public Enterprise(String name,String type){
         this.EnterpriseName=name;
         this.EnterpriseType=type;
         organizationDirectory=new OrganizationDirectory();
         Network network=new Network();
+        enterpriseID=counter;
+        ++counter;
+        
+        
     }
 
     public String getEnterpriseName() {
@@ -60,6 +65,14 @@ public abstract class Enterprise {
 
     public OrganizationDirectory getOrganizationDirectory() {
         return organizationDirectory;
+    }
+
+    public int getEnterpriseID() {
+        return enterpriseID;
+    }
+
+    public void setEnterpriseID(int enterpriseID) {
+        this.enterpriseID = enterpriseID;
     }
 
     @Override

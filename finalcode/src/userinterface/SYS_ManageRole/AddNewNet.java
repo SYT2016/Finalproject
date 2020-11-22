@@ -5,15 +5,11 @@
  */
 package userinterface.SYS_ManageRole;
 
-import Business.Customer.Customer;
-import Business.DeliveryMan.DeliveryMan;
-import Business.Network.Network;
 
-import Business.UserAccount.UserAccount;
+import Business.Network.Network;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.MainJFrame;
 import static userinterface.MainJFrame.dB4OUtil;
 import static userinterface.MainJFrame.system;
 
@@ -55,7 +51,7 @@ public class AddNewNet extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("宋体", 1, 48)); // NOI18N
-        jLabel2.setText("Add New One");
+        jLabel2.setText("Add New Network");
 
         jLabel1.setFont(new java.awt.Font("宋体", 1, 48)); // NOI18N
         jLabel1.setText("Network Name");
