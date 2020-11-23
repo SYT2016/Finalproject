@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class OrganizationDirectory {
     
     private ArrayList<Organization> organizationList;
+    private static int orgid;
 
     public OrganizationDirectory() {
         organizationList = new ArrayList();
@@ -25,6 +26,7 @@ public class OrganizationDirectory {
     public Organization searchOrganization(Organization o){
         for(Organization or:organizationList){
             if(or.getOrganizationID()==o.getOrganizationID())
+                
                 return or;
         
         }
@@ -37,38 +39,47 @@ public class OrganizationDirectory {
         if (orgtype.equals("BS_BookManagementOrganization")){
             organization = new BS_BookManagementOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("BS_SalesOrganization")){
             organization = new BS_SalesOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("BS_SecondHandOrganization")){
             organization = new BS_SecondHandOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("Deli_DeliveryManOrganization")){
             organization = new Deli_DeliveryManOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("Deli_ManagementOrganization")){
             organization = new Deli_ManagementOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("PB_ManagementOrganization")){
             organization = new PB_ManagementOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("SYS_Organization")){
             organization = new SYS_Organization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("PT_ManagementOrganization")){
             organization = new PT_ManagementOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         else if (orgtype.equals("PT_PrintingOrganization")){
             organization = new PT_PrintingOrganization();
             organizationList.add(organization);
+            orgid=organization.getOrganizationID()+1;
         }
         return organization;
     }

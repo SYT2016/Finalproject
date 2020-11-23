@@ -58,9 +58,11 @@ public class MngEnterprise extends javax.swing.JPanel {
         DefaultTableModel model=(DefaultTableModel)mngcus.getModel();
         model.setRowCount(0);
         for(Enterprise enterprise:selectednetwork.getEnterpriseDirectory().getEnterpriseList()){
-            Object row[]=new Object[1];
-            row[0]=enterprise;
             
+            Object row[]=new Object[3];
+            row[1]=enterprise;
+            row[2]=enterprise.getEnterpriseType();
+            row[0]=enterprise.getEnterpriseID();
             model.addRow(row);
         }
     
@@ -131,13 +133,13 @@ public class MngEnterprise extends javax.swing.JPanel {
         mngcus.setFont(new java.awt.Font("宋体", 0, 36)); // NOI18N
         mngcus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "UserName", "Password"
+                "ID", "Enterprise Name", "Enterprise Type"
             }
         ));
         mngcus.setRowHeight(36);

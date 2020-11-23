@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.PP_PrintingMemberRole;
+package userinterface.PT_PrintingMemberRole;
 
 import Business.EcoSystem;
 import javax.swing.JPanel;
@@ -12,16 +12,16 @@ import javax.swing.JPanel;
  *
  * @author 16104
  */
-public class PringtingRoleJPanel extends javax.swing.JPanel {
+public class PrintingMemberRoleJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form PringtingRoleJPanel
      */
-    public PringtingRoleJPanel() {
+    public PrintingMemberRoleJPanel() {
        
     }
 
-    public PringtingRoleJPanel(JPanel container, EcoSystem system) {
+    public PrintingMemberRoleJPanel(JPanel container, EcoSystem system) {
          initComponents();
       ///  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -37,7 +37,7 @@ public class PringtingRoleJPanel extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        jButton1.setText("ptmem");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -46,7 +46,7 @@ public class PringtingRoleJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jButton1)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -214,6 +214,7 @@ public class AddNewEnterprise extends javax.swing.JPanel {
         //存一个这个老板属于哪个enterprise
         Employee employee=new Employee();
         employee.setEnterprise(newEnterprise);
+       
         //创建老板的useraccount
         system.getUserAccountDirectory().createUserAccount(t2.getText(), t3.getText(), employee,enterprise_ManageRole);
         
