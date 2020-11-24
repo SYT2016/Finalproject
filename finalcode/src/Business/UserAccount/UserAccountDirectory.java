@@ -21,22 +21,21 @@ public class UserAccountDirectory {
     public UserAccountDirectory() {
         userAccountList = new ArrayList();
     }
+    
     public UserAccount searchAccount(String username){
-    for(UserAccount ua:userAccountList){
-        if(ua.getUsername().equals(username))
-            return ua;
+        for(UserAccount ua:userAccountList){
+            if(ua.getUsername().equals(username))
+                return ua;
+        }
+        return null;
     }
-    return null;
-    }
+    
     public void deleteUa(String username){
         Iterator<UserAccount> i=userAccountList.iterator();
-   while(i.hasNext()){
-       UserAccount c=i.next();
-            if( c.getUsername().equals(username))
-                 i.remove();
-             
-   
-                        
+        while(i.hasNext()){
+            UserAccount c=i.next();
+                 if( c.getUsername().equals(username))
+                      i.remove();                       
     }
     //tem.out.print("soubuchulainulll");
         

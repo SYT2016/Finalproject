@@ -12,18 +12,19 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author 16104
+ * 出版社管理员
  */
 
 public class PB_ManageRole extends Role{
-        public PB_ManageRole(){
+    
+    public PB_ManageRole(){
         super();
         rolename="PB_ManageRole";
     
     }
     
 
-        public String getRolename() {
+    public String getRolename() {
        
         return rolename;
     }

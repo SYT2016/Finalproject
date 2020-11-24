@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Deli_ManagementOrganization extends Organization {
     private ArrayList<UserAccount> deliverymanlist;//存储这个快递公司有多少个快递员
     private OrderDirectory orderDirectory;//整个快递公司的所有订单
-    //整个快递公司的所有订单（处理完的，没处理的在workqueue里，workqueue在父类ordanization里）
+    //整个快递公司的所有订单（处理完的，没处理的在workqueue里，workqueue在父类organization里）
     
     public Deli_ManagementOrganization(){
         super("Deli_ManagementOrganization","Deli");//设置部门类别

@@ -5,6 +5,7 @@
  */
 package Business.OrderSystem;
 
+import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ public class Order {
     private String status;//"preparing“ ”“delivering”“received”
     private String comments;
     private static int count=0;
-    
+    private UserAccount userAccount; //一个订单的创始者
     ArrayList<OrderItem> orderitems;
   
 
@@ -75,10 +76,19 @@ public class Order {
         this.id = id;
     }
 
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    
+    
     @Override
     public String toString() {
         return status ;
     }
-    
-    
+       
 }
