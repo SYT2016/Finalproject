@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.PT_PrintingMemberRole;
+package userinterface.PP_PrintingMemberRole;
 
-import Business.EcoSystem;
+import Business.*;
 import javax.swing.JPanel;
 
 /**
  *
  * @author 16104
  */
-public class PrintingMemberRoleJPanel extends javax.swing.JPanel {
+public class PringtingRoleJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form PringtingRoleJPanel
      */
-    public PrintingMemberRoleJPanel() {
+    public PringtingRoleJPanel() {
        
     }
 
-    public PrintingMemberRoleJPanel(JPanel container, EcoSystem system) {
+    public PringtingRoleJPanel(JPanel container, EcoSystem system) {
          initComponents();
       ///  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -37,7 +37,7 @@ public class PrintingMemberRoleJPanel extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
 
-        jButton1.setText("ptmem");
+        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -46,12 +46,12 @@ public class PrintingMemberRoleJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jButton1)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(141, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(122, 122, 122))
         );

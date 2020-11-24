@@ -15,14 +15,14 @@ import javax.swing.JPanel;
  * @author 16104
  */
 public class Deli_DeliveryManRole extends Role{
-        public Deli_DeliveryManRole(){
+    public Deli_DeliveryManRole(){
         super();
         rolename="Deli_DeliveryManRole";
     
     }
     
 
-        public String getRolename() {
+    public String getRolename() {
        
         return rolename;
     }

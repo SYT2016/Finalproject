@@ -29,6 +29,7 @@ public class EcoSystem extends Organization{
     private static EcoSystem business;
     private NetworkDirectory networkDirectory;
 
+
     public static EcoSystem getInstance(){
         if(business==null){
             business=new EcoSystem();
@@ -39,10 +40,9 @@ public class EcoSystem extends Organization{
 
    private EcoSystem(){
        super();
-       networkDirectory=new NetworkDirectory();
+        networkDirectory=new NetworkDirectory();
       
     }
-
 
     
     public boolean checkIfUserIsUnique(String userName){
@@ -65,7 +65,6 @@ public class EcoSystem extends Organization{
     public void setNetworkDirectory(NetworkDirectory networkDirectory) {
         this.networkDirectory = networkDirectory;
     }
-
 
 
 

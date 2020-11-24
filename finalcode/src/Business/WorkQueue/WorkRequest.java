@@ -17,7 +17,7 @@ public abstract class WorkRequest {
     private String message;//备注
     private UserAccount sender;
     private UserAccount receiver;
-    private String status;//request是否已经处理
+    private String status;//request是否已经处理.11/24补充:Completed,Uncompleted
     
     private Date requestDate;
     private Date resolveDate;

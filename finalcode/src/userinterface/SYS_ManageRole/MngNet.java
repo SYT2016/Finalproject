@@ -39,9 +39,8 @@ public class MngNet extends javax.swing.JPanel {
         DefaultTableModel model=(DefaultTableModel)mngcus.getModel();
         model.setRowCount(0);
         for(Network nt:system.getNetworkDirectory().getNetworkList()){
-            Object row[]=new Object[2];
-            row[1]=nt;
-            row[0]=nt.getNetworkID();
+            Object row[]=new Object[1];
+            row[0]=nt;
            
             model.addRow(row);
         }
@@ -102,17 +101,20 @@ public class MngNet extends javax.swing.JPanel {
         mngcus.setFont(new java.awt.Font("宋体", 0, 36)); // NOI18N
         mngcus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Network ID", "Network Name"
+                "Username", "Password", "RestaurantName"
             }
         ));
         mngcus.setRowHeight(36);
         jScrollPane2.setViewportView(mngcus);
+        if (mngcus.getColumnModel().getColumnCount() > 0) {
+            mngcus.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

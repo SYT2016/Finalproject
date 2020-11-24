@@ -56,16 +56,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton1" pref="264" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="userNameJTextField" max="32767" attributes="0"/>
                           <Component id="passwordField" alignment="0" max="32767" attributes="0"/>
                           <Component id="loginJButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="logoutJButton" alignment="0" pref="264" max="32767" attributes="0"/>
+                          <Component id="logoutJButton" alignment="0" min="-2" pref="264" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="loginJLabel" min="-2" max="-2" attributes="0"/>
@@ -96,9 +95,7 @@
                               <Component id="logoutJButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="518" max="32767" attributes="0"/>
+                      <EmptySpace pref="702" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -157,11 +154,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutJButtonActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Customer Rigister"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
