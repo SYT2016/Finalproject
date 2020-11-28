@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author 
+ * @author raunak
  */
 public class WorkRequest {
 
@@ -22,11 +22,6 @@ public class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
     private Order order;
-    
-    @Override
-    public String toString(){
-        return this.sender.getUsername();
-    }
     
     public WorkRequest(){
         requestDate = new Date();

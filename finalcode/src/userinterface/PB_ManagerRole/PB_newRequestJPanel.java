@@ -5,7 +5,6 @@
  */
 package userinterface.PB_ManagerRole;
 
-import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.PrinterEnterprise;
 import Business.OrderSystem.OrderItem;
@@ -21,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author liu
+ * @author admin
  */
 public class PB_newRequestJPanel extends javax.swing.JPanel {
 
@@ -126,11 +125,6 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, -1, -1));
 
         btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
         add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,15 +175,13 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
                         newReq.setMessage(mesg);
                         JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
                         wr.setStatus("Completed");
-                    }
-                    
+                    }                    
                 }
-            }
-            
+            }            
         }
     }//GEN-LAST:event_btnCommitActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
         int row=tblOrderItem.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -203,8 +195,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Delete the order item successfully");       
             }          
         }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCommit;

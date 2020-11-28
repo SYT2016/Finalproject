@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 16104
+ * @author 16104,Cong Wang
  */
 public class Order {
     private int id;
@@ -18,22 +18,32 @@ public class Order {
     private String comments;
     private static int count=0;
     private UserAccount userAccount; //一个订单的创始者
+    private String totalPrice; //add a new attribute: total Price
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
     ArrayList<OrderItem> orderitems;
   
 
     public Order(){    
         orderitems = new ArrayList();
-        id=count++;    
+        id=count++;
+        
+        
     }
-    
-    public void deleteOrderItem(OrderItem oi){
-        orderitems.remove(oi);
-    }
-    
     public OrderItem newOrderItem(Book b, int q,double pr){
         OrderItem oi = new OrderItem(b, q,pr);
         orderitems.add(oi);
         return oi;
+    }
+    
+    public void deleteOrderItem(OrderItem oi){
+        orderitems.remove(oi);
     }
     
     public double getOrderTotal(){    

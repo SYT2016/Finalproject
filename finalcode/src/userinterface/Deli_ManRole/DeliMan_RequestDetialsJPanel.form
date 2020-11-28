@@ -22,7 +22,7 @@
               <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnArrival" min="-2" max="-2" attributes="0"/>
+              <Component id="btnOrder" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -31,7 +31,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="54" pref="54" max="-2" attributes="0"/>
-                      <Component id="txtSender" min="-2" pref="210" max="-2" attributes="0"/>
+                      <Component id="txtSender1" min="-2" pref="210" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -78,7 +78,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnArrival" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnOrder" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -88,7 +88,7 @@
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtSender" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtSender1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -132,22 +132,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;&lt; Back"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Work Request Details"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnArrival">
+    <Component class="javax.swing.JButton" name="btnOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Arrival"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnArrivalActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -168,7 +162,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtReceiver">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSender">
+    <Component class="javax.swing.JTextField" name="txtSender1">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>

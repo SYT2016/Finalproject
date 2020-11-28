@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author liu
+ * @author admin
  */
 public class PB_workAreaJPanel extends javax.swing.JPanel {
 
@@ -98,7 +98,6 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
             container.add(jp);
             l.next(container);
         }
-        
     }//GEN-LAST:event_btnDetailsActionPerformed
 
 

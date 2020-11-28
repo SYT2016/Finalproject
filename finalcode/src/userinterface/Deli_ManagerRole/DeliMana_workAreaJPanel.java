@@ -70,19 +70,9 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
 
         btnUnfinished.setText("Unfinished");
-        btnUnfinished.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUnfinishedActionPerformed(evt);
-            }
-        });
         add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         btnAll.setText("All");
-        btnAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAllActionPerformed(evt);
-            }
-        });
         add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
 
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
@@ -131,10 +121,10 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             CardLayout l=(CardLayout)container.getLayout();
             container.add(jp);
             l.next(container);
-        }       
+        }
     }//GEN-LAST:event_btnDetailsActionPerformed
 
-    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
+    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {                                       
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
         dtm.setRowCount(0);
         for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){          
@@ -146,12 +136,11 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             row[4]=wr.getMessage();
             dtm.addRow(row);                      
         }
-    }//GEN-LAST:event_btnAllActionPerformed
+    }                                      
 
-    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnfinishedActionPerformed
+    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {                                              
         populate();
-    }//GEN-LAST:event_btnUnfinishedActionPerformed
-
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAll;
