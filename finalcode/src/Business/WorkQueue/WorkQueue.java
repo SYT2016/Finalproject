@@ -14,10 +14,6 @@ public class WorkQueue {
     
     private ArrayList<WorkRequest> workRequestList;
 
-    public void addNewRequest(WorkRequest wr){
-        workRequestList.add(wr);
-    }
-    
     public WorkQueue() {
         workRequestList = new ArrayList();
     }

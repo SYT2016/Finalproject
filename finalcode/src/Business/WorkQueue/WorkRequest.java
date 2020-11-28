@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author raunak
  */
-public class WorkRequest {
+public abstract class WorkRequest {
 
     private String message;//备注
     private UserAccount sender;

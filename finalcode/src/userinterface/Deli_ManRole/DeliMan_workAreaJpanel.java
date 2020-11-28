@@ -7,9 +7,7 @@ package userinterface.Deli_ManRole;
 
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,29 +18,26 @@ import javax.swing.table.DefaultTableModel;
 public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
 
     JPanel container;
-    UserAccount ua;
+    UserAccount user;
+    EcoSystem system;
     public DeliMan_workAreaJpanel(JPanel container,UserAccount user) {
-        initComponents();      
+        initComponents();
+        labelUser.setText(user.getUsername());
         this.container=container;
-        this.ua=user;
-        labelUser.setText(ua.getUsername());       
+        this.user=user;
+
+        
+//        if(system.getUserAccountDirectory().searchAccount(user.getUsername())!=null){
+//            Deli_DeliveryManOrganization deliMan=
+//        }
+        
         populate();
     }
 
     public void populate(){
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
         dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){
-            if(wr.getStatus().equals(("Uncompleted"))){
-                Object[] row=new Object[5];
-                row[0]=wr.getRequestDate().toString();
-                row[1]=wr;
-                row[2]=wr.getReceiver().getUsername();
-                row[3]=wr.getStatus();
-                row[4]=wr.getMessage();
-                dtm.addRow(row);
-            }           
-        }
+//        for()
     }
     
     /**
@@ -106,35 +101,12 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        int selected=tblQueue.getSelectedRow();
-        if(selected<0){
-            JOptionPane.showMessageDialog(null, "Please select a wrok request", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 1);
-            DeliMan_RequestDetialsJPanel jp=new DeliMan_RequestDetialsJPanel(container,wr);
-            CardLayout l=(CardLayout)container.getLayout();
-            container.add(jp);
-            l.next(container);
-        }
+        DeliMan_RequestDetialsJPanel jp=new DeliMan_RequestDetialsJPanel();
+        CardLayout l=(CardLayout)container.getLayout();
+        container.add(jp);
+        l.next(container);
     }//GEN-LAST:event_btnDetailsActionPerformed
 
-    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        populate();
-    }                                             
-
-    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
-        dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){          
-            Object[] row=new Object[5];
-            row[0]=wr.getRequestDate().toString();
-            row[1]=wr;
-            row[2]=wr.getReceiver().getUsername();
-            row[3]=wr.getStatus();
-            row[4]=wr.getMessage();
-            dtm.addRow(row);                      
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAll;

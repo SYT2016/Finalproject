@@ -5,43 +5,23 @@
  */
 package userinterface.Deli_ManagerRole;
 
-import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author liu
+ * @author admin
  */
 public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
 
     JPanel container;
-    UserAccount ua;
-    public DeliMana_workAreaJPanel( JPanel container,UserAccount ua) {
+    public DeliMana_workAreaJPanel() {
         initComponents();
-        this.container=container;
-        this.ua=ua;
-        labelUser.setText(ua.getUsername());
         populate();
     }
     
     public void populate(){
-        DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
-        dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){
-            if(wr.getStatus().equals(("Uncompleted"))){
-                Object[] row=new Object[5];
-                row[0]=wr.getRequestDate().toString();
-                row[1]=wr;
-                row[2]=wr.getReceiver().getUsername();
-                row[3]=wr.getStatus();
-                row[4]=wr.getMessage();
-                dtm.addRow(row);
-            }           
-        }
+        
     }
 
     /**
@@ -112,35 +92,12 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        int selected=tblQueue.getSelectedRow();
-        if(selected<0){
-            JOptionPane.showMessageDialog(null, "Please select a wrok request", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 1);
-            DeliMana_RequestDetailsJPanel jp=new DeliMana_RequestDetailsJPanel(container,wr,ua);
-            CardLayout l=(CardLayout)container.getLayout();
-            container.add(jp);
-            l.next(container);
-        }
+        DeliMana_RequestDetailsJPanel jp=new DeliMana_RequestDetailsJPanel();
+        CardLayout l=(CardLayout)container.getLayout();
+        container.add(jp);
+        l.next(container);
     }//GEN-LAST:event_btnDetailsActionPerformed
 
-    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
-        dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){          
-            Object[] row=new Object[5];
-            row[0]=wr.getRequestDate().toString();
-            row[1]=wr;
-            row[2]=wr.getReceiver().getUsername();
-            row[3]=wr.getStatus();
-            row[4]=wr.getMessage();
-            dtm.addRow(row);                      
-        }
-    }                                      
-
-    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        populate();
-    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAll;
