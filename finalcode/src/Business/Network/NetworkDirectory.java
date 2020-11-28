@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class NetworkDirectory {
     private ArrayList<Network> networkList; 
+    private int networkid;//记录最后一个存进来的network的id
     public NetworkDirectory(){
         networkList=new ArrayList<Network>();
     
@@ -32,6 +33,7 @@ public class NetworkDirectory {
         Network network=new Network();
         network.setName(networkName);
         networkList.add(network);
+        networkid=network.getNetworkID()+1;
         return network;
     
     }

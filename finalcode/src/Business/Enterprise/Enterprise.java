@@ -7,6 +7,7 @@
 
 package Business.Enterprise;
 
+import Business.EcoSystem;
 import Business.Network.Network;
 import Business.Organization.OrganizationDirectory;
 
@@ -17,7 +18,7 @@ import Business.Organization.OrganizationDirectory;
  */
 public abstract class Enterprise {
     
-    private String EnterpriseName;
+    private String EnterpriseName;//unique name不可重复 在整个系统里面不可重复
     private String EnterpriseType; 
     private Network network;
 //Five type "BookStore""DeliveryCompany" "Printer" "Publisher" "Population" 
@@ -25,7 +26,7 @@ public abstract class Enterprise {
     
     private OrganizationDirectory organizationDirectory;//该公司的部门
     private int enterpriseID;
-    private static int counter=0;
+    public static int counter=0;
     public Enterprise(String name,String type){
         this.EnterpriseName=name;
         this.EnterpriseType=type;
@@ -33,8 +34,17 @@ public abstract class Enterprise {
         Network network=new Network();
         enterpriseID=counter;
         ++counter;
+       
         
         
+    }
+
+    public  int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Enterprise.counter = counter;
     }
 
     public String getEnterpriseName() {

@@ -4,11 +4,10 @@
  */
 package Business.Organization;
 
-import Business.Employee.EmployeeDirectory;
-import Business.Role.Role;
+import Business.EcoSystem;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
-import java.util.ArrayList;
+
 
 /**
  *
@@ -17,14 +16,14 @@ import java.util.ArrayList;
 public abstract class Organization {
 
     //部门类别
-    private String orgtypename;
-    
+    private String orgtypename;//(9 organization 类)
+   // private String orgname;//部门名字 eg管理1部 管理2部 商业1部 商业2部 //在enterprise里面unique不可重复
     //所属enterprise的类别BS,Deli,PB,PT,SYS
-    private String enterpriseType;
+    private String enterpriseType;//5 enterprise 类
     private WorkQueue workQueue;
     private UserAccountDirectory userAccountDirectory;
     private int organizationID;
-    private static int counter=0;
+    public static int counter=0;
     
 
 
@@ -36,14 +35,23 @@ public abstract class Organization {
         userAccountDirectory = new UserAccountDirectory();
         organizationID = counter;
         ++counter;
+
     }
-    public Organization(){
-        workQueue = new WorkQueue();
+       public Organization(){
+       workQueue = new WorkQueue();
      //   employeeDirectory = new EmployeeDirectory();
         userAccountDirectory = new UserAccountDirectory();
         organizationID = counter;
         ++counter;
-       
+
+       }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Organization.counter = counter;
     }
 
     
@@ -59,19 +67,13 @@ public abstract class Organization {
         return organizationID;
     }
 
-  
-    
-    public String getName() {
-        return orgtypename;
-    }
+
 
     public WorkQueue getWorkQueue() {
         return workQueue;
     }
 
-    public void setName(String name) {
-        this.orgtypename = name;
-    }
+
 
     public void setWorkQueue(WorkQueue workQueue) {
         this.workQueue = workQueue;
