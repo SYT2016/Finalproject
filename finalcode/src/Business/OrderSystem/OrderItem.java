@@ -13,14 +13,12 @@ public class OrderItem {
     private Book selectedbook;
     private int quantity;
     private double price;
-    private String bookname;
     
     public OrderItem(Book b, int q,double pr) {
         selectedbook = b;
         b.addOrderitemToBook(this); //把这个orderitem加入到book里面的orderitemlist里
         quantity = q;
         price=pr;
-        bookname=b.getBookname();
     }
     
     public double getOrderItemTotal() {
@@ -34,16 +32,6 @@ public class OrderItem {
     public void setSelectedbook(Book selectedbook) {
         this.selectedbook = selectedbook;
     }
-
-    public String getBookname() {
-        return bookname;
-    }
-
-    public void setBookname(String bookname) {
-        this.bookname = bookname;
-    }
-
-    
 
     public int getQuantity() {
         return quantity;
@@ -63,7 +51,7 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "OrderItem{" + "selectedbook=" + selectedbook + ", quantity=" + quantity + ", price=" + price + ", bookname=" + bookname + '}';
+        return this.selectedbook.getBookname();
     }
 
 

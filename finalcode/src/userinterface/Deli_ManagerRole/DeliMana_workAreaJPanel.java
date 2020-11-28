@@ -5,23 +5,43 @@
  */
 package userinterface.Deli_ManagerRole;
 
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author admin
+ * @author liu
  */
 public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
 
     JPanel container;
-    public DeliMana_workAreaJPanel() {
+    UserAccount ua;
+    public DeliMana_workAreaJPanel( JPanel container,UserAccount ua) {
         initComponents();
+        this.container=container;
+        this.ua=ua;
+        labelUser.setText(ua.getUsername());
         populate();
     }
     
     public void populate(){
-        
+        DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
+        dtm.setRowCount(0);
+        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){
+            if(wr.getStatus().equals(("Uncompleted"))){
+                Object[] row=new Object[5];
+                row[0]=wr.getRequestDate().toString();
+                row[1]=wr;
+                row[2]=wr.getReceiver().getUsername();
+                row[3]=wr.getStatus();
+                row[4]=wr.getMessage();
+                dtm.addRow(row);
+            }           
+        }
     }
 
     /**
@@ -50,9 +70,19 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
 
         btnUnfinished.setText("Unfinished");
+        btnUnfinished.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnfinishedActionPerformed(evt);
+            }
+        });
         add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         btnAll.setText("All");
+        btnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllActionPerformed(evt);
+            }
+        });
         add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
 
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
@@ -92,11 +122,35 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        DeliMana_RequestDetailsJPanel jp=new DeliMana_RequestDetailsJPanel();
-        CardLayout l=(CardLayout)container.getLayout();
-        container.add(jp);
-        l.next(container);
+        int selected=tblQueue.getSelectedRow();
+        if(selected<0){
+            JOptionPane.showMessageDialog(null, "Please select a wrok request", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 1);
+            DeliMana_RequestDetailsJPanel jp=new DeliMana_RequestDetailsJPanel(container,wr,ua);
+            CardLayout l=(CardLayout)container.getLayout();
+            container.add(jp);
+            l.next(container);
+        }       
     }//GEN-LAST:event_btnDetailsActionPerformed
+
+    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
+        DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
+        dtm.setRowCount(0);
+        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){          
+            Object[] row=new Object[5];
+            row[0]=wr.getRequestDate().toString();
+            row[1]=wr;
+            row[2]=wr.getReceiver().getUsername();
+            row[3]=wr.getStatus();
+            row[4]=wr.getMessage();
+            dtm.addRow(row);                      
+        }
+    }//GEN-LAST:event_btnAllActionPerformed
+
+    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnfinishedActionPerformed
+        populate();
+    }//GEN-LAST:event_btnUnfinishedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

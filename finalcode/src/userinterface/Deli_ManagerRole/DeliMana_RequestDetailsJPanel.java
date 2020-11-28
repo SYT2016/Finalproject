@@ -5,8 +5,13 @@
  */
 package userinterface.Deli_ManagerRole;
 
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -16,8 +21,26 @@ import javax.swing.JPanel;
 public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
 
     JPanel container;
-    public DeliMana_RequestDetailsJPanel() {
+    WorkRequest wr;
+    UserAccount ua;
+    public DeliMana_RequestDetailsJPanel( JPanel container,WorkRequest wr,UserAccount ua) {
         initComponents();
+        this.container=container;
+        this.wr=wr;
+        this.ua=ua;
+        txtSender.setText(wr.getSender().getUsername());
+        txtSenderAddr.setText(wr.getSender().getAddress());
+        txtReceiver.setText(wr.getReceiver().getUsername());
+        txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
+        txtRequestDate.setText(wr.getRequestDate().toString());
+        //txtResolvedDate.setText(wr.getResolveDate().toString());
+        for(Organization o:ua.getEmployee().getEnterprise().getOrganizationDirectory().getOrganizationList()){
+            if(o.getOrgtypename().equals("Deli_DeliveryManOrganization")){
+                for(UserAccount u:o.getUserAccountDirectory().getUserAccountList()){
+                    comboDeliveryman.addItem(u.toString());
+                }
+            } 
+        }
     }
 
     /**
@@ -31,13 +54,11 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
 
         btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtSender1 = new javax.swing.JTextField();
+        txtSender = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtRequestDate = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtResolvedDate = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblOrderItem = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtReceiver = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -47,6 +68,7 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
         txtSenderAddr = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         comboDeliveryman = new javax.swing.JComboBox<>();
+        btnCommit = new javax.swing.JButton();
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -57,31 +79,41 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Sender:");
 
+        txtSender.setEnabled(false);
+
         jLabel3.setText("RequestDate:");
+
+        txtRequestDate.setEnabled(false);
 
         jLabel1.setText("ResolvedDate:");
 
-        tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "BookName", "Quantity", "Per Price", "Total Price"
-            }
-        ));
-        jScrollPane1.setViewportView(tblOrderItem);
+        txtResolvedDate.setEnabled(false);
 
         jLabel4.setText("Receiver:");
+
+        txtReceiver.setEnabled(false);
 
         jLabel5.setText("Work Request Details");
 
         jLabel6.setText("Receiver Addr:");
 
+        txtReceiverAddr.setEnabled(false);
+
         jLabel7.setText("Sender Addr:");
 
-        jLabel8.setText("Choose a delivery man:");
+        txtSenderAddr.setEnabled(false);
+
+        jLabel8.setText("Assign it to a delivery man:");
 
         comboDeliveryman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnCommit.setText("Commit");
+        btnCommit.setActionCommand("");
+        btnCommit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCommitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -98,43 +130,41 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(54, 54, 54)
-                                        .addComponent(txtSender1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtReceiver, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(14, 14, 14)
-                                            .addComponent(txtRequestDate, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addGap(20, 20, 20))
-                                            .addComponent(jLabel6))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtSenderAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtReceiverAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtResolvedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel2)
+                                .addGap(54, 54, 54)
+                                .addComponent(txtSender, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtReceiver, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(14, 14, 14)
+                                    .addComponent(txtRequestDate, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboDeliveryman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(2, 2, 2)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(20, 20, 20))
+                                    .addComponent(jLabel6))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtSenderAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtReceiverAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtResolvedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(comboDeliveryman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(261, 261, 261)
+                        .addComponent(btnCommit)
+                        .addGap(2, 2, 2)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,7 +181,7 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel2))
-                            .addComponent(txtSender1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtReceiver, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,13 +204,12 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))))
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(comboDeliveryman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(comboDeliveryman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCommit))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,9 +223,33 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
         l.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
+        txtResolvedDate.setText(new Date().toString());
+        wr.setStatus("Completed");
+        UserAccount deliMan=(UserAccount)comboDeliveryman.getSelectedItem();
+        WorkRequest newWR=new WorkRequest();
+        newWR.setSender(ua);
+        newWR.setReceiver(deliMan);
+        newWR.setOrder(wr.getOrder());
+        newWR.setStatus("Uncompleted");
+        newWR.setRequestDate(wr.getResolveDate());
+        
+        int check=JOptionPane.YES_NO_OPTION;
+        String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);        
+        if(check==JOptionPane.YES_OPTION){
+            newWR.setMessage(mesg);
+            JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
+            //wr.setStatus("Completed");
+        }
+        
+        deliMan.getWorkQueue().addNewRequest(newWR);
+        JOptionPane.showMessageDialog(null, "Comleted successfully");
+    }//GEN-LAST:event_btnCommitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCommit;
     private javax.swing.JComboBox<String> comboDeliveryman;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -206,13 +259,11 @@ public class DeliMana_RequestDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblOrderItem;
     private javax.swing.JTextField txtReceiver;
     private javax.swing.JTextField txtReceiverAddr;
     private javax.swing.JTextField txtRequestDate;
     private javax.swing.JTextField txtResolvedDate;
-    private javax.swing.JTextField txtSender1;
+    private javax.swing.JTextField txtSender;
     private javax.swing.JTextField txtSenderAddr;
     // End of variables declaration//GEN-END:variables
 }

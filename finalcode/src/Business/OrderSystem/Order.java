@@ -23,15 +23,19 @@ public class Order {
 
     public Order(){    
         orderitems = new ArrayList();
-        id=count++;
-        
-        
+        id=count++;    
     }
+    
+    public void deleteOrderItem(OrderItem oi){
+        orderitems.remove(oi);
+    }
+    
     public OrderItem newOrderItem(Book b, int q,double pr){
         OrderItem oi = new OrderItem(b, q,pr);
         orderitems.add(oi);
         return oi;
     }
+    
     public double getOrderTotal(){    
         double sum = 0;
         for(OrderItem oi: orderitems){

@@ -6,19 +6,41 @@
 package userinterface.PB_ManagerRole;
 
 import Business.OrderSystem.OrderDirectory;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author admin
+ * @author liu
  */
 public class PB_workAreaJPanel extends javax.swing.JPanel {
 
     private JPanel container;
-    private OrderDirectory orderDirectory;
-    public PB_workAreaJPanel() {
+    private UserAccount user;
+    //private OrderDirectory orderDirectory;
+    public PB_workAreaJPanel( JPanel container, UserAccount user) {
         initComponents();
+        this.container=container;
+        this.user=user;
+        labelUser.setText(user.getUsername());
+        populate();
+    }
+    
+    public void populate(){
+        DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
+        dtm.setRowCount(0);
+        for(WorkRequest wr:user.getWorkQueue().getWorkRequestList()){
+            Object[] row=new Object[4];
+            row[0]=wr.getRequestDate().toString();
+            row[1]=wr;
+            row[2]=wr.getStatus();
+            row[3]=wr.getMessage();
+            dtm.addRow(row);
+        }
     }
 
     /**
@@ -35,8 +57,6 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblQueue = new javax.swing.JTable();
         btnDetails = new javax.swing.JButton();
-        btnUnfinished = new javax.swing.JButton();
-        btnAll = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -65,26 +85,25 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(btnDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, -1, -1));
-
-        btnUnfinished.setText("Unfinished");
-        add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
-
-        btnAll.setText("All");
-        add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        PB_RequestDetailsJPanel jp=new PB_RequestDetailsJPanel();
-        CardLayout l=(CardLayout)container.getLayout();
-        container.add(jp);
-        l.next(container);
+        int row=tblQueue.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 1);
+            PB_RequestDetailsJPanel jp=new PB_RequestDetailsJPanel(container,wr,user);
+            CardLayout l=(CardLayout)container.getLayout();
+            container.add(jp);
+            l.next(container);
+        }
+        
     }//GEN-LAST:event_btnDetailsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAll;
     private javax.swing.JButton btnDetails;
-    private javax.swing.JButton btnUnfinished;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelUser;
