@@ -10,9 +10,9 @@ import java.util.Date;
 
 /**
  *
- * @author raunak
+ * @author 
  */
-public abstract class WorkRequest {
+public class WorkRequest {
 
     private String message;//备注
     private UserAccount sender;
@@ -22,6 +22,11 @@ public abstract class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
     private Order order;
+    
+    @Override
+    public String toString(){
+        return this.sender.getUsername();
+    }
     
     public WorkRequest(){
         requestDate = new Date();
