@@ -5,19 +5,18 @@
  */
 package userinterface.Deli_ManRole;
 
-import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
 import javax.swing.JPanel;
-import userinterface.Deli_ManagerRole.DeliMana_workAreaJPanel;
 
 /**
  *
  * @author liu
  */
 public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
+
     JPanel container;
     WorkRequest wr;
     //UserAccount ua;
@@ -26,7 +25,7 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
         this.container=container;
         this.wr=wr;
         //this.ua=ua;
-        txtSender.setText(wr.getSender().getUsername());
+        txtSender1.setText(wr.getSender().getUsername());
         txtSenderAddr.setText(wr.getSender().getAddress());
         txtReceiver.setText(wr.getReceiver().getUsername());
         txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
@@ -44,13 +43,13 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
 
         btnBack = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btnArrival = new javax.swing.JButton();
+        btnOrder = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtRequestDate = new javax.swing.JTextField();
         txtReceiver = new javax.swing.JTextField();
-        txtSender = new javax.swing.JTextField();
+        txtSender1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtSenderAddr = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -59,20 +58,10 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
         txtResolvedDate = new javax.swing.JTextField();
 
         btnBack.setText("<< Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Work Request Details");
 
-        btnArrival.setText("Arrival");
-        btnArrival.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArrivalActionPerformed(evt);
-            }
-        });
+        btnOrder.setText("Arrival");
 
         jLabel2.setText("Sender:");
 
@@ -96,7 +85,7 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
                 .addGap(201, 201, 201)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnArrival)
+                .addComponent(btnOrder)
                 .addGap(69, 69, 69))
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
@@ -104,7 +93,7 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(54, 54, 54)
-                        .addComponent(txtSender, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSender1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel4)
@@ -138,7 +127,7 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(jLabel5)
-                    .addComponent(btnArrival))
+                    .addComponent(btnOrder))
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -146,7 +135,7 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel2))
-                            .addComponent(txtSender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSender1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtReceiver, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,8 +161,8 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
                 .addContainerGap(261, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    
+        private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
         container.remove(this);
         Component[] coms=container.getComponents();
         Component c=(Component)coms[coms.length-1];
@@ -181,20 +170,19 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
         jp.populate();
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
-    }//GEN-LAST:event_btnBackActionPerformed
+    }                                       
 
-    private void btnArrivalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArrivalActionPerformed
+    private void btnArrivalActionPerformed(java.awt.event.ActionEvent evt) {                                           
         wr.setStatus("Completed");
         wr.setResolveDate(new Date());
         //快递员送书到顾客改order状态,快递员送书到书店改order状态
         wr.getOrder().setStatus("Arrival");
         
-    }//GEN-LAST:event_btnArrivalActionPerformed
-
+    }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnArrival;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -206,7 +194,7 @@ public class DeliMan_RequestDetialsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtReceiverAddr;
     private javax.swing.JTextField txtRequestDate;
     private javax.swing.JTextField txtResolvedDate;
-    private javax.swing.JTextField txtSender;
+    private javax.swing.JTextField txtSender1;
     private javax.swing.JTextField txtSenderAddr;
     // End of variables declaration//GEN-END:variables
 }

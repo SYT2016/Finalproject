@@ -27,7 +27,6 @@ public class EnterpriseDirectory {
     public EnterpriseDirectory(){
         enterpriseList=new ArrayList<Enterprise>();
     }
-    
     public Enterprise searchEnterprise(Enterprise en){
     for(Enterprise e:enterpriseList){
         if(e.getEnterpriseID()==en.getEnterpriseID())

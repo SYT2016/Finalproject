@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author liu
+ * @author admin
  */
 public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
 
@@ -28,7 +28,7 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
         this.container=container;
         this.wr=wr;
         this.user=user;
-        txtSender.setText(wr.getSender().getUsername());
+        txtSender1.setText(wr.getSender().getUsername());
         txtRequestDate.setText(wr.getRequestDate().toString());
         txtResolvedDate.setText(wr.getResolveDate().toString());
         populate();
@@ -62,7 +62,7 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtResolvedDate = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtSender = new javax.swing.JTextField();
+        txtSender1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtRequestDate = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,11 +72,6 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnBack.setText("<< Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
         add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         jLabel1.setText("ResolvedDate:");
@@ -88,8 +83,8 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
         jLabel2.setText("Sender:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
 
-        txtSender.setEnabled(false);
-        add(txtSender, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 210, 30));
+        txtSender1.setEnabled(false);
+        add(txtSender1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 210, 30));
 
         jLabel3.setText("RequestDate:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
@@ -110,15 +105,10 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 240, 530, 140));
 
         btnOrder.setText("Order");
-        btnOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrderActionPerformed(evt);
-            }
-        });
         add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
         container.remove(this);
         Component[] coms=container.getComponents();
         Component c=(Component)coms[coms.length-1];
@@ -126,16 +116,15 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
         jp.populate();
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
-    }//GEN-LAST:event_btnBackActionPerformed
+    }                                       
 
-    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {                                         
         PB_newRequestJPanel jp=new PB_newRequestJPanel(container,wr,user);
         CardLayout l=(CardLayout)container.getLayout();
         container.add(jp);
         l.next(container);
-    }//GEN-LAST:event_btnOrderActionPerformed
-
-
+    } 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnOrder;
@@ -146,6 +135,6 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblOrderItem;
     private javax.swing.JTextField txtRequestDate;
     private javax.swing.JTextField txtResolvedDate;
-    private javax.swing.JTextField txtSender;
+    private javax.swing.JTextField txtSender1;
     // End of variables declaration//GEN-END:variables
 }
