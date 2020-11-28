@@ -41,6 +41,11 @@ public class Order {
         orderitems.add(oi);
         return oi;
     }
+    
+    public void deleteOrderItem(OrderItem oi){
+        orderitems.remove(oi);
+    }
+    
     public double getOrderTotal(){    
         double sum = 0;
         for(OrderItem oi: orderitems){
