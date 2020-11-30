@@ -16,6 +16,9 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.BScustomerLogin.CustomerCreateJPanel;
+import userinterface.BScustomerLogin.CustomerManageJPanel;
+import userinterface.BookStoreManagement.BSManagerMngJPanel;
 import userinterface.Enterprise_ManageRole.EnterpriseManageWorkAreaJPanel;
 import userinterface.PT_ManageRole.PT_ManageRoleJPanel;
 import userinterface.PT_PrintingMemberRole.PrintingMemberRoleJPanel;
@@ -105,6 +108,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         jButton1.setText("Customer Rigister");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -222,6 +230,8 @@ public class MainJFrame extends javax.swing.JFrame {
             {
                 //AdminWorkAreaJPanel adminWorkAreaJPanel = new AdminWorkAreaJPanel(container,system.getRestaurantDirectory().RestaurantSearch(username));
                // container.add("adminWorkAreaJPanel", adminWorkAreaJPanel);
+                BSManagerMngJPanel BSManageRole = new BSManagerMngJPanel(container,useraccount);
+                container.add("BSManagerMngJPanel", BSManageRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -229,6 +239,8 @@ public class MainJFrame extends javax.swing.JFrame {
             {
               //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
               //  container.add("CustomerChooseRes", customerChooseRes);
+                CustomerManageJPanel customerRole = new CustomerManageJPanel(container,useraccount);
+                container.add("CustomerManageJPanel", customerRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -313,6 +325,14 @@ public class MainJFrame extends javax.swing.JFrame {
         crdLyt.next(container);
        // dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutJButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
+        container.add("CustomerCreateJPanel", customerCreate);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

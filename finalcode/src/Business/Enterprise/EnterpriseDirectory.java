@@ -14,7 +14,8 @@ import java.util.ArrayList;
  */
 public class EnterpriseDirectory {
     private ArrayList<Enterprise> enterpriseList;
-   
+    //private ArrayList<BookstoreEnterprise> bookstoreEnterpriseList;
+    
 
     public ArrayList<Enterprise> getEnterpriseList() {
         return enterpriseList;
@@ -39,6 +40,10 @@ public class EnterpriseDirectory {
     //Create enterprise
     //Five type "Type-BookStore""Type-DeliveryCompany" "Type-Printer" "Type-Publisher" "Type-Population" 
 //PopulationEnterprise只有一个不可创建多个
+    
+//    public Enterprise selectedEnterpriseDirectory(){
+//        
+//    }
     public Enterprise createAndAddEnterprise(String name,String type){
         Enterprise enterprise=null;
         
@@ -46,6 +51,7 @@ public class EnterpriseDirectory {
         if(type.equals("Type-BookStore")){
             enterprise=new BookstoreEnterprise(name);
             enterpriseList.add(enterprise);
+            
         }
         else if(type.equals("Type-DeliveryCompany")){
             enterprise=new DeliveryEnterprise(name);

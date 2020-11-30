@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnUploadBook" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnManageBook" min="-2" max="-2" attributes="0"/>
                   <Component id="btnViewOrders" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -27,7 +27,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="146" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnUploadBook1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnManageStaff" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
@@ -42,9 +42,9 @@
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btnViewOrders" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="btnUploadBook" min="-2" max="-2" attributes="0"/>
+              <Component id="btnManageBook" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-              <Component id="btnUploadBook1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnManageStaff" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="127" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -70,7 +70,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewOrdersActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnUploadBook">
+    <Component class="javax.swing.JButton" name="btnManageBook">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Lucida Grande" size="18" style="0"/>
@@ -78,10 +78,10 @@
         <Property name="text" type="java.lang.String" value="Manage Books"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUploadBookActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageBookActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnUploadBook1">
+    <Component class="javax.swing.JButton" name="btnManageStaff">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Lucida Grande" size="18" style="0"/>
@@ -89,7 +89,7 @@
         <Property name="text" type="java.lang.String" value="Manage Bookstore Staff"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUploadBook1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageStaffActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

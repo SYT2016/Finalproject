@@ -65,7 +65,8 @@ public class EcoSystem extends Organization{
     public void setNetworkDirectory(NetworkDirectory networkDirectory) {
         this.networkDirectory = networkDirectory;
     }
-
+    
+    
 
 
 }

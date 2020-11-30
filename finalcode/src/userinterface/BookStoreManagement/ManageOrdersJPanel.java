@@ -5,17 +5,24 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author wangcong
  */
 public class ManageOrdersJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    private UserAccount bookStoreManager;
     /**
      * Creates new form ManageOrdersJPanel
      */
-    public ManageOrdersJPanel() {
+    public ManageOrdersJPanel(JPanel container,UserAccount bookStoreManager) {
         initComponents();
+        this.container = container;
+        this.bookStoreManager = bookStoreManager;
     }
 
     /**
@@ -31,6 +38,11 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Manage Orders");
@@ -59,6 +71,12 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
                 .addContainerGap(265, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);        
+        CardLayout layout=(CardLayout)container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
