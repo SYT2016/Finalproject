@@ -65,10 +65,11 @@ public class UserAccountDirectory {
         return userAccount;
     }
     //是否是员工？如果是员工的话就在employee里面存这个员工所属的organization和enterprise，如果是普通顾客就不用存
-    public UserAccount createUserAccount(String username, String password,   Role role){
+    public UserAccount createUserAccount(String username, String password, Role role){
         UserAccount userAccount = new UserAccount();
         userAccount.setUsername(username);
         userAccount.setPassword(password);
+        //userAccount.setAddress(address);
         //userAccount.setEmployee(employee);
         userAccount.setRole(role);
         userAccountList.add(userAccount);

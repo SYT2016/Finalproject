@@ -5,6 +5,7 @@
 package Business.Organization;
 
 import Business.EcoSystem;
+import Business.OrderSystem.BookDirectory;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
 
@@ -99,6 +100,7 @@ public abstract class Organization {
     public void setEnterpriseType(String enterpriseType) {
         this.enterpriseType = enterpriseType;
     }
+    
     
     
 }

@@ -9,22 +9,20 @@ package Business.Network;
 import Business.Enterprise.EnterpriseDirectory;
 
 /**
- *
  * @author MyPC1
  */
 public class Network {
     private String name;
-    private EnterpriseDirectory enterpriseDirectory;
+    private final EnterpriseDirectory enterpriseDirectory = new EnterpriseDirectory();
     private int networkID;
-    public static int counter=0;
+    public static int counter = 0;
     private static int lastid;
-    
-    public Network(){
-        enterpriseDirectory=new EnterpriseDirectory();
-        networkID=counter;
+
+    public Network() {
+        networkID = counter;
         ++counter;
-   
     }
+
     public String getName() {
         return name;
     }
@@ -60,10 +58,10 @@ public class Network {
     public static void setCounter(int counter) {
         Network.counter = counter;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return name;
     }
-    
+
 }

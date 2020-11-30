@@ -5,17 +5,24 @@
  */
 package userinterface.BScustomerLogin;
 
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author wangcong
  */
 public class CustomerManageJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    private UserAccount customer;
     /**
      * Creates new form CustomerManageJPanel
      */
-    public CustomerManageJPanel() {
+    public CustomerManageJPanel(JPanel containter,UserAccount customer) {
         initComponents();
+        this.container = container;
+        this.customer = customer;
     }
 
     /**
@@ -37,12 +44,27 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
 
         btnBuying.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         btnBuying.setText("Go to buy!");
+        btnBuying.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyingActionPerformed(evt);
+            }
+        });
 
         btnSelling.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         btnSelling.setText("Go to sell!");
+        btnSelling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSellingActionPerformed(evt);
+            }
+        });
 
         btnOrderHistory.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         btnOrderHistory.setText("Order History");
+        btnOrderHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderHistoryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,6 +99,30 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
                 .addContainerGap(100, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuyingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyingActionPerformed
+
+        CustomerBuyingJPanel customerBuying = new CustomerBuyingJPanel(container,customer);
+        container.add("CustomerBuyingJPanel", customerBuying);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnBuyingActionPerformed
+
+    private void btnSellingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellingActionPerformed
+        
+        CustomerSellingJPanel customerSelling = new CustomerSellingJPanel(container,customer);
+        container.add("CustomerSellingJPanel", customerSelling);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnSellingActionPerformed
+
+    private void btnOrderHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderHistoryActionPerformed
+        
+        OrderHistoryJPanel orderHistory = new OrderHistoryJPanel(container,customer);
+        container.add("OrderHistoryJPanel", orderHistory);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnOrderHistoryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

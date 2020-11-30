@@ -5,17 +5,54 @@
  */
 package userinterface.BScustomerLogin;
 
+import Business.Enterprise.BookstoreEnterprise;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.OrderSystem.Book;
+import Business.Organization.BS_BookManagementOrganization;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+import static userinterface.MainJFrame.system;
+
 /**
  *
  * @author wangcong
  */
 public class CustomerBuyingJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    private UserAccount customer;
+    
     /**
      * Creates new form CustomerBuyingJPanel
      */
-    public CustomerBuyingJPanel() {
+    public CustomerBuyingJPanel(JPanel container,UserAccount customer) {
         initComponents();
+        this.container = container;
+        this.customer = customer;
+        populateCombo();
+    }
+    
+    public void populateCombo(){
+        //populate the location option
+        comboNetwork.removeAllItems();
+        for(Network nt:system.getNetworkDirectory().getNetworkList()){//把现有的network名字加到combox里面，因为要在network里面创建enterprise
+            comboNetwork.addItem(nt.getName());  
+        }
+        
+        //populate all boosktores
+        comboBookStore.removeAllItems();;
+         Network network = (Network)comboNetwork.getSelectedItem();
+         for(Enterprise en:network.getEnterpriseDirectory().getEnterpriseList()){
+             if(en.getEnterpriseType().equals("BookStore")){
+                 comboBookStore.addItem(en.getEnterpriseName());
+             }
+         }
     }
 
     /**
@@ -40,6 +77,9 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        comboNetwork = new javax.swing.JComboBox<>();
+        btnSearch = new javax.swing.JButton();
 
         jLabel1.setText("Select your wanted bookstore:");
 
@@ -89,28 +129,27 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
         jLabel4.setText("Wantted Quantity:");
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Select your location:");
+
+        comboNetwork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboNetwork.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboNetworkItemStateChanged(evt);
+            }
+        });
+
+        btnSearch.setText("Search!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnBack)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(comboBookStore, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -118,7 +157,7 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
                         .addComponent(btnViewShoppingCart)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(59, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddToCart)
@@ -131,6 +170,27 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(56, 56, 56))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(btnBack)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboBookStore, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(comboNetwork, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(btnSearch)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,14 +199,19 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(btnBack))
-                .addGap(29, 29, 29)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBookStore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(24, 24, 24)
+                    .addComponent(jLabel5)
+                    .addComponent(comboNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(comboBookStore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
@@ -158,7 +223,7 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
                         .addComponent(btnViewDetails)))
                 .addGap(18, 18, 18)
                 .addComponent(btnViewShoppingCart)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,17 +231,68 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);        
+        CardLayout layout=(CardLayout)container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void comboNetworkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboNetworkItemStateChanged
+        //make two comboBox related
+        comboBookStore.removeAllItems();
+        Network network = (Network)comboNetwork.getSelectedItem();
+        for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
+            if(enterprise.getEnterpriseType().equals("BookStore")){
+                comboBookStore.addItem(enterprise.getEnterpriseName());
+            }
+        }
+        populateTable();
+        //make the table change according to the comboBox
+    }//GEN-LAST:event_comboNetworkItemStateChanged
+
+    private void populateTable(){
+        Network network = (Network)comboNetwork.getSelectedItem();
+        String bsName = (String)comboBookStore.getSelectedItem();
+
+        List<Book> bookList = new ArrayList<>();
+        for(Enterprise enterprise :network.getEnterpriseDirectory().getEnterpriseList()){
+            if(enterprise.getEnterpriseName().equals(bsName)){
+                BookstoreEnterprise bse = (BookstoreEnterprise) enterprise;
+                ArrayList<Organization> organizations =  bse.getOrganizationDirectory().getOrganizationList();
+                for (Organization organization : organizations) {
+                    if (organization instanceof BS_BookManagementOrganization) {
+                        BS_BookManagementOrganization bso = (BS_BookManagementOrganization) organization;
+                        bookList.addAll(bso.getBookDirectory().getBooklist());
+                    }
+                }
+            }
+        }
+
+        DefaultTableModel model=(DefaultTableModel)tblBookStore.getModel();
+        model.setRowCount(0);
+        for(Book book:bookList){
+            Object row[]=new Object[4];
+            row[0]= book.getBookname();
+            row[1]= book.getEnterprise().getEnterpriseName();
+            row[2]= String.valueOf(book.getBookprice());
+            row[3]= book.getStatus();
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToCart;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnViewDetails;
     private javax.swing.JButton btnViewShoppingCart;
     private javax.swing.JComboBox<String> comboBookStore;
+    private javax.swing.JComboBox<String> comboNetwork;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblBookStore;

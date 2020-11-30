@@ -70,6 +70,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Go to buy!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuyingActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSelling">
       <Properties>
@@ -78,6 +81,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Go to sell!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSellingActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOrderHistory">
       <Properties>
@@ -86,6 +92,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Order History"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderHistoryActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
