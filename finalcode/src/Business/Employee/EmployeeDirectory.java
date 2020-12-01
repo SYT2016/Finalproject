@@ -28,4 +28,8 @@ public class EmployeeDirectory {
         employeeList.add(employee);
         return employee;
     }
+    
+    public void createEmployee(Employee e){
+        employeeList.add(e);
+    }
 }

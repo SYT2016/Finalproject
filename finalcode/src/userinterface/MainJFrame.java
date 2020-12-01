@@ -6,16 +6,31 @@ package userinterface;
 
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
+import Business.Employee.Employee;
+import Business.Enterprise.DeliveryEnterprise;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.PublisherEnterprise;
+import Business.Network.Network;
+import Business.Organization.Deli_DeliveryManOrganization;
+import Business.Organization.Deli_ManagementOrganization;
+import Business.Organization.Organization;
+import Business.Organization.PB_ManagementOrganization;
+import Business.Role.Deli_DeliveryManRole;
+import Business.Role.Deli_DeliveryManageRole;
+import Business.Role.PB_ManageRole;
 import Business.Role.SYS_ManageRole;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
+import userinterface.Deli_ManagerRole.DeliMana_workAreaJPanel;
 import userinterface.Enterprise_ManageRole.EnterpriseManageWorkAreaJPanel;
-import userinterface.PP_PrintingMemberRole.PringtingRoleJPanel;
-import userinterface.SYS_ManageRole.AddNewEnterprise;
-import userinterface.SYS_ManageRole.SYS;
+import userinterface.PB_ManagerRole.PB_workAreaJPanel;
+import userinterface.PT_ManageRole.PT_ManageRoleJPanel;
+import userinterface.PT_PrintingMemberRole.PrintingMemberRoleJPanel;
 import userinterface.SYS_ManageRole.SYSAdminWorkAreaJPanel;
 
 
@@ -44,7 +59,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.setSize(2000, 1200);
       if(userAccountDirectory.getUserAccountList().isEmpty())
         insertU();
-        
+        initialID();
     }
 
     /**
@@ -65,10 +80,10 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         loginJLabel = new javax.swing.JLabel();
         logoutJButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         container = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(405, 1800));
         setResizable(false);
 
         jSplitPane1.setDividerSize(0);
@@ -101,6 +116,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Customer Rigister");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,12 +125,13 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(userNameJTextField)
                     .addComponent(passwordField)
                     .addComponent(loginJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logoutJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logoutJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginJLabel)
                 .addContainerGap(87, Short.MAX_VALUE))
@@ -138,7 +156,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(loginJButton)
                         .addGap(34, 34, 34)
                         .addComponent(logoutJButton)))
-                .addContainerGap(702, Short.MAX_VALUE))
+                .addGap(147, 147, 147)
+                .addComponent(jButton1)
+                .addContainerGap(518, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -151,6 +171,45 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initialID(){
+        ArrayList<Network> ntlist=system.getNetworkDirectory().getNetworkList();
+        int size=ntlist.size();
+        int maxnt=0;
+        if(ntlist.size()>=1){
+       maxnt=ntlist.get(size-1).getNetworkID()+1;
+       
+        
+        }
+        Network.counter=maxnt+1;
+         System.out.println("last network id is"+Network.counter);
+        int maxen=0;
+        int maxor=0;
+        for(Network n:ntlist){
+           ArrayList<Enterprise>  enlist=n.getEnterpriseDirectory().getEnterpriseList();
+          
+          if(enlist.size()>=1){
+           if(enlist.get(enlist.size()-1).getEnterpriseID()>=maxen)
+               maxen=enlist.get(enlist.size()-1).getEnterpriseID();
+           for(Enterprise e:enlist){
+               
+            ArrayList<Organization>  orlist=e.getOrganizationDirectory().getOrganizationList();
+            if(orlist.size()>=1){
+            if(orlist.get(orlist.size()-1).getOrganizationID()>=maxor)
+            maxor=orlist.get(orlist.size()-1).getOrganizationID();
+            }
+           }
+          }
+          
+        
+        }
+         Enterprise.counter=maxen+1;
+         Organization.counter=maxor+1;
+         System.out.println("last Enterprise id is"+Enterprise.counter);
+         System.out.println("last Organinization id is"+Organization.counter);
+       
+       
+    
+    }
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
         // Get user name    
         String username=userNameJTextField.getText();
@@ -194,61 +253,54 @@ public class MainJFrame extends javax.swing.JFrame {
             }
             else if(rolename.equals("Deli_DeliveryManRole"))
             {
-              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
-              //  container.add("CustomerChooseRes", customerChooseRes);
+                DeliMan_workAreaJpanel deliman = new DeliMan_workAreaJpanel(container,useraccount);
+                container.add("DeliMan_workAreaJpanel", deliman);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
             else if(rolename.equals("Deli_DeliveryManageRole"))
             {
-              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
-              //  container.add("CustomerChooseRes", customerChooseRes);
+                DeliMana_workAreaJPanel delimanager = new DeliMana_workAreaJPanel(container,useraccount);
+                container.add("DeliMana_workAreaJPanel", delimanager);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
             else if(rolename.equals("PT_ManageRole"))
             {
-              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
-              //  container.add("CustomerChooseRes", customerChooseRes);
+                PrintingMemberRoleJPanel printingMemberRole = new PrintingMemberRoleJPanel();
+                container.add("printingMemberRole", printingMemberRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
             else if(rolename.equals("PT_PrintingMemberRole"))
             {
-              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
-              //  container.add("CustomerChooseRes", customerChooseRes);
+                PrintingMemberRoleJPanel printingMemberRole = new PrintingMemberRoleJPanel();
+                container.add("printingMemberRole", printingMemberRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
            else if(rolename.equals("PB_ManageRole"))
             {
-               // DeliveryManWorkAreaJPanel deliveryManWorkAreaJPanel = new DeliveryManWorkAreaJPanel(container,system.getDeliveryManDirectory().DeliveryManSearch(username));
-              //  container.add("deliveryManWorkAreaJPanel", deliveryManWorkAreaJPanel);
+                PB_workAreaJPanel pbJP = new PB_workAreaJPanel(container,useraccount);
+                container.add("PB_workAreaJPanel", pbJP);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
             else if(rolename.equals("Enterprise_ManageRole"))
             {
-                  System.out.println("mammmmmmmmmmmmmmmmmmmm");
-             EnterpriseManageWorkAreaJPanel enterpriseManageWorkAreaJPanel = new EnterpriseManageWorkAreaJPanel(container,useraccount);
-          container.add("enterpriseManageWorkAreaJPanel", enterpriseManageWorkAreaJPanel);
-               CardLayout layout = (CardLayout) container.getLayout();
-
+                EnterpriseManageWorkAreaJPanel enterpriseManageWorkAreaJPanel = new EnterpriseManageWorkAreaJPanel(container,useraccount);
+                container.add("enterpriseManageWorkAreaJPanel", enterpriseManageWorkAreaJPanel);
+                CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
+                
+
             }
-            else if(rolename.equals("SYS_ManageRole"));
-            {
-               //SYSAdminWorkAreaJPanel sYSAdminWorkAreaJPanel = new SYSAdminWorkAreaJPanel(container,system);
-             //  container.add("sYSAdminWorkAreaJPanel", sYSAdminWorkAreaJPanel);
-              // CardLayout layout = (CardLayout) container.getLayout();
-             //  layout.next(container);
-               
-               PringtingRoleJPanel sYSAdminWorkAreaJPanel = new PringtingRoleJPanel(container,system);
+            else if(rolename.equals("SYS_ManageRole"))
+            {               
+               SYSAdminWorkAreaJPanel sYSAdminWorkAreaJPanel = new SYSAdminWorkAreaJPanel(container,system);
                container.add("sYSAdminWorkAreaJPanel", sYSAdminWorkAreaJPanel);
                CardLayout layout = (CardLayout) container.getLayout();
                layout.next(container);
-                
-
             }
             
         }
@@ -300,6 +352,7 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -310,6 +363,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -326,7 +380,16 @@ public class MainJFrame extends javax.swing.JFrame {
         SYS_ManageRole sYS_ManageRole  =new SYS_ManageRole();
         system.getUserAccountDirectory().createUserAccount("SYS-user1", "123", sYS_ManageRole);
        
-         dB4OUtil.storeSystem(system);
+//        //出版社办公室
+//        PublisherEnterprise pb1=new PublisherEnterprise("LiuPublisher");
+//        PB_ManagementOrganization org=new PB_ManagementOrganization();
+//        Employee e1 = new Employee(pb1,org);
+//        system.getEmployeeDirectory().createEmployee(e1);       
+//        system.getUserAccountDirectory().createUserAccount("PB_Liu", "Liu",e1, new PB_ManageRole());
+       
+
+
+        dB4OUtil.storeSystem(system);
     }
 
 }

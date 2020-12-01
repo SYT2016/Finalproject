@@ -5,6 +5,7 @@
  */
 package Business.Network;
 
+
 import Business.Enterprise.EnterpriseDirectory;
 
 /**
@@ -15,15 +16,25 @@ public class Network {
     private String name;
     private EnterpriseDirectory enterpriseDirectory;
     private int networkID;
-    private static int counter=0;
+    public static int counter=0;
+    private static int lastid;
     
     public Network(){
         enterpriseDirectory=new EnterpriseDirectory();
         networkID=counter;
         ++counter;
+   
     }
     public String getName() {
         return name;
+    }
+
+    public static int getLastid() {
+        return lastid;
+    }
+
+    public static void setLastid(int lastid) {
+        Network.lastid = lastid;
     }
 
     public void setName(String name) {
@@ -40,6 +51,14 @@ public class Network {
 
     public void setNetworkID(int networkID) {
         this.networkID = networkID;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Network.counter = counter;
     }
     
     @Override
