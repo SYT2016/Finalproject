@@ -5,9 +5,14 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.OrderSystem.Book;
+import Business.Organization.BS_BookManagementOrganization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +21,7 @@ import javax.swing.JPanel;
 public class ManageBooksJPanel extends javax.swing.JPanel {
     private JPanel container;
     private UserAccount bookStoreManager;
+    private List<Book> bookList;
     /**
      * Creates new form UploadBooksJPanel
      */
@@ -23,7 +29,26 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         initComponents();
         this.container = container;
         this.bookStoreManager = bookStoreManager;
-        //populate table
+        populateTable();
+    }
+    
+    public void populateTable(){
+        
+        bookList = new ArrayList<>();
+        BS_BookManagementOrganization bsManager = (BS_BookManagementOrganization)bookStoreManager.getEmployee().getOrganization();
+        bookList = bsManager.getBookDirectory().getBooklist();
+        
+        DefaultTableModel model=(DefaultTableModel)tblBooks.getModel();
+        model.setRowCount(0);
+        for(Book book:bookList){
+            Object row[]=new Object[5];
+            row[0]= book.getBookname();
+            row[1]= book.getEnterprise().getEnterpriseName();
+            row[2]= String.valueOf(book.getBookprice());
+            row[3]= String.valueOf(book.getTotalQuatity());
+            row[4]= book.getStatus();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -78,6 +103,11 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         }
 
         btnAddBook.setText("Add Book");
+        btnAddBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBookActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update Book");
 
@@ -125,6 +155,13 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout)container.getLayout();
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBookActionPerformed
+        AddBookJPanel addBookJPanel = new AddBookJPanel(container,bookStoreManager);
+        container.add("AddBookJPanel", addBookJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnAddBookActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
