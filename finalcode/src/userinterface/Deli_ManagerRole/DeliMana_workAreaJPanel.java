@@ -5,12 +5,17 @@
  */
 package userinterface.Deli_ManagerRole;
 
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -20,12 +25,24 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
 
     JPanel container;
     UserAccount ua;
+    //WorkRequest wr;
     public DeliMana_workAreaJPanel( JPanel container,UserAccount ua) {
         initComponents();
         this.container=container;
         this.ua=ua;
         labelUser.setText(ua.getUsername());
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
         populate();
+        comboDeliveryman.removeAll();
+        for(Organization o:ua.getEmployee().getEnterprise().getOrganizationDirectory().getOrganizationList()){
+            if(o.getOrgtypename().equals("Deli_DeliveryManOrganization")){
+                for(UserAccount u:o.getUserAccountDirectory().getUserAccountList()){
+                    comboDeliveryman.addItem(u.toString());
+                }
+            } 
+        }
     }
     
     public void populate(){
@@ -60,6 +77,21 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblQueue = new javax.swing.JTable();
         btnDetails = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtSender1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtSenderAddr = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtReceiver = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtReceiverAddr = new javax.swing.JTextField();
+        txtRequestDate = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtResolvedDate = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        comboDeliveryman = new javax.swing.JComboBox<>();
+        btnCommit = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -70,10 +102,10 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
 
         btnUnfinished.setText("Unfinished");
-        add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, -1));
 
         btnAll.setText("All");
-        add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+        add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
 
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,7 +132,7 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             tblQueue.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 580, 140));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 720, 140));
 
         btnDetails.setText("Detials");
         btnDetails.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +140,58 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
                 btnDetailsActionPerformed(evt);
             }
         });
-        add(btnDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, -1, -1));
+        add(btnDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 320, -1, -1));
+
+        jLabel2.setText("Sender:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, -1, -1));
+
+        txtSender1.setEnabled(false);
+        add(txtSender1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 200, 30));
+
+        jLabel7.setText("Sender Address:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
+
+        txtSenderAddr.setEnabled(false);
+        add(txtSenderAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 380, 200, 30));
+
+        jLabel4.setText("Receiver:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 450, -1, -1));
+
+        txtReceiver.setEnabled(false);
+        add(txtReceiver, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 200, 30));
+
+        jLabel6.setText("Receiver Address:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, -1, -1));
+
+        txtReceiverAddr.setEnabled(false);
+        add(txtReceiverAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 440, 200, 30));
+
+        txtRequestDate.setEnabled(false);
+        add(txtRequestDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 200, 30));
+
+        jLabel3.setText("RequestDate:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 510, -1, -1));
+
+        jLabel5.setText("ResolvedDate:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, -1, -1));
+
+        txtResolvedDate.setEnabled(false);
+        add(txtResolvedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 500, 200, 30));
+
+        jLabel8.setText("Choose a delivery man:");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 570, -1, -1));
+
+        comboDeliveryman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(comboDeliveryman, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, -1, -1));
+
+        btnCommit.setText("Commit");
+        btnCommit.setActionCommand("");
+        btnCommit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCommitActionPerformed(evt);
+            }
+        });
+        add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 570, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
@@ -117,12 +200,39 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a wrok request", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
             WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 1);
-            DeliMana_RequestDetailsJPanel jp=new DeliMana_RequestDetailsJPanel(container,wr,ua);
-            CardLayout l=(CardLayout)container.getLayout();
-            container.add(jp);
-            l.next(container);
+            txtSender1.setText(wr.getSender().getUsername());
+            txtSenderAddr.setText(wr.getSender().getAddress());
+            txtReceiver.setText(wr.getReceiver().getUsername());
+            txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
+            txtRequestDate.setText(wr.getRequestDate().toString());
+            txtResolvedDate.setText(wr.getResolveDate().toString());
         }
     }//GEN-LAST:event_btnDetailsActionPerformed
+
+    private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
+        int selected=tblQueue.getSelectedRow();
+        WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 1);
+        txtResolvedDate.setText(new Date().toString());
+        wr.setStatus("Completed");
+        UserAccount deliMan=(UserAccount)comboDeliveryman.getSelectedItem();
+        WorkRequest newWR=new WorkRequest();
+        newWR.setSender(ua);
+        newWR.setReceiver(deliMan);
+        newWR.setOrder(wr.getOrder());
+        newWR.setStatus("Uncompleted");
+        newWR.setRequestDate(wr.getResolveDate());
+
+        int check=JOptionPane.YES_NO_OPTION;
+        String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);
+        if(check==JOptionPane.YES_OPTION){
+            newWR.setMessage(mesg);
+            JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
+            wr.setStatus("Completed");
+        }
+
+        deliMan.getWorkQueue().addNewRequest(newWR);
+        //JOptionPane.showMessageDialog(null, "Comleted successfully");
+    }//GEN-LAST:event_btnCommitActionPerformed
 
     private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {                                       
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
@@ -144,11 +254,26 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAll;
+    private javax.swing.JButton btnCommit;
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnUnfinished;
+    private javax.swing.JComboBox<String> comboDeliveryman;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelUser;
     private javax.swing.JTable tblQueue;
+    private javax.swing.JTextField txtReceiver;
+    private javax.swing.JTextField txtReceiverAddr;
+    private javax.swing.JTextField txtRequestDate;
+    private javax.swing.JTextField txtResolvedDate;
+    private javax.swing.JTextField txtSender1;
+    private javax.swing.JTextField txtSenderAddr;
     // End of variables declaration//GEN-END:variables
 }

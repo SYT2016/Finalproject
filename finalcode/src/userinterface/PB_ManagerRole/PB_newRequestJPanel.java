@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
 
 /**
  *
@@ -132,7 +133,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         container.remove(this);
         Component[] coms=container.getComponents();
         Component c=(Component)coms[coms.length-1];
-        PB_RequestDetailsJPanel jp=(PB_RequestDetailsJPanel)c;
+        DeliMan_workAreaJpanel jp=(DeliMan_workAreaJpanel)c;
         jp.populate();
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
