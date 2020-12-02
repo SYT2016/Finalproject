@@ -5,17 +5,24 @@
  */
 package userinterface.BScustomerLogin;
 
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author wangcong
  */
 public class OrderHistoryJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    private UserAccount customer;
     /**
      * Creates new form OrderHistoryJPanel
      */
-    public OrderHistoryJPanel() {
+    public OrderHistoryJPanel(JPanel container,UserAccount customer) {
         initComponents();
+        this.container = container;
+        this.customer = customer;
     }
 
     /**
@@ -39,6 +46,11 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         jLabel1.setText("View Order History");
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         tblOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,6 +142,12 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
                 .addContainerGap(82, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);        
+        CardLayout layout=(CardLayout)container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

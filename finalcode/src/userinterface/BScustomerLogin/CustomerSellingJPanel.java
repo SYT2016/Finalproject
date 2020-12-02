@@ -5,17 +5,24 @@
  */
 package userinterface.BScustomerLogin;
 
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author wangcong
  */
 public class CustomerSellingJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    private UserAccount customer;
     /**
      * Creates new form CustomerSellingJPanel
      */
-    public CustomerSellingJPanel() {
+    public CustomerSellingJPanel(JPanel container,UserAccount customer) {
         initComponents();
+        this.container = container;
+        this.customer = customer;
     }
 
     /**
@@ -44,6 +51,11 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         jLabel1.setText("Seeling Your Book");
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("BookName:");
 
@@ -146,6 +158,12 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);        
+        CardLayout layout=(CardLayout)container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,18 +6,9 @@ package userinterface;
 
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
-import Business.Employee.Employee;
-import Business.Enterprise.DeliveryEnterprise;
 import Business.Enterprise.Enterprise;
-import Business.Enterprise.PublisherEnterprise;
 import Business.Network.Network;
-import Business.Organization.Deli_DeliveryManOrganization;
-import Business.Organization.Deli_ManagementOrganization;
 import Business.Organization.Organization;
-import Business.Organization.PB_ManagementOrganization;
-import Business.Role.Deli_DeliveryManRole;
-import Business.Role.Deli_DeliveryManageRole;
-import Business.Role.PB_ManageRole;
 import Business.Role.SYS_ManageRole;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
@@ -25,10 +16,10 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
-import userinterface.Deli_ManagerRole.DeliMana_workAreaJPanel;
+import userinterface.BScustomerLogin.CustomerCreateJPanel;
+import userinterface.BScustomerLogin.CustomerManageJPanel;
+import userinterface.BookStoreManagement.BSManagerMngJPanel;
 import userinterface.Enterprise_ManageRole.EnterpriseManageWorkAreaJPanel;
-import userinterface.PB_ManagerRole.PB_workAreaJPanel;
 import userinterface.PT_ManageRole.PT_ManageRoleJPanel;
 import userinterface.PT_PrintingMemberRole.PrintingMemberRoleJPanel;
 import userinterface.SYS_ManageRole.SYSAdminWorkAreaJPanel;
@@ -117,6 +108,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         jButton1.setText("Customer Rigister");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,6 +230,8 @@ public class MainJFrame extends javax.swing.JFrame {
             {
                 //AdminWorkAreaJPanel adminWorkAreaJPanel = new AdminWorkAreaJPanel(container,system.getRestaurantDirectory().RestaurantSearch(username));
                // container.add("adminWorkAreaJPanel", adminWorkAreaJPanel);
+                BSManagerMngJPanel BSManageRole = new BSManagerMngJPanel(container,useraccount);
+                container.add("BSManagerMngJPanel", BSManageRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -241,6 +239,8 @@ public class MainJFrame extends javax.swing.JFrame {
             {
               //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
               //  container.add("CustomerChooseRes", customerChooseRes);
+                CustomerManageJPanel customerRole = new CustomerManageJPanel(container,useraccount);
+                container.add("CustomerManageJPanel", customerRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -253,15 +253,15 @@ public class MainJFrame extends javax.swing.JFrame {
             }
             else if(rolename.equals("Deli_DeliveryManRole"))
             {
-                DeliMan_workAreaJpanel deliman = new DeliMan_workAreaJpanel(container,useraccount);
-                container.add("DeliMan_workAreaJpanel", deliman);
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
             else if(rolename.equals("Deli_DeliveryManageRole"))
             {
-                DeliMana_workAreaJPanel delimanager = new DeliMana_workAreaJPanel(container,useraccount);
-                container.add("DeliMana_workAreaJPanel", delimanager);
+              //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
+              //  container.add("CustomerChooseRes", customerChooseRes);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -281,8 +281,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
            else if(rolename.equals("PB_ManageRole"))
             {
-                PB_workAreaJPanel pbJP = new PB_workAreaJPanel(container,useraccount);
-                container.add("PB_workAreaJPanel", pbJP);
+                PT_ManageRoleJPanel pT_ManageRoleJPanel = new PT_ManageRoleJPanel();
+                container.add("pT_ManageRoleJPanel", pT_ManageRoleJPanel);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -325,6 +325,14 @@ public class MainJFrame extends javax.swing.JFrame {
         crdLyt.next(container);
        // dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutJButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
+        container.add("CustomerCreateJPanel", customerCreate);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -380,16 +388,7 @@ public class MainJFrame extends javax.swing.JFrame {
         SYS_ManageRole sYS_ManageRole  =new SYS_ManageRole();
         system.getUserAccountDirectory().createUserAccount("SYS-user1", "123", sYS_ManageRole);
        
-//        //出版社办公室
-//        PublisherEnterprise pb1=new PublisherEnterprise("LiuPublisher");
-//        PB_ManagementOrganization org=new PB_ManagementOrganization();
-//        Employee e1 = new Employee(pb1,org);
-//        system.getEmployeeDirectory().createEmployee(e1);       
-//        system.getUserAccountDirectory().createUserAccount("PB_Liu", "Liu",e1, new PB_ManageRole());
-       
-
-
-        dB4OUtil.storeSystem(system);
+         dB4OUtil.storeSystem(system);
     }
 
 }

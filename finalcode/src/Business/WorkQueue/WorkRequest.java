@@ -23,11 +23,6 @@ public class WorkRequest {
     private Date resolveDate;
     private Order order;
     
-    @Override
-    public String toString(){
-        return this.sender.getUsername();
-    }
-    
     public WorkRequest(){
         requestDate = new Date();
     }

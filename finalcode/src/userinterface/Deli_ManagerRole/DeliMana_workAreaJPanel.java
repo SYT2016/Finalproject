@@ -9,10 +9,13 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -28,6 +31,9 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         this.container=container;
         this.ua=ua;
         labelUser.setText(ua.getUsername());
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
         populate();
         comboDeliveryman.removeAll();
         for(Organization o:ua.getEmployee().getEnterprise().getOrganizationDirectory().getOrganizationList()){

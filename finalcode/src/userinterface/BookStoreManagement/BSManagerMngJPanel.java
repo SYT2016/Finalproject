@@ -5,17 +5,28 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+
+import javax.swing.*;
+import userinterface.BScustomerLogin.CustomerBuyingJPanel;
+
 /**
  *
  * @author wangcong
  */
 public class BSManagerMngJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    //private EcoSystem system;
+    private UserAccount bookStoreManager;
     /**
      * Creates new form BSManagerMngJPanel
      */
-    public BSManagerMngJPanel() {
+    public BSManagerMngJPanel(JPanel container,UserAccount bookStoreManager) {
         initComponents();
+        this.container = container;
+        this.bookStoreManager = bookStoreManager;
     }
 
     /**
@@ -29,8 +40,8 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         btnViewOrders = new javax.swing.JButton();
-        btnUploadBook = new javax.swing.JButton();
-        btnUploadBook1 = new javax.swing.JButton();
+        btnManageBook = new javax.swing.JButton();
+        btnManageStaff = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Welcome! Book Store Manager");
@@ -43,19 +54,19 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnUploadBook.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        btnUploadBook.setText("Manage Books");
-        btnUploadBook.addActionListener(new java.awt.event.ActionListener() {
+        btnManageBook.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnManageBook.setText("Manage Books");
+        btnManageBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUploadBookActionPerformed(evt);
+                btnManageBookActionPerformed(evt);
             }
         });
 
-        btnUploadBook1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        btnUploadBook1.setText("Manage Bookstore Staff");
-        btnUploadBook1.addActionListener(new java.awt.event.ActionListener() {
+        btnManageStaff.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnManageStaff.setText("Manage Bookstore Staff");
+        btnManageStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUploadBook1ActionPerformed(evt);
+                btnManageStaffActionPerformed(evt);
             }
         });
 
@@ -66,13 +77,13 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(194, 194, 194)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUploadBook)
+                    .addComponent(btnManageBook)
                     .addComponent(btnViewOrders))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(146, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUploadBook1)
+                    .addComponent(btnManageStaff)
                     .addComponent(jLabel1))
                 .addGap(140, 140, 140))
         );
@@ -84,29 +95,35 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(btnViewOrders)
                 .addGap(36, 36, 36)
-                .addComponent(btnUploadBook)
+                .addComponent(btnManageBook)
                 .addGap(40, 40, 40)
-                .addComponent(btnUploadBook1)
+                .addComponent(btnManageStaff)
                 .addContainerGap(127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUploadBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadBookActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUploadBookActionPerformed
+    private void btnManageBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageBookActionPerformed
+        ManageBooksJPanel manageBooksJPanel = new ManageBooksJPanel(container,bookStoreManager);
+        container.add("ManageBooksJPanel", manageBooksJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnManageBookActionPerformed
 
     private void btnViewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrdersActionPerformed
-        // TODO add your handling code here:
+        ManageOrdersJPanel manageOrdersJPanel = new ManageOrdersJPanel(container,bookStoreManager);
+        container.add("ManageOrdersJPanel", manageOrdersJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
     }//GEN-LAST:event_btnViewOrdersActionPerformed
 
-    private void btnUploadBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadBook1ActionPerformed
+    private void btnManageStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStaffActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUploadBook1ActionPerformed
+    }//GEN-LAST:event_btnManageStaffActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnUploadBook;
-    private javax.swing.JButton btnUploadBook1;
+    private javax.swing.JButton btnManageBook;
+    private javax.swing.JButton btnManageStaff;
     private javax.swing.JButton btnViewOrders;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

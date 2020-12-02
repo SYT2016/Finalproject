@@ -5,14 +5,22 @@
  */
 package Business.Enterprise;
 
+import Business.Organization.BS_BookManagementOrganization;
+
+
+
 /**
  *
  * @author 16104
  */
 public class BookstoreEnterprise extends Enterprise {
     
+    //private BS_BookManagementOrganization organization;
+    
     public BookstoreEnterprise(String EnterpriseName) {
         super(EnterpriseName, "Type-BookStore");//enterprise名字+类型 
     }
+  
+    
     
 }

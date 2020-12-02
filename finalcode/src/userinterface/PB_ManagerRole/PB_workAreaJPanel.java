@@ -14,7 +14,9 @@ import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.JTableHeader;
 /**
  *
  * @author admin
@@ -29,6 +31,12 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         this.container=container;
         this.user=user;
         labelUser.setText(user.getUsername());
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
+        head1.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
         populate();
     }
     

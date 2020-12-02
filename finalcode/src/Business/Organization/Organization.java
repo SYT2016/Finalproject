@@ -5,7 +5,7 @@
 package Business.Organization;
 
 import Business.EcoSystem;
-import Business.Employee.EmployeeDirectory;
+import Business.OrderSystem.BookDirectory;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
 
@@ -23,7 +23,6 @@ public abstract class Organization {
     private String enterpriseType;//5 enterprise 类
     private WorkQueue workQueue;
     private UserAccountDirectory userAccountDirectory;
-    private EmployeeDirectory employeeDirectory;
     private int organizationID;
     public static int counter=0;
     
@@ -35,7 +34,6 @@ public abstract class Organization {
         workQueue = new WorkQueue();
      //   employeeDirectory = new EmployeeDirectory();
         userAccountDirectory = new UserAccountDirectory();
-        employeeDirectory=new EmployeeDirectory();
         organizationID = counter;
         ++counter;
 
@@ -101,14 +99,6 @@ public abstract class Organization {
 
     public void setEnterpriseType(String enterpriseType) {
         this.enterpriseType = enterpriseType;
-    }
-
-    public EmployeeDirectory getEmployeeDirectory() {
-        return employeeDirectory;
-    }
-
-    public void setEmployeeDirectory(EmployeeDirectory employeeDirectory) {
-        this.employeeDirectory = employeeDirectory;
     }
     
     

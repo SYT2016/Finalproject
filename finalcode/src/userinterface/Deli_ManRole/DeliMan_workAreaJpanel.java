@@ -14,6 +14,9 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -27,7 +30,10 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
         initComponents();      
         this.container=container;
         this.ua=user;
-        labelUser.setText(ua.getUsername());       
+        labelUser.setText(ua.getUsername());   
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
         populate();
     }
 
