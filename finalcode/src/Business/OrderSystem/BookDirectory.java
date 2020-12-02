@@ -6,39 +6,33 @@
 package Business.OrderSystem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- *
- * @author 16104
+ * @author Cong
  */
-public class BookDirectory {//all menu
-    private ArrayList<Book> booklist;
-    
-    public BookDirectory(){
-        booklist=new ArrayList<Book> ();
-    }
-    public Book addProduct(){
-        Book book=new Book();
-        booklist.add(book);
-        return book;
-    
-    
-    }
-    
-        public void deletedProductDirectory(Book p){   
-        booklist.remove(p);
+public class BookDirectory {
 
+    private ArrayList<Book> booklist = new ArrayList<>();
+
+    public BookDirectory() {
     }
-        public Book searchProductDirectory(int bookID){
-        for(Book book:booklist){
-            if(book.getBookid()==bookID){
+
+    public void addProduct(Book book) {
+        book.setId(booklist.size() + 1);
+        booklist.add(book);
+    }
+
+    public void deletedProductDirectory(Book p) {
+        booklist.remove(p);
+    }
+
+    public Book searchProductDirectory(int bookID) {
+        for (Book book : booklist) {
+            if (book.getId() == bookID) {
                 return book;
             }
         }
         return null;
-    
-    
     }
 
     public ArrayList<Book> getBooklist() {
@@ -49,7 +43,7 @@ public class BookDirectory {//all menu
         this.booklist = booklist;
     }
 
-
-
-
+    public void update(Book book) {
+        booklist.set(book.getId(), book);
+    }
 }

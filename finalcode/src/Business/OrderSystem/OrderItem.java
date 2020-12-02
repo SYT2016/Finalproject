@@ -17,10 +17,10 @@ public class OrderItem {
     
     public OrderItem(Book b, int q,double pr) {
         selectedbook = b;
-        b.addOrderitemToBook(this); //把这个orderitem加入到book里面的orderitemlist里
+        b.addOrderItem(this); //把这个orderitem加入到book里面的orderitemlist里
         quantity = q;
         price=pr;
-        bookname=b.getBookname();
+        bookname=b.getName();
     }
     
     public double getOrderItemTotal() {

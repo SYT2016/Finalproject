@@ -11,53 +11,54 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 16104
+ * @author Cong
  */
 public class Book {
-    private int bookid;
-    private String bookname;
-    private double bookprice; 
-    private static int count=0;
-    private Enterprise enterprise;//出版社
-    private String status;//New or Old
-    private int totalQuatity;//库存数目
-    ArrayList<OrderItem> orderitems;
-    
-    
 
+    private int id;
+    private String name;
+    private double price;
+    private static int count = 0;
+    /** 出版社 */
+    private Enterprise enterprise;
+    /** New or Old */
+    private String status;
+    /** 库存数目 */
+    private int totalQuantity;
+    private ArrayList<OrderItem> orderItemList;
 
     public Book(){
          count++;
-         bookid=count;
-         orderitems=new ArrayList<OrderItem>();
+         id =count;
+         orderItemList = new ArrayList<>();
     }
 
-    public void addOrderitemToBook(OrderItem oi){
-        this.orderitems.add(oi);
+    public void addOrderItem(OrderItem oi){
+        this.orderItemList.add(oi);
     }
 
-    public int getBookid() {
-        return bookid;
+    public int getId() {
+        return id;
     }
 
-    public void setBookid(int bookid) {
-        this.bookid = bookid;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getBookname() {
-        return bookname;
+    public String getName() {
+        return name;
     }
 
-    public void setBookname(String bookname) {
-        this.bookname = bookname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getBookprice() {
-        return bookprice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setBookprice(double bookprice) {
-        this.bookprice = bookprice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public static int getCount() {
@@ -84,22 +85,24 @@ public class Book {
         this.status = status;
     }
 
-    public ArrayList<OrderItem> getOrderitems() {
-        return orderitems;
+    public ArrayList<OrderItem> getOrderItemList() {
+        return orderItemList;
     }
 
-    public void setOrderitems(ArrayList<OrderItem> orderitems) {
-        this.orderitems = orderitems;
+    public void setOrderItemList(ArrayList<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 
-    public int getTotalQuatity() {
-        return totalQuatity;
+    public int getTotalQuantity() {
+        return totalQuantity;
     }
 
-    public void setTotalQuatity(int totalQuatity) {
-        this.totalQuatity = totalQuatity;
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
-
-    
+    @Override
+    public String toString() {
+        return name;
+    }
 }

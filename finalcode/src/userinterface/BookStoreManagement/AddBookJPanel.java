@@ -5,14 +5,16 @@
  */
 package userinterface.BookStoreManagement;
 
-import Business.Enterprise.Enterprise;
 import Business.Enterprise.PrinterEnterprise;
 import Business.OrderSystem.Book;
 import Business.Organization.BS_BookManagementOrganization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
-import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
 
 /**
  *
@@ -167,6 +169,7 @@ public class AddBookJPanel extends javax.swing.JPanel {
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
         String bookName = txtBookName.getText();
         double bookprice = Double.parseDouble(txtPrice.getText());
@@ -175,12 +178,17 @@ public class AddBookJPanel extends javax.swing.JPanel {
         int totalQuality = Integer.parseInt(txtTotalQuantity.getText());
         
         BS_BookManagementOrganization bsManager = (BS_BookManagementOrganization)bookStoreManager.getEmployee().getOrganization();
-        Book newBook = bsManager.getBookDirectory().addProduct();
-        newBook.setBookname(bookName);
-        newBook.setBookprice(bookprice);
+        Book newBook = new Book();
+        newBook.setName(bookName);
+        newBook.setPrice(bookprice);
         newBook.setEnterprise(publisher);
         newBook.setStatus(status);
-        newBook.setTotalQuatity(totalQuality);
+        newBook.setTotalQuantity(totalQuality);
+        bsManager.getBookDirectory().addProduct(newBook);
+
+        dB4OUtil.storeSystem(system);
+        JOptionPane.showMessageDialog(null, "Add book sucessfully!");
+        
     }//GEN-LAST:event_btnUploadActionPerformed
 
 

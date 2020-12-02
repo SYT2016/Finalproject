@@ -32,9 +32,9 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
      * Creates new form CustomerBuyingJPanel
      */
     public CustomerBuyingJPanel(JPanel container,UserAccount customer) {
-        initComponents();
         this.container = container;
         this.customer = customer;
+        initComponents();
         populateCombo();
     }
     
@@ -42,7 +42,7 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
         //populate the location option
         comboNetwork.removeAllItems();
         for(Network nt:system.getNetworkDirectory().getNetworkList()){//把现有的network名字加到combox里面，因为要在network里面创建enterprise
-            comboNetwork.addItem(nt.getName());  
+            comboNetwork.addItem(nt);
         }
         
         //populate all boosktores
@@ -50,7 +50,7 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
          Network network = (Network)comboNetwork.getSelectedItem();
          for(Enterprise en:network.getEnterpriseDirectory().getEnterpriseList()){
              if(en.getEnterpriseType().equals("BookStore")){
-                 comboBookStore.addItem(en.getEnterpriseName());
+                 comboBookStore.addItem((BookstoreEnterprise) en);
              }
          }
     }
@@ -85,8 +85,6 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("Buying what you want!");
-
-        comboBookStore.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setText("Too many book? Try to search:");
 
@@ -137,7 +135,6 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Select your location:");
 
-        comboNetwork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboNetwork.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboNetworkItemStateChanged(evt);
@@ -232,7 +229,7 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        container.remove(this);        
+        container.remove(this);
         CardLayout layout=(CardLayout)container.getLayout();
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
@@ -241,9 +238,12 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
         //make two comboBox related
         comboBookStore.removeAllItems();
         Network network = (Network)comboNetwork.getSelectedItem();
+        if (network == null) {
+            return;
+        }
         for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
-            if(enterprise.getEnterpriseType().equals("BookStore")){
-                comboBookStore.addItem(enterprise.getEnterpriseName());
+            if(enterprise.getEnterpriseType().equals("Type-BookStore")){
+                comboBookStore.addItem((BookstoreEnterprise) enterprise);
             }
         }
         populateTable();
@@ -252,11 +252,11 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
 
     private void populateTable(){
         Network network = (Network)comboNetwork.getSelectedItem();
-        String bsName = (String)comboBookStore.getSelectedItem();
+        BookstoreEnterprise bookstore = (BookstoreEnterprise)comboBookStore.getSelectedItem();
 
         List<Book> bookList = new ArrayList<>();
         for(Enterprise enterprise :network.getEnterpriseDirectory().getEnterpriseList()){
-            if(enterprise.getEnterpriseName().equals(bsName)){
+            if(enterprise.getEnterpriseName().equals(bookstore.getEnterpriseName())){
                 BookstoreEnterprise bse = (BookstoreEnterprise) enterprise;
                 ArrayList<Organization> organizations =  bse.getOrganizationDirectory().getOrganizationList();
                 for (Organization organization : organizations) {
@@ -272,9 +272,9 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for(Book book:bookList){
             Object row[]=new Object[4];
-            row[0]= book.getBookname();
+            row[0]= book.getName();
             row[1]= book.getEnterprise().getEnterpriseName();
-            row[2]= String.valueOf(book.getBookprice());
+            row[2]= String.valueOf(book.getPrice());
             row[3]= book.getStatus();
             model.addRow(row);
         }
@@ -286,8 +286,8 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnViewDetails;
     private javax.swing.JButton btnViewShoppingCart;
-    private javax.swing.JComboBox<String> comboBookStore;
-    private javax.swing.JComboBox<String> comboNetwork;
+    private javax.swing.JComboBox<BookstoreEnterprise> comboBookStore;
+    private javax.swing.JComboBox<Network> comboNetwork;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
