@@ -5,9 +5,15 @@
  */
 package userinterface.BScustomerLogin;
 
+import Business.OrderSystem.Order;
+import Business.OrderSystem.OrderItem;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +29,24 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         initComponents();
         this.container = container;
         this.customer = customer;
+        populateOrderTable();
+    }
+    
+    public void populateOrderTable(){
+        DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
+        model.setRowCount(0);
+
+        ArrayList<WorkRequest> requestList = customer.getWorkQueue().getWorkRequestList();
+        for(WorkRequest request : requestList){
+            Object row[] = new Object[6];
+            row[0] = request.getOrder().getId();
+            row[1] = request.getSender().getUsername();
+            row[2] = request.getReceiverEnterprise().getEnterpriseName();
+            row[3] = request.getRequestDate();
+            row[4] = request.getStatus();
+            row[5] = request.getOrder().getTotalPrice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -79,17 +103,22 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         }
 
         btnViewDetails.setText("View Details");
+        btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDetailsActionPerformed(evt);
+            }
+        });
 
         tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "BookName", "Book Price", "Book Quantity", "status"
+                "BookName", "Bookstore", "Book Price", "Book Quantity", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -102,6 +131,7 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
             tblOrderItem.getColumnModel().getColumn(1).setResizable(false);
             tblOrderItem.getColumnModel().getColumn(2).setResizable(false);
             tblOrderItem.getColumnModel().getColumn(3).setResizable(false);
+            tblOrderItem.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -148,6 +178,31 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout)container.getLayout();
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
+        
+        int selectedRow = tblOrderItem.getSelectedRow();
+          if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a book!","Warning",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+        
+        Order order = (Order)tblOrderItem.getValueAt(selectedRow, 4);
+        
+        DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
+        model.setRowCount(0);
+
+        ArrayList<OrderItem> orderItemList = order.getOrderitems();
+        for(OrderItem orderItem : orderItemList){
+            Object row[] = new Object[5];
+            row[0] = orderItem.getBookname();
+            row[1] = orderItem.getBookstore();
+            row[2] = orderItem.getPrice();
+            row[3] = orderItem.getQuantity();
+            row[4] = orderItem.getSelectedbook().getStatus();
+            model.addRow(row);
+        }
+    }//GEN-LAST:event_btnViewDetailsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
