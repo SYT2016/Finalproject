@@ -26,7 +26,6 @@ public class UserAccount {
     private String address;
     private String phone;
     private ArrayList<Order> userorderlist;
-    
 
     public UserAccount() {
         Employee employee=new Employee();
@@ -34,12 +33,9 @@ public class UserAccount {
         userorderlist=new ArrayList<Order>();
     }
     
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+     @Override
+    public String toString() {
+        return username;
     }
     
     public String getUsername() {
@@ -85,14 +81,8 @@ public class UserAccount {
     public void setUserorderlist(ArrayList<Order> userorderlist) {
         this.userorderlist = userorderlist;
     }
-
-//    public void setAddress(String address){
-//        this.address = address;
-//    }
-    @Override
-    public String toString() {
-        return username;
-    }
+    
+   
 
     public String getAddress() {
         return address;
@@ -100,6 +90,14 @@ public class UserAccount {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
     
