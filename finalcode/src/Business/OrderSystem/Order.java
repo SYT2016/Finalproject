@@ -19,7 +19,8 @@ public class Order {
     private static int count=0;
     private UserAccount userAccount; //一个订单的创始者
     private String totalPrice; //add a new attribute: total Price
-
+    private ArrayList<OrderItem> orderItems;
+    
     public String getTotalPrice() {
         return totalPrice;
     }
@@ -27,28 +28,27 @@ public class Order {
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
-    ArrayList<OrderItem> orderitems;
   
 
     public Order(){    
-        orderitems = new ArrayList();
+        orderItems = new ArrayList();
         id=count++;
         
         
     }
     public OrderItem newOrderItem(Book b, int q,double pr){
         OrderItem oi = new OrderItem(b, q,pr);
-        orderitems.add(oi);
+        orderItems.add(oi);
         return oi;
     }
     
     public void deleteOrderItem(OrderItem oi){
-        orderitems.remove(oi);
+        orderItems.remove(oi);
     }
     
     public double getOrderTotal(){    
         double sum = 0;
-        for(OrderItem oi: orderitems){
+        for(OrderItem oi: orderItems){
             sum = sum + oi.getOrderItemTotal();
         }
         return sum;
@@ -57,11 +57,11 @@ public class Order {
    
 
     public ArrayList<OrderItem> getOrderitems() {
-        return orderitems;
+        return orderItems;
     }
 
     public void setOrderitems(ArrayList<OrderItem> orderitems) {
-        this.orderitems = orderitems;
+        this.orderItems = orderitems;
     }
 
     public String getStatus() {
