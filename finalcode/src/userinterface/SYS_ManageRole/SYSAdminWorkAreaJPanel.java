@@ -92,11 +92,11 @@ public class SYSAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addComponent(jLabel2)
-                .addGap(155, 155, 155)
+                .addGap(137, 137, 137)
                 .addComponent(btnManageNetwork)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnManageEnterprise)
-                .addContainerGap(443, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
 
         jSplitPane.setRightComponent(jPanel2);
@@ -109,7 +109,7 @@ public class SYSAdminWorkAreaJPanel extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 858, Short.MAX_VALUE)
+            .addGap(0, 871, Short.MAX_VALUE)
         );
 
         jSplitPane.setLeftComponent(jPanel3);

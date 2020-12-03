@@ -19,7 +19,7 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CustomerManageJPanel
      */
-    public CustomerManageJPanel(JPanel containter,UserAccount customer) {
+    public CustomerManageJPanel(JPanel container, UserAccount customer) {
         initComponents();
         this.container = container;
         this.customer = customer;
@@ -102,7 +102,7 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
 
     private void btnBuyingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyingActionPerformed
 
-        CustomerBuyingJPanel customerBuying = new CustomerBuyingJPanel(container,customer);
+        CustomerBuyingJPanel customerBuying = new CustomerBuyingJPanel(container, customer);
         container.add("CustomerBuyingJPanel", customerBuying);
         CardLayout layout = (CardLayout) container.getLayout();
         layout.next(container);

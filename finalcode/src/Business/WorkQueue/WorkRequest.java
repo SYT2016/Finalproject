@@ -4,6 +4,7 @@
  */
 package Business.WorkQueue;
 
+import Business.Enterprise.Enterprise;
 import Business.OrderSystem.Order;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
@@ -17,6 +18,8 @@ public class WorkRequest {
     private String message;//备注
     private UserAccount sender;
     private UserAccount receiver;
+    private UserAccount receiverUserAccount;
+    private Enterprise receiverEnterprise;
     private String status;//request是否已经处理.11/24补充:Completed,Uncompleted
     
     private Date requestDate;
@@ -43,13 +46,23 @@ public class WorkRequest {
         this.sender = sender;
     }
 
-    public UserAccount getReceiver() {
-        return receiver;
+    public UserAccount getReceiverUserAccount() {
+        return receiverUserAccount;
     }
 
-    public void setReceiver(UserAccount receiver) {
-        this.receiver = receiver;
+    public void setReceiverUserAccount(UserAccount receiverUserAccount) {
+        this.receiverUserAccount = receiverUserAccount;
     }
+
+    public Enterprise getReceiverEnterprise() {
+        return receiverEnterprise;
+    }
+
+    public void setReceiverEnterprise(Enterprise receiverEnterprise) {
+        this.receiverEnterprise = receiverEnterprise;
+    }
+
+    
 
     public String getStatus() {
         return status;
@@ -82,5 +95,15 @@ public class WorkRequest {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    public UserAccount getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(UserAccount receiver) {
+        this.receiver = receiver;
+    }
+    
+    
     
 }

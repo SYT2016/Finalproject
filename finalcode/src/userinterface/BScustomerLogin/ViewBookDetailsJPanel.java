@@ -5,18 +5,37 @@
  */
 package userinterface.BScustomerLogin;
 
+import Business.OrderSystem.Book;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author wangcong
  */
 public class ViewBookDetailsJPanel extends javax.swing.JPanel {
-
+    private JPanel container;
+    private UserAccount customer;
+    private Book selectedBook;
+      
     /**
      * Creates new form ViewBookDetailsJPanel
      */
-    public ViewBookDetailsJPanel() {
+    public ViewBookDetailsJPanel(JPanel container,UserAccount customer,Book selectedBook) {
         initComponents();
+        this.container = container;
+        this.customer = customer;
+        this.selectedBook = selectedBook;
+        populateTxt();
     }
+    
+    public void populateTxt(){
+           txtBookName.setText(selectedBook.getName());
+           txtBookPrice.setText(String.valueOf(selectedBook.getPrice()));
+           txtBookStatus.setText(selectedBook.getStatus());
+           txtPress.setText(selectedBook.getEnterprise().getEnterpriseName());
+           txtBookTotalQuantity.setText(String.valueOf(selectedBook.getTotalQuantity()));
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,9 +58,6 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
         txtPress = new javax.swing.JTextField();
         txtBookStatus = new javax.swing.JTextField();
         txtBookTotalQuantity = new javax.swing.JTextField();
-        btnAddToCart = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        txtWanttedQuantity = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("View Book Details");
@@ -58,10 +74,6 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
 
         btnBack.setText("<<Back");
 
-        btnAddToCart.setText("Add to Cart!!!");
-
-        jLabel7.setText("wantted Quantity:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,7 +87,7 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
@@ -95,16 +107,9 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtBookPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7))
+                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtWanttedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAddToCart))
-                                    .addComponent(txtBookTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(txtBookTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,6 +124,7 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(28, 28, 28)))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -130,31 +136,19 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtPress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtBookStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtBookStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtBookTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtWanttedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddToCart)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddToCart;
     private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -162,12 +156,10 @@ public class ViewBookDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtBookName;
     private javax.swing.JTextField txtBookPrice;
     private javax.swing.JTextField txtBookStatus;
     private javax.swing.JTextField txtBookTotalQuantity;
     private javax.swing.JTextField txtPress;
-    private javax.swing.JTextField txtWanttedQuantity;
     // End of variables declaration//GEN-END:variables
 }

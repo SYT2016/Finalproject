@@ -3,16 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BookStoreManagement/BSManagerMngJPanel.java</file>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BScustomerLogin/CustomerSellingJPanel.java</file>
+            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/SYS_ManageRole/MngEnterprise.java</file>
+            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BScustomerLogin/CustomerManageJPanel.java</file>
+            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BScustomerLogin/OrderHistoryJPanel.java</file>
+            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BookStoreManagement/AddBookJPanel.java</file>
+            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BScustomerLogin/CustomerBuyingJPanel.java</file>
             <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BScustomerLogin/CustomerCreateJPanel.java</file>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/Business/UserAccount/UserAccount.java</file>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/Business/Role/BS_BookManageRole.java</file>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/Business/UserAccount/UserAccountDirectory.java</file>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/Business/Organization/Organization.java</file>
             <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/MainJFrame.java</file>
-            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/Business/Role/BS_CustomerRole.java</file>
             <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BookStoreManagement/ManageBooksJPanel.java</file>
+            <file>file:/Users/wangcong/workspace/NEU/Finalproject/finalcode/src/userinterface/BScustomerLogin/ViewBookDetailsJPanel.java</file>
         </group>
     </open-files>
 </project-private>

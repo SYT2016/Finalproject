@@ -23,6 +23,7 @@ import static userinterface.MainJFrame.system;
 public class CustomerCreateJPanel extends javax.swing.JPanel {
     private JPanel container;
     private EcoSystem system;
+    
     /**
      * Creates new form CustomerCreateJPanel
      */

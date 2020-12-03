@@ -24,7 +24,9 @@ public class UserAccount {
     private Role role;
     private WorkQueue workQueue;
     private String address;
+    private String phone;
     private ArrayList<Order> userorderlist;
+    
 
     public UserAccount() {
         Employee employee=new Employee();
@@ -32,7 +34,13 @@ public class UserAccount {
         userorderlist=new ArrayList<Order>();
     }
     
-    
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     
     public String getUsername() {
         return username;
