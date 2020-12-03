@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class WorkQueue {
     
     private ArrayList<WorkRequest> workRequestList;
-
+    
+    
     public void addNewRequest(WorkRequest wr){
         workRequestList.add(wr);
     }
