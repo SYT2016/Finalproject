@@ -32,10 +32,9 @@ public class Order {
 
     public Order(){    
         orderItems = new ArrayList();
-        id=count++;
-        
-        
+        id=count++; 
     }
+    
     public OrderItem newOrderItem(Book b, int q,double pr){
         OrderItem oi = new OrderItem(b, q,pr);
         orderItems.add(oi);

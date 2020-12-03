@@ -27,6 +27,8 @@ public abstract class Enterprise {
     private OrganizationDirectory organizationDirectory;//该公司的部门
     private int enterpriseID;
     public static int counter=0;
+    private String EnterpriseAddress;
+    
     public Enterprise(String name,String type){
         this.EnterpriseName=name;
         this.EnterpriseType=type;
@@ -47,6 +49,15 @@ public abstract class Enterprise {
         Enterprise.counter = counter;
     }
 
+    public String getEnterpriseAddress() {
+        return EnterpriseAddress;
+    }
+
+    public void setEnterpriseAddress(String EnterpriseAddress) {
+        this.EnterpriseAddress = EnterpriseAddress;
+    }
+    
+    
     public String getEnterpriseName() {
         return EnterpriseName;
     }

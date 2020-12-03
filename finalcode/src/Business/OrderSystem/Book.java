@@ -26,6 +26,7 @@ public class Book {
     /** 库存数目 */
     private int totalQuantity;
     private ArrayList<OrderItem> orderItemList;
+    private int wanttedQuantity;
 
     public Book(){
          count++;
@@ -101,6 +102,15 @@ public class Book {
         this.totalQuantity = totalQuantity;
     }
 
+    public int getWanttedQuantity() {
+        return wanttedQuantity;
+    }
+
+    public void setWanttedQuantity(int wanttedQuantity) {
+        this.wanttedQuantity = wanttedQuantity;
+    }
+    
+    
     @Override
     public String toString() {
         return name;

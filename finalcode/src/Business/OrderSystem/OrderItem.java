@@ -5,23 +5,40 @@
  */
 package Business.OrderSystem;
 
+import Business.Enterprise.BookstoreEnterprise;
+import Business.Network.Network;
+
 /**
  *
- * @author 16104
+ * @author 16104,wangcong
  */
 public class OrderItem {
     private Book selectedbook;
     private int quantity;
     private double price;
     private String bookname;
+    private Network network;
+    private BookstoreEnterprise bookstore;
     
-    public OrderItem(Book b, int q,double pr) {
-        selectedbook = b;
-        b.addOrderItem(this); //把这个orderitem加入到book里面的orderitemlist里
-        quantity = q;
-        price=pr;
-        bookname=b.getName();
+    public OrderItem(Book book, int quantity,double price) {
+        this.selectedbook = book;
+        this.selectedbook.addOrderItem(this); //把这个orderitem加入到book里面的orderitemlist里
+        this.quantity = quantity;
+        this.price=price;
+        bookname=selectedbook.getName();
     }
+    
+    /*customer order use*/
+    public OrderItem(Book book, int quantity,double price,Network network,BookstoreEnterprise bookstore){
+        this.selectedbook = book;
+        //this.selectedbook.addOrderItem(this); //把这个orderitem加入到book里面的orderitemlist里
+        this.quantity = quantity;
+        this.price=price;
+        bookname=selectedbook.getName();
+        this.network = network;
+        this.bookstore = bookstore;
+    }
+    
     
     public double getOrderItemTotal() {
         return price * quantity;
@@ -61,6 +78,23 @@ public class OrderItem {
         this.price = price;
     }
 
+    public Network getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(Network network) {
+        this.network = network;
+    }
+
+    public BookstoreEnterprise getBookstore() {
+        return bookstore;
+    }
+
+    public void setBookstore(BookstoreEnterprise bookstore) {
+        this.bookstore = bookstore;
+    }
+    
+    
     @Override
     public String toString() {
         return "OrderItem{" + "selectedbook=" + selectedbook + ", quantity=" + quantity + ", price=" + price + ", bookname=" + bookname + '}';
