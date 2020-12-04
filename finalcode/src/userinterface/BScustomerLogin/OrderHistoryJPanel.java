@@ -40,7 +40,7 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         for(WorkRequest request : requestList){
             Object row[] = new Object[6];
             row[0] = request.getOrder().getId();
-            row[1] = request.getSender().getUsername();
+            row[1] = request.getSenderUserAccount().getUsername();
             row[2] = request.getReceiverEnterprise().getEnterpriseName();
             row[3] = request.getRequestDate();
             row[4] = request.getStatus();

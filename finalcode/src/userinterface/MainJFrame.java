@@ -13,7 +13,10 @@ import Business.Role.SYS_ManageRole;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userinterface.BScustomerLogin.CustomerCreateJPanel;
@@ -22,7 +25,9 @@ import userinterface.BookStoreManagement.BSManagerMngJPanel;
 import userinterface.Enterprise_ManageRole.EnterpriseManageWorkAreaJPanel;
 import userinterface.PT_ManageRole.PT_ManageRoleJPanel;
 import userinterface.PT_PrintingMemberRole.PrintingMemberRoleJPanel;
+import userinterface.SYS_ManageRole.AddNewCustomer;
 import userinterface.SYS_ManageRole.SYSAdminWorkAreaJPanel;
+import zMusic.playMusic;
 
 
 /**
@@ -75,7 +80,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         jSplitPane1.setDividerSize(0);
 
@@ -210,7 +214,13 @@ public class MainJFrame extends javax.swing.JFrame {
     
     }
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
-        // Get user name    
+        try {
+            new playMusic().play();
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+// Get user name    
         String username=userNameJTextField.getText();
         String password=passwordField.getText();
        
@@ -313,7 +323,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
-     //   logoutJButton.setEnabled(false);
+        try {
+            new playMusic().play();
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+//   logoutJButton.setEnabled(false);
     //    userNameJTextField.setEnabled(true);
    //     passwordField.setEnabled(true);
    //     loginJButton.setEnabled(true);
@@ -330,8 +345,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
-        container.add("CustomerCreateJPanel", customerCreate);
+        //CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
+        //container.add("CustomerCreateJPanel", customerCreate);
+         AddNewCustomer addNewCustomer = new AddNewCustomer(container);
+        container.add("addNewCustomer", addNewCustomer);
         CardLayout layout = (CardLayout) container.getLayout();
         layout.next(container);
         

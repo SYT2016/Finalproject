@@ -10,6 +10,7 @@ package Business.Enterprise;
 import Business.EcoSystem;
 import Business.Network.Network;
 import Business.Organization.OrganizationDirectory;
+import Business.UserAccount.UserAccount;
 
 
 /**
@@ -28,6 +29,10 @@ public abstract class Enterprise {
     private OrganizationDirectory organizationDirectory;//该公司的部门
     private int enterpriseID;
     public static int counter=0;
+    
+     private UserAccount EnterpriseManager;
+    
+    
     public Enterprise(String name,String type){
         this.EnterpriseName=name;
         this.EnterpriseType=type;
@@ -70,6 +75,14 @@ public abstract class Enterprise {
 
     public void setNetwork(Network network) {
         this.network = network;
+    }
+
+    public UserAccount getEnterpriseManager() {
+        return EnterpriseManager;
+    }
+
+    public void setEnterpriseManager(UserAccount EnterpriseManager) {
+        this.EnterpriseManager = EnterpriseManager;
     }
 
    
