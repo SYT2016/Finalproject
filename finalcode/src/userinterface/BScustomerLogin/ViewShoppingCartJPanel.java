@@ -6,7 +6,6 @@
 package userinterface.BScustomerLogin;
 
 import Business.Enterprise.BookstoreEnterprise;
-import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.OrderSystem.Book;
 import Business.OrderSystem.Order;
@@ -15,15 +14,15 @@ import Business.Organization.BS_BookManagementOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
+
 import java.awt.CardLayout;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author wangcong
  */
 public class ViewShoppingCartJPanel extends javax.swing.JPanel {
@@ -33,25 +32,26 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
     private Network network;
     private BookstoreEnterprise bookstore;
     private BS_BookManagementOrganization bookstoreOrg;
+
     /**
      * Creates new form ViewShoppingCartJPanel
      */
-    public ViewShoppingCartJPanel(JPanel container,UserAccount customer,ArrayList<OrderItem> orderItemList,Network network,BookstoreEnterprise bookstore) {
+    public ViewShoppingCartJPanel(JPanel container, UserAccount customer, ArrayList<OrderItem> orderItemList, Network network, BookstoreEnterprise bookstore) {
         this.container = container;
         this.customer = customer;
         this.orderItemList = orderItemList;
         this.network = network;
         this.bookstore = bookstore;
-        
+
         initComponents();
         populateTable();
     }
-    
-    private void populateTable(){
-        DefaultTableModel model = (DefaultTableModel)tblShoppingCart.getModel();
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblShoppingCart.getModel();
         model.setRowCount(0);
-        for (OrderItem orderItem : orderItemList){
-            Object row[]=new Object[6];
+        for (OrderItem orderItem : orderItemList) {
+            Object row[] = new Object[6];
             row[0] = orderItem.getBookname();
             row[1] = orderItem.getNetwork();
             row[2] = orderItem.getBookstore();
@@ -60,10 +60,10 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
             row[5] = orderItem.getSelectedbook().getWanttedQuantity();
             model.addRow(row);
         }
-        
+
         /*Set the total price*/
         double totalPrice = 0;
-        for (OrderItem orderItem : orderItemList){
+        for (OrderItem orderItem : orderItemList) {
             totalPrice = orderItem.getOrderItemTotal();
         }
         txtTotalPrice.setText(String.valueOf(totalPrice));
@@ -89,22 +89,22 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
         txtComment = new javax.swing.JTextField();
 
         tblShoppingCart.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "BookName", "Network", "Bookstore", "Price", "status", "Number"
-            }
+                new Object[][]{
+                        {null, null, null, null, null, null},
+                        {null, null, null, null, null, null},
+                        {null, null, null, null, null, null},
+                        {null, null, null, null, null, null}
+                },
+                new String[]{
+                        "BookName", "Network", "Bookstore", "Price", "status", "Number"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblShoppingCart);
@@ -143,113 +143,119 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(30, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addGap(37, 37, 37))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnCheckOut)
-                                .addGap(43, 43, 43))))))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(btnBack)
+                                                                .addGap(41, 41, 41)
+                                                                .addComponent(jLabel1))
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addContainerGap(30, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jLabel3)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(jLabel2)
+                                                                .addGap(37, 37, 37))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(57, 57, 57))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                .addComponent(btnCheckOut)
+                                                                .addGap(43, 43, 43))))))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(btnBack)
-                        .addGap(52, 52, 52))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(34, 34, 34)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCheckOut))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(17, 17, 17)
+                                                .addComponent(btnBack)
+                                                .addGap(52, 52, 52))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jLabel1)
+                                                .addGap(34, 34, 34)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnCheckOut))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         container.remove(this);
-        CardLayout layout=(CardLayout)container.getLayout();
+        CardLayout layout = (CardLayout) container.getLayout();
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
 
-          /*set order*/
-          Order order = new Order();
-          order.setOrderitems(orderItemList);
-          order.setStatus("Prepare");
-          order.setUserAccount(customer);
-          order.setTotalPrice(txtTotalPrice.getText());
-          order.setComments(txtComment.getText());
-          
-          /*set workRequest*/
-          customer.getUserorderlist().add(order);
-          WorkRequest workRequest = new WorkRequest();
-          workRequest.setOrder(order);
-          workRequest.setSenderUserAccount(customer);
-          workRequest.setReceiverEnterprise(bookstore);
-          workRequest.setStatus("Prepare");
-          workRequest.setMessage(txtComment.getText());
-          customer.getWorkQueue().addNewRequest(workRequest);
-          
-          ArrayList<Organization> bookManageList = bookstore.getOrganizationDirectory().getOrganizationList();
-          for(Organization org : bookManageList){
-              if(org.getOrgtypename().equals("BS_BookManagementOrganization")){
-                bookstoreOrg = (BS_BookManagementOrganization)org; 
+        /*set order*/
+        Order order = new Order();
+        order.setOrderItems(new ArrayList<>(orderItemList));
+        order.setStatus("Prepare");
+        order.setUserAccount(customer);
+        order.setTotalPrice(txtTotalPrice.getText());
+        order.setComments(txtComment.getText());
+
+        /*set workRequest*/
+        customer.getUserorderlist().add(order);
+        WorkRequest workRequest = new WorkRequest();
+        workRequest.setOrder(order);
+        workRequest.setSenderUserAccount(customer);
+        workRequest.setReceiverEnterprise(bookstore);
+        workRequest.setStatus("Uncompleted");
+        workRequest.setMessage(txtComment.getText());
+        customer.getWorkQueue().addNewRequest(workRequest);
+
+        ArrayList<Organization> bookManageList = bookstore.getOrganizationDirectory().getOrganizationList();
+        for (Organization org : bookManageList) {
+            if (org.getOrgtypename().equals("BS_BookManagementOrganization")) {
+                bookstoreOrg = (BS_BookManagementOrganization) org;
                 bookstoreOrg.getWorkQueue().addNewRequest(workRequest);
-              }
-          }
-          
-          ArrayList<Book> books = bookstoreOrg.getBookDirectory().getBooklist();
-          /*inventroy subtraction*/
-          for(OrderItem orderItem : orderItemList){
-             int trueQuantity = orderItem.getSelectedbook().getTotalQuantity()-orderItem.getQuantity();
+            }
+        }
+
+        ArrayList<Book> books = bookstoreOrg.getBookDirectory().getBooklist();
+        /*inventroy subtraction*/
+        for (OrderItem orderItem : orderItemList) {
+            int trueQuantity = orderItem.getSelectedbook().getTotalQuantity() - orderItem.getQuantity();
             // ArrayList<Organization> orgs = bookstore.getOrganizationDirectory().getOrganizationList();
-             for(Book book: books){
-                 if(orderItem.getBookname().equals(book.getName())){
-                     book.setTotalQuantity(trueQuantity);
-                 }
-             }
-          }
+            for (Book book : books) {
+                if (orderItem.getBookname().equals(book.getName())) {
+                    book.setTotalQuantity(trueQuantity);
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "Check out sucessfully!");
+        //dB4OUtil.storeSystem(system);
+        DefaultTableModel model = (DefaultTableModel) tblShoppingCart.getModel();
+        model.setRowCount(0);
+        orderItemList.clear();
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
- 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCheckOut;

@@ -308,6 +308,7 @@ public class CustomerBuyingJPanel extends javax.swing.JPanel {
           double selectedBookPrice = selectedBook.getPrice();
           OrderItem orderItem = new OrderItem(selectedBook,wanttedQuantity,selectedBookPrice,network,bookstore);
           /* put selected book to the selectedBookList*/
+          //orderItemList = new ArrayList<OrderItem>;
           orderItemList.add(orderItem);
           JOptionPane.showMessageDialog(null, "Add to your cart!");
     }//GEN-LAST:event_btnAddToCartActionPerformed
