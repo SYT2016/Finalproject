@@ -11,6 +11,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -39,11 +40,12 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         ArrayList<WorkRequest> requestList = customer.getWorkQueue().getWorkRequestList();
         for(WorkRequest request : requestList){
             Object row[] = new Object[6];
-            row[0] = request.getOrder().getId();
+            row[0] = request.getOrder();
             row[1] = request.getSender().getUsername();
             row[2] = request.getReceiverEnterprise().getEnterpriseName();
             row[3] = request.getRequestDate();
-            row[4] = request.getStatus();
+            //row[4] = request.getStatus();
+            row[4] = request.getOrder().getStatus();
             row[5] = request.getOrder().getTotalPrice();
             model.addRow(row);
         }
@@ -144,14 +146,17 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
                 .addGap(95, 95, 95)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnViewDetails)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2)))
-                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnViewDetails)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,11 +170,11 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
                         .addComponent(btnBack)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(34, 34, 34)
                 .addComponent(btnViewDetails)
-                .addGap(31, 31, 31)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,19 +186,19 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
 
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
         
-        int selectedRow = tblOrderItem.getSelectedRow();
-          if (selectedRow < 0){
-              JOptionPane.showMessageDialog(null, "please select a book!","Warning",JOptionPane.WARNING_MESSAGE);
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a Order!","Warning",JOptionPane.WARNING_MESSAGE);
               return;
           }
         
-        Order order = (Order)tblOrderItem.getValueAt(selectedRow, 4);
+        Order order = (Order)tblOrder.getValueAt(selectedRow, 0);
         
-        DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
+        DefaultTableModel model=(DefaultTableModel)tblOrderItem.getModel();
         model.setRowCount(0);
 
-        ArrayList<OrderItem> orderItemList = order.getOrderitems();
-        for(OrderItem orderItem : orderItemList){
+        List<OrderItem> orderItemList = order.getOrderItems();
+        for(OrderItem orderItem : orderItemList) {
             Object row[] = new Object[5];
             row[0] = orderItem.getBookname();
             row[1] = orderItem.getBookstore();

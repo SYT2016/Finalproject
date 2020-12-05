@@ -37,7 +37,7 @@ public class PB_RequestDetailsJPanel extends javax.swing.JPanel {
     public void populate(){
         DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
         dtm.setRowCount(0);
-        for(OrderItem oi:wr.getOrder().getOrderitems()){
+        for(OrderItem oi:wr.getOrder().getOrderItems()){
             Object[] row=new Object[4];
             row[0]=oi;
             row[1]=oi.getQuantity()+"";

@@ -44,7 +44,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
     public void populate(){
         DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
         dtm.setRowCount(0);
-        for(OrderItem oi:wr.getOrder().getOrderitems()){
+        for(OrderItem oi:wr.getOrder().getOrderItems()){
             Object[] row=new Object[4];
             row[0]=oi;
             row[1]=oi.getQuantity()+"";
@@ -147,7 +147,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "The Quantity can not be less than 1", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
             OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
-            for(OrderItem o:wr.getOrder().getOrderitems()){
+            for(OrderItem o:wr.getOrder().getOrderItems()){
                 if(o==oi){
                     o.setQuantity(quan);
                 }

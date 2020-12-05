@@ -41,7 +41,6 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnViewOrders = new javax.swing.JButton();
         btnManageBook = new javax.swing.JButton();
-        btnManageStaff = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Welcome! Book Store Manager");
@@ -62,14 +61,6 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnManageStaff.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        btnManageStaff.setText("Manage Bookstore Staff");
-        btnManageStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageStaffActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,9 +73,7 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(146, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnManageStaff)
-                    .addComponent(jLabel1))
+                .addComponent(jLabel1)
                 .addGap(140, 140, 140))
         );
         layout.setVerticalGroup(
@@ -92,13 +81,11 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addComponent(btnViewOrders)
                 .addGap(36, 36, 36)
+                .addComponent(btnViewOrders)
+                .addGap(45, 45, 45)
                 .addComponent(btnManageBook)
-                .addGap(40, 40, 40)
-                .addComponent(btnManageStaff)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,14 +103,9 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_btnViewOrdersActionPerformed
 
-    private void btnManageStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStaffActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnManageStaffActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageBook;
-    private javax.swing.JButton btnManageStaff;
     private javax.swing.JButton btnViewOrders;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
