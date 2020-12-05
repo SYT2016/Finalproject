@@ -13,12 +13,15 @@ import java.util.ArrayList;
 public class WorkQueue {
     
     private ArrayList<WorkRequest> workRequestList;
-    
+    private ArrayList<WorkRequest> workRequestBSToPBList;
     
     public void addNewRequest(WorkRequest wr){
         workRequestList.add(wr);
     }
     
+    public void addNewBSToPublisherRequest(WorkRequest wr){
+        workRequestBSToPBList.add(wr);
+    }
     public WorkQueue() {
         workRequestList = new ArrayList();
     }
