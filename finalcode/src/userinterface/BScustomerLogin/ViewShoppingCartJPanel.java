@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
+
 /**
  * @author wangcong
  */
@@ -31,12 +34,12 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
     private ArrayList<OrderItem> orderItemList;
     private Network network;
     private BookstoreEnterprise bookstore;
-    private BS_BookManagementOrganization bookstoreOrg;
 
     /**
      * Creates new form ViewShoppingCartJPanel
      */
-    public ViewShoppingCartJPanel(JPanel container, UserAccount customer, ArrayList<OrderItem> orderItemList, Network network, BookstoreEnterprise bookstore) {
+    public ViewShoppingCartJPanel(JPanel container, UserAccount customer, ArrayList<OrderItem> orderItemList,
+                                  Network network, BookstoreEnterprise bookstore) {
         this.container = container;
         this.customer = customer;
         this.orderItemList = orderItemList;
@@ -228,22 +231,22 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
         workRequest.setMessage(txtComment.getText());
         customer.getWorkQueue().addNewRequest(workRequest);
 
+        /*add the workrequest to the Bookstore_manage organization*/
         ArrayList<Organization> bookManageList = bookstore.getOrganizationDirectory().getOrganizationList();
         for (Organization org : bookManageList) {
             if (org.getOrgtypename().equals("BS_BookManagementOrganization")) {
-                bookstoreOrg = (BS_BookManagementOrganization) org;
+                BS_BookManagementOrganization bookstoreOrg = (BS_BookManagementOrganization) org;
                 bookstoreOrg.getWorkQueue().addNewRequest(workRequest);
-            }
-        }
-
-        ArrayList<Book> books = bookstoreOrg.getBookDirectory().getBooklist();
-        /*inventroy subtraction*/
-        for (OrderItem orderItem : orderItemList) {
-            int trueQuantity = orderItem.getSelectedbook().getTotalQuantity() - orderItem.getQuantity();
-            // ArrayList<Organization> orgs = bookstore.getOrganizationDirectory().getOrganizationList();
-            for (Book book : books) {
-                if (orderItem.getBookname().equals(book.getName())) {
-                    book.setTotalQuantity(trueQuantity);
+                ArrayList<Book> books = bookstoreOrg.getBookDirectory().getBooklist();
+                /*inventroy subtraction*/
+                for (OrderItem orderItem : orderItemList) {
+                    int trueQuantity = orderItem.getSelectedbook().getTotalQuantity() - orderItem.getQuantity();
+                    // ArrayList<Organization> orgs = bookstore.getOrganizationDirectory().getOrganizationList();
+                    for (Book book : books) {
+                        if (orderItem.getBookname().equals(book.getName())) {
+                            book.setTotalQuantity(trueQuantity);
+                        }
+                    }
                 }
             }
         }
