@@ -222,7 +222,7 @@ public class ViewShoppingCartJPanel extends javax.swing.JPanel {
         customer.getUserorderlist().add(order);
         WorkRequest workRequest = new WorkRequest();
         workRequest.setOrder(order);
-        workRequest.setSender(customer);
+        workRequest.setSenderUserAccount(customer);
         workRequest.setReceiverEnterprise(bookstore);
         workRequest.setStatus("Uncompleted");
         workRequest.setMessage(txtComment.getText());

@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
 
 /**
  *
@@ -132,7 +133,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         container.remove(this);
         Component[] coms=container.getComponents();
         Component c=(Component)coms[coms.length-1];
-        PB_RequestDetailsJPanel jp=(PB_RequestDetailsJPanel)c;
+        PB_workAreaJPanel jp=(PB_workAreaJPanel)c;
         jp.populate();
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
@@ -157,28 +158,38 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQuantityActionPerformed
 
     private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
+
         PrinterEnterprise selectedPrint=(PrinterEnterprise)comboPrint.getSelectedItem();
         if(selectedPrint!=null){
-            for(Organization o:selectedPrint.getOrganizationDirectory().getOrganizationList()){
-                if(o.getOrgtypename().equals("PT_ManagementOrganization")){
-                    WorkRequest newReq=new WorkRequest();
-                    newReq.setOrder(wr.getOrder());
-                    newReq.setSender(ua);
-                    newReq.setStatus("Uncompleted");
-                    //发给印刷厂办公室第一个userAccount了
-                    newReq.setReceiver(o.getUserAccountDirectory().getUserAccountList().get(0));
-                    o.getWorkQueue().addNewRequest(newReq);
-                    //message
-                    int check=JOptionPane.YES_NO_OPTION;
-                    String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);        
-                    if(check==JOptionPane.YES_OPTION){
-                        newReq.setMessage(mesg);
-                        JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
-                        wr.setStatus("Completed");
-                    }                    
-                }
+            for(Enterprise e:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
+                if(e.equals(selectedPrint)){
+                    for(Organization o:e.getOrganizationDirectory().getOrganizationList()){
+                        if(o.getOrgtypename().equals("PT_ManagementOrganization")){
+                            WorkRequest newReq=new WorkRequest();
+                            newReq.setOrder(wr.getOrder());
+                            newReq.setSenderEnterprise(ua.getEmployee().getEnterprise());
+                            newReq.setStatus("Uncompleted");
+                            newReq.setReceiverEnterprise(e);
+                            
+                            //message
+                            int check=JOptionPane.YES_NO_OPTION;
+                            String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);        
+                            if(check==JOptionPane.YES_OPTION){
+                                newReq.setMessage(mesg);
+                                JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
+                                wr.setStatus("Completed");
+                            }
+                            o.getWorkQueue().addNewRequest(newReq);
+                        }
+                    }
+                }           
             }            
         }
+        
+        txtQuantity.setEnabled(false);
+        btnQuantity.setEnabled(false);
+        btnDelete.setEnabled(false);
+        comboPrint.setEnabled(false);
     }//GEN-LAST:event_btnCommitActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          

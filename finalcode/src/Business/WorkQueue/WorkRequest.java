@@ -16,20 +16,28 @@ import java.util.Date;
 public class WorkRequest {
 
     private String message;//备注
-    private UserAccount sender;
-    private UserAccount receiver;
-    private UserAccount receiverUserAccount;
-    private Enterprise receiverEnterprise;
-    private String status;//request是否已经处理.11/24补充:Completed,Uncompleted
-    
+    private UserAccount senderUserAccount;
+    private Enterprise senderEnterprise;
+    private UserAccount receiverUserAccount;//部门间wr
+    private Enterprise receiverEnterprise;//企业间wr
+    private String status;//request是否已经处理.11/24补充:Completed,Uncompleted   
     private Date requestDate;
     private Date resolveDate;
     private Order order;
     
     public WorkRequest(){
         requestDate = new Date();
+        senderUserAccount=null;
+        senderEnterprise=null;
+        receiverUserAccount=null;
+        receiverEnterprise=null;
     }
 
+    @Override
+    public String toString(){
+        return this.requestDate.toString();
+    }
+    
     public String getMessage() {
         return message;
     }
@@ -37,32 +45,6 @@ public class WorkRequest {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public UserAccount getSender() {
-        return sender;
-    }
-
-    public void setSender(UserAccount sender) {
-        this.sender = sender;
-    }
-
-    public UserAccount getReceiverUserAccount() {
-        return receiverUserAccount;
-    }
-
-    public void setReceiverUserAccount(UserAccount receiverUserAccount) {
-        this.receiverUserAccount = receiverUserAccount;
-    }
-
-    public Enterprise getReceiverEnterprise() {
-        return receiverEnterprise;
-    }
-
-    public void setReceiverEnterprise(Enterprise receiverEnterprise) {
-        this.receiverEnterprise = receiverEnterprise;
-    }
-
-    
 
     public String getStatus() {
         return status;
@@ -96,14 +78,36 @@ public class WorkRequest {
         this.order = order;
     }
 
-    public UserAccount getReceiver() {
-        return receiver;
+    public UserAccount getReceiverUserAccount() {
+        return receiverUserAccount;
     }
 
-    public void setReceiver(UserAccount receiver) {
-        this.receiver = receiver;
+    public void setReceiverUserAccount(UserAccount receiverUserAccount) {
+        this.receiverUserAccount = receiverUserAccount;
     }
-    
-    
+
+    public Enterprise getReceiverEnterprise() {
+        return receiverEnterprise;
+    }
+
+    public void setReceiverEnterprise(Enterprise receiverEnterprise) {
+        this.receiverEnterprise = receiverEnterprise;
+    }
+
+    public UserAccount getSenderUserAccount() {
+        return senderUserAccount;
+    }
+
+    public void setSenderUserAccount(UserAccount senderUserAccount) {
+        this.senderUserAccount = senderUserAccount;
+    }
+
+    public Enterprise getSenderEnterprise() {
+        return senderEnterprise;
+    }
+
+    public void setSenderEnterprise(Enterprise senderEnterprise) {
+        this.senderEnterprise = senderEnterprise;
+    }
     
 }

@@ -10,6 +10,7 @@ package Business.Enterprise;
 import Business.EcoSystem;
 import Business.Network.Network;
 import Business.Organization.OrganizationDirectory;
+import Business.UserAccount.UserAccount;
 
 
 /**
@@ -23,11 +24,14 @@ public abstract class Enterprise {
     private Network network;
 //Five type "BookStore""DeliveryCompany" "Printer" "Publisher" "Population" 
 //PopulationEnterprise只有一个不可创建多个
-    
+    private String Address;
+    private String phone;
     private OrganizationDirectory organizationDirectory;//该公司的部门
     private int enterpriseID;
     public static int counter=0;
-    private String EnterpriseAddress;
+    
+     private UserAccount EnterpriseManager;
+    
     
     public Enterprise(String name,String type){
         this.EnterpriseName=name;
@@ -49,15 +53,6 @@ public abstract class Enterprise {
         Enterprise.counter = counter;
     }
 
-    public String getEnterpriseAddress() {
-        return EnterpriseAddress;
-    }
-
-    public void setEnterpriseAddress(String EnterpriseAddress) {
-        this.EnterpriseAddress = EnterpriseAddress;
-    }
-    
-    
     public String getEnterpriseName() {
         return EnterpriseName;
     }
@@ -82,6 +77,14 @@ public abstract class Enterprise {
         this.network = network;
     }
 
+    public UserAccount getEnterpriseManager() {
+        return EnterpriseManager;
+    }
+
+    public void setEnterpriseManager(UserAccount EnterpriseManager) {
+        this.EnterpriseManager = EnterpriseManager;
+    }
+
    
 
     public OrganizationDirectory getOrganizationDirectory() {
@@ -99,6 +102,22 @@ public abstract class Enterprise {
     @Override
     public String toString() {
         return EnterpriseName ;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     
