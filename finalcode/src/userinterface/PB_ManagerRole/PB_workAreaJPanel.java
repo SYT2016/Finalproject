@@ -171,7 +171,7 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
             WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 1);
             DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
             dtm.setRowCount(0);
-            for(OrderItem oi:wr.getOrder().getOrderitems()){
+            for(OrderItem oi:wr.getOrder().getOrderItems()){
                 Object[] r=new Object[4];
                 r[0]=oi;
                 r[1]=oi.getQuantity()+"";

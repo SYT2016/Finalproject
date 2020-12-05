@@ -5,13 +5,18 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.Enterprise.BookstoreEnterprise;
+import Business.OrderSystem.Order;
 import Business.Organization.BS_BookManagementOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.BScustomerLogin.CustomerSellingJPanel;
 
 /**
  *
@@ -27,6 +32,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         this.container = container;
         this.bookStoreManager = bookStoreManager;
         initComponents();
+        populateOrderTable();
         
     }
 
@@ -46,6 +52,12 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             row[5] = request.getOrder().getTotalPrice();
             model.addRow(row);
         }
+    }
+    
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        populateOrderTable();
     }
      /**
      * This method is called from within the constructor to initialize the form.
@@ -143,7 +155,18 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
-        // TODO add your handling code here:
+        
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a Order!","Warning",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+        WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+        
+        ProcessOrderJPanel processOrderJPanel = new ProcessOrderJPanel(container,bookStoreManager,workRequest);
+        container.add("ProcessOrderJPanel", processOrderJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
     }//GEN-LAST:event_btnProcessActionPerformed
 
 
