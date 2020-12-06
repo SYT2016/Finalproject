@@ -102,9 +102,9 @@ public class MngEnterprise extends javax.swing.JPanel {
         b1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1546, 1200));
+        setPreferredSize(new java.awt.Dimension(950, 800));
 
-        jButton4.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton4.setText("Back");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +112,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton6.setText("Add New Enterprise");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tekton Pro Ext", 0, 36)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tekton Pro Ext", 0, 30)); // NOI18N
         jButton3.setText("View Detail");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +128,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton5.setText("Refresh");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,10 +136,10 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 3, 54)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
         jLabel1.setText("Manage All Enterprise");
 
-        jButton1.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton1.setText("Delete");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +147,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        mngcus.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        mngcus.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         mngcus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -156,27 +156,13 @@ public class MngEnterprise extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Enterprise ID", "Enterprise Name", "Manager Username", "Manager Password", "Enterprise Type"
+                "ID", "Name", "Manager UName", "Manager PSW", "Type"
             }
         ));
         mngcus.setRowHeight(38);
         jScrollPane1.setViewportView(mngcus);
-        if (mngcus.getColumnModel().getColumnCount() > 0) {
-            mngcus.getColumnModel().getColumn(0).setMinWidth(240);
-            mngcus.getColumnModel().getColumn(0).setPreferredWidth(240);
-            mngcus.getColumnModel().getColumn(0).setMaxWidth(240);
-            mngcus.getColumnModel().getColumn(1).setMinWidth(270);
-            mngcus.getColumnModel().getColumn(1).setPreferredWidth(270);
-            mngcus.getColumnModel().getColumn(1).setMaxWidth(270);
-            mngcus.getColumnModel().getColumn(2).setMinWidth(300);
-            mngcus.getColumnModel().getColumn(2).setPreferredWidth(300);
-            mngcus.getColumnModel().getColumn(2).setMaxWidth(300);
-            mngcus.getColumnModel().getColumn(3).setMinWidth(290);
-            mngcus.getColumnModel().getColumn(3).setPreferredWidth(290);
-            mngcus.getColumnModel().getColumn(3).setMaxWidth(290);
-        }
 
-        b1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        b1.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         b1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         b1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,62 +170,68 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel2.setText("Choose one Network");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        jLabel2.setText("Choose Network");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(481, 481, 481)
-                .addComponent(jLabel1)
-                .addContainerGap(500, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jScrollPane1)
-                .addGap(64, 64, 64))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel2)
                         .addGap(65, 65, 65)
-                        .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton5)
+                        .addGap(0, 52, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(189, 189, 189))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(133, 133, 133)
-                                .addComponent(jButton6)))))
-                .addGap(42, 42, 42))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel1)
-                .addGap(92, 92, 92)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton5)))
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
-                .addGap(58, 58, 58)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
                     .addComponent(jButton3)
+                    .addComponent(jButton6))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
                     .addComponent(jButton4))
-                .addGap(131, 131, 131))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
