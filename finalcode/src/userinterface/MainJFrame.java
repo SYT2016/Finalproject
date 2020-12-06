@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.BSSecondHand.SecondHandOrderMngJPanel;
 import userinterface.BScustomerLogin.CustomerCreateJPanel;
 import userinterface.BScustomerLogin.CustomerManageJPanel;
 import userinterface.BookStoreManagement.BSManagerMngJPanel;
@@ -261,6 +262,8 @@ public class MainJFrame extends javax.swing.JFrame {
             {
               //  CustomerChooseRes customerChooseRes = new CustomerChooseRes(container,system.getCustomerDirectory().CustomerSearch(username));
               //  container.add("CustomerChooseRes", customerChooseRes);
+                SecondHandOrderMngJPanel secondHandOrderMngJPanel = new SecondHandOrderMngJPanel(container,useraccount);
+                container.add("SecondHandOrderMngJPanel", secondHandOrderMngJPanel);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -345,10 +348,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
+        CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
+        container.add("CustomerCreateJPanel", customerCreate);
+        //AddNewCustomer addNewCustomer = new AddNewCustomer(container);
         //container.add("CustomerCreateJPanel", customerCreate);
-         AddNewCustomer addNewCustomer = new AddNewCustomer(container);
-        container.add("addNewCustomer", addNewCustomer);
         CardLayout layout = (CardLayout) container.getLayout();
         layout.next(container);
         
@@ -408,7 +411,7 @@ public class MainJFrame extends javax.swing.JFrame {
         SYS_ManageRole sYS_ManageRole  =new SYS_ManageRole();
         system.getUserAccountDirectory().createUserAccount("SYS-user1", "123", sYS_ManageRole);
        
-         dB4OUtil.storeSystem(system);
+        dB4OUtil.storeSystem(system);
     }
 
 }

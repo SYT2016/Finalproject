@@ -39,6 +39,7 @@ public class OrderBookToPublisherJPanel extends javax.swing.JPanel {
         this.bookstoreManager = bookstoreManager;
         this.selectedBook = selectedBook;
         initComponents();
+        populateTxt();
     }
     
     public void populateTxt(){

@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.BookStoreManagement;
-
+package userinterface.BSSecondHand;
 import Business.Enterprise.DeliveryEnterprise;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
@@ -23,29 +22,29 @@ import static userinterface.MainJFrame.system;
  *
  * @author wangcong
  */
-public class ProcessOrderJPanel extends javax.swing.JPanel {
+public class SecondHandProcessJPanel extends javax.swing.JPanel {
     private JPanel container;
-    private UserAccount bookstoreManager;
+    private UserAccount shBookstoreManager;
     private WorkRequest workRequest;
     /**
-     * Creates new form ProcessOrderJPanel
+     * Creates new form SecondHandProcessJPanel
      */
-    public ProcessOrderJPanel(JPanel container,UserAccount bookstoreManager,WorkRequest workRequest) {
+    public SecondHandProcessJPanel(JPanel container,UserAccount shBookstoreManager,WorkRequest workRequest) {
         this.container = container;
-        this.bookstoreManager = bookstoreManager;
+        this.shBookstoreManager = shBookstoreManager;
         this.workRequest = workRequest;
         initComponents();
         populateCombo();
     }
     
     public void populateCombo(){
-        //comboStatus.removeAllItems();
+        comboStatus.removeAllItems();
         ArrayList<Network> networkList = system.getNetworkDirectory().getNetworkList();
         for(Network net : networkList){
             ArrayList<Enterprise> enterPriseList = net.getEnterpriseDirectory().getEnterpriseList();
             for(Enterprise enterprise: enterPriseList){
                 if(enterprise.getEnterpriseType().equals("Type-DeliveryCompany")){
-                    comboExpress.addItem(enterprise.getEnterpriseName());
+                    comboStatus.addItem(enterprise.getEnterpriseName());
                 }
             }
         }
@@ -60,22 +59,19 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comboStatus = new javax.swing.JComboBox<>();
         comboExpress = new javax.swing.JComboBox<>();
-        btnOrder = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtComment = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-
-        btnBack.setText("<<Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
+        txtComment = new javax.swing.JTextField();
+        btnOrder = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtExpectedPrice = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtFinalPrice = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Process Order");
@@ -92,6 +88,12 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel3.setText("Select Express Delivering:");
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel4.setText("Supply Information:");
+
         btnOrder.setText("Order to Express!");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,53 +101,60 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel3.setText("Select Express Delivering:");
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel4.setText("Supply Information:");
+        jLabel5.setText("Expected Price:");
+
+        jLabel6.setText("Final Price:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(213, 213, 213))
+                .addGap(0, 134, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtExpectedPrice)
+                    .addComponent(txtFinalPrice)
+                    .addComponent(comboExpress, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(127, 127, 127))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(btnBack))
+                        .addComponent(btnBack)
+                        .addGap(120, 120, 120)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(211, 211, 211)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4)))
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnOrder)
-                            .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(comboExpress, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addGap(219, 219, 219)
+                        .addComponent(btnOrder)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnBack)))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -155,54 +164,64 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
                     .addComponent(comboExpress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(txtComment)
                     .addComponent(jLabel4))
-                .addGap(27, 27, 27)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtExpectedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(txtFinalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(btnOrder)
-                .addGap(54, 54, 54))
+                .addGap(65, 65, 65))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        container.remove(this);
-        CardLayout layout=(CardLayout)container.getLayout();
-        layout.previous(container);
-    }//GEN-LAST:event_btnBackActionPerformed
+    private void comboExpressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboExpressActionPerformed
+
+    }//GEN-LAST:event_comboExpressActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         /*Get comboBox infomation*/
         String processStatus = (String) comboStatus.getSelectedItem();
         DeliveryEnterprise deliveryCompany = (DeliveryEnterprise)comboExpress.getSelectedItem();
-        
+
         /*get the delivery company*/
         Deli_ManagementOrganization deliOrg = null;
-        
+
         ArrayList<Organization> deliverList =  deliveryCompany.getOrganizationDirectory().getOrganizationList();
         for(Organization org : deliverList){
             if(org.getOrgtypename().equals("Deli_ManagementOrganization")){
                 deliOrg = (Deli_ManagementOrganization)org;
             }
         }
-        
+
         /*Set the Status information in order*/
         workRequest.getOrder().setStatus(processStatus);
+        workRequest.getOrder().setComments(txtComment.getText());
         workRequest.setStatus("completed");
-        
+        workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
+
         /*set workRequest*/
         WorkRequest wq = new WorkRequest();
         wq.setOrder(workRequest.getOrder());
-        wq.setSenderEnterprise(bookstoreManager.getEmployee().getEnterprise());
+        wq.setSenderEnterprise(shBookstoreManager.getEmployee().getEnterprise());
         wq.setReceiverEnterprise(deliveryCompany);
         wq.setStatus("Uncompleted");
         wq.setMessage(txtComment.getText());
         deliOrg.getWorkQueue().addNewRequest(wq);
         JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");
-        
+
     }//GEN-LAST:event_btnOrderActionPerformed
 
-    private void comboExpressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboExpressActionPerformed
-        
-    }//GEN-LAST:event_comboExpressActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);
+        CardLayout layout=(CardLayout)container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,6 +233,10 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtComment;
+    private javax.swing.JTextField txtExpectedPrice;
+    private javax.swing.JTextField txtFinalPrice;
     // End of variables declaration//GEN-END:variables
 }

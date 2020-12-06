@@ -21,17 +21,56 @@ public class Order {
     private UserAccount userAccount; //一个订单的创始者
     private String totalPrice; //add a new attribute: total Price
     private List<OrderItem> orderItems = new ArrayList<>();
+    private String expectedPrice;
+    private String finalPrice;
+    private int sellingNumber;
+    private String address;
+    
+    public Order() {
+        id = count++;
+    }
 
-    public String getTotalPrice() {
+    public int getSellingNumber() {
+        return sellingNumber;
+    }
+
+    public void setSellingNumber(int sellingNumber) {
+        this.sellingNumber = sellingNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+   
+
+    public String getExpectedPrice() {
+        return expectedPrice;
+    }
+
+    public void setExpectedPrice(String expectedPrice) {
+        this.expectedPrice = expectedPrice;
+    }
+
+    public String getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(String finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+    
+    
+    
+     public String getTotalPrice() {
         return totalPrice;
     }
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public Order() {
-        id = count++;
     }
 
     public OrderItem newOrderItem(Book b, int q, double pr) {

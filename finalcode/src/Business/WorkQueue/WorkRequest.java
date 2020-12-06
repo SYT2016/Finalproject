@@ -35,7 +35,8 @@ public class WorkRequest {
 
     @Override
     public String toString(){
-        return this.requestDate.toString();
+        //return this.requestDate.toString();
+        return String.valueOf(order.getId());
     }
     
     public String getMessage() {

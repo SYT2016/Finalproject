@@ -50,18 +50,18 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="280" max="32767" attributes="0"/>
+                      <EmptySpace pref="342" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="272" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnManageEnterprise" min="-2" pref="720" max="-2" attributes="0"/>
-                                  <Component id="btnManageNetwork" min="-2" pref="720" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnManageNetwork" pref="440" max="32767" attributes="0"/>
+                                  <Component id="btnManageEnterprise" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="403" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="683" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -72,11 +72,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="301" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
                       <Component id="btnManageNetwork" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnManageEnterprise" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="436" max="32767" attributes="0"/>
+                      <EmptySpace pref="654" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -85,7 +85,7 @@
             <Component class="javax.swing.JButton" name="btnManageNetwork">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tekton Pro Ext" size="48" style="1"/>
+                  <Font name="Tekton Pro Ext" size="18" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manage All Network"/>
               </Properties>
@@ -96,7 +96,7 @@
             <Component class="javax.swing.JButton" name="btnManageEnterprise">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tekton Pro Ext" size="48" style="1"/>
+                  <Font name="Tekton Pro Ext" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manage Enterprise"/>
               </Properties>
