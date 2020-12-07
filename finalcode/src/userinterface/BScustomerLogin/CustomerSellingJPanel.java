@@ -37,8 +37,9 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         this.container = container;
         this.customer = customer;
         initComponents();
-        populateCombo();
         txtCustomerAddress.setText(customer.getAddress());
+        populateCombo();
+        
     }
 
     /**
@@ -204,6 +205,7 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         //populate the location option
         comboNetwork.removeAllItems();
         for (Network nt : system.getNetworkDirectory().getNetworkList()) {
+            comboNetwork.addItem(nt);
         }
 
         //populate all boosktores
@@ -263,8 +265,14 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         workRequest.setMessage(txtComment.getText());
         customer.getWorkQueue().addNewCusToSHBSRequest(workRequest);
         
+        
         /*add the workrequest to the BS_SecondHandOrganization*/
         ArrayList<Organization> bookManageList = bookstore.getOrganizationDirectory().getOrganizationList();
+        if(bookManageList == null){
+            JOptionPane.showMessageDialog(null,"The book does not have second-hand service!");
+            return;
+        }
+
         for (Organization org : bookManageList) {
             if (org.getOrgtypename().equals("BS_SecondHandOrganization")) {
                 BS_SecondHandOrganization bookstoreOrg = (BS_SecondHandOrganization) org;

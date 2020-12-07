@@ -39,13 +39,15 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
     }
     
     public void populateCombo(){
-        //comboStatus.removeAllItems();
+        comboExpress.removeAllItems();
         ArrayList<Network> networkList = system.getNetworkDirectory().getNetworkList();
         for(Network net : networkList){
             ArrayList<Enterprise> enterPriseList = net.getEnterpriseDirectory().getEnterpriseList();
             for(Enterprise enterprise: enterPriseList){
                 if(enterprise.getEnterpriseType().equals("Type-DeliveryCompany")){
-                    comboExpress.addItem(enterprise.getEnterpriseName());
+                    DeliveryEnterprise deliveryEnterprise = (DeliveryEnterprise)enterprise;
+                    comboExpress.addItem(deliveryEnterprise);
+                    
                 }
             }
         }
@@ -85,7 +87,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
 
         comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recieved", "Rejected" }));
 
-        comboExpress.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboExpress.setModel(new javax.swing.DefaultComboBoxModel<>(new DeliveryEnterprise[]{}));
         comboExpress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboExpressActionPerformed(evt);
@@ -170,10 +172,10 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        /*Get comboBox infomation*/
+        /*Get comboBox information*/
         String processStatus = (String) comboStatus.getSelectedItem();
         DeliveryEnterprise deliveryCompany = (DeliveryEnterprise)comboExpress.getSelectedItem();
-        
+
         /*get the delivery company*/
         Deli_ManagementOrganization deliOrg = null;
         
@@ -196,6 +198,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         wq.setStatus("Uncompleted");
         wq.setMessage(txtComment.getText());
         deliOrg.getWorkQueue().addNewRequest(wq);
+        bookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewBSToPublisherRequest(wq);
         JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");
         
     }//GEN-LAST:event_btnOrderActionPerformed
@@ -208,7 +211,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnOrder;
-    private javax.swing.JComboBox<String> comboExpress;
+    private javax.swing.JComboBox<DeliveryEnterprise> comboExpress;
     private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

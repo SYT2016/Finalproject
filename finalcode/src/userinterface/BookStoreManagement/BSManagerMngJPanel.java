@@ -5,14 +5,12 @@
  */
 package userinterface.BookStoreManagement;
 
-import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
-import java.awt.CardLayout;
-import java.util.ArrayList;
 
 import javax.swing.*;
-import userinterface.BScustomerLogin.CustomerBuyingJPanel;
+import java.awt.*;
+import java.util.List;
 
 /**
  *
@@ -122,11 +120,8 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewOrdersActionPerformed
 
     private void btnViewPublisherOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPublisherOrdersActionPerformed
-        ArrayList<WorkRequest> requestList = bookStoreManager.getWorkQueue().getWorkRequestBSToPBList();
-        if(requestList.size()==0){
-            JOptionPane.showMessageDialog(null, "You don't have any order to publisher!");
-            return;
-        }
+        List<WorkRequest> requestList = bookStoreManager.getWorkQueue().getWorkRequestBSToPBList();
+
         ViewPublisherOrderJPanel viewPublisherOrderJPanel = new ViewPublisherOrderJPanel(container,bookStoreManager);
         container.add("ViewPublisherOrderJPanel", viewPublisherOrderJPanel);
         CardLayout layout = (CardLayout) container.getLayout();

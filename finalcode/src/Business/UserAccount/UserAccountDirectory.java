@@ -73,7 +73,19 @@ public class UserAccountDirectory {
         //userAccount.setEmployee(employee);
         userAccount.setRole(role);
         userAccountList.add(userAccount);
+        //userAccount.setAddress(address);
         //System.out.println("qqq");
+        return userAccount;
+    }
+    
+    public UserAccount createUserAccount(String username, String password, Employee employee, Role role,String address){
+        UserAccount userAccount = new UserAccount();
+        userAccount.setUsername(username);
+        userAccount.setPassword(password);
+        userAccount.setEmployee(employee);
+        userAccount.setRole(role);
+        userAccountList.add(userAccount);
+        userAccount.setAddress(address);
         return userAccount;
     }
     

@@ -81,8 +81,6 @@ public class UserAccount {
     public void setUserorderlist(ArrayList<Order> userorderlist) {
         this.userorderlist = userorderlist;
     }
-    
-   
 
     public String getAddress() {
         return address;
@@ -99,7 +97,4 @@ public class UserAccount {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
-    
-    
 }
