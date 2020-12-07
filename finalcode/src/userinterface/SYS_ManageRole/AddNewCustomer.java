@@ -86,6 +86,8 @@ public class AddNewCustomer extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(950, 800));
 
@@ -129,6 +131,11 @@ public class AddNewCustomer extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
         jLabel7.setText("At least 6 characters and can contain letters and numbers");
 
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        jLabel8.setText("Address:");
+
+        txtAddress.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,16 +160,22 @@ public class AddNewCustomer extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel1))
-                                        .addGap(108, 108, 108)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel3)
+                                                    .addComponent(jLabel1)
+                                                    .addComponent(jLabel8))
+                                                .addGap(108, 108, 108))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addGap(105, 105, 105)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(txtPword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                                             .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtRePword))))))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                            .addComponent(txtRePword)
+                                            .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING))))))))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,16 +189,20 @@ public class AddNewCustomer extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(15, 15, 15)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnBack))
@@ -224,7 +241,7 @@ public class AddNewCustomer extends javax.swing.JPanel {
         
             BS_CustomerRole bS_CustomerRole  =new BS_CustomerRole();
         Employee emplo=new Employee();
-        UserAccount ua=system.getUserAccountDirectory().createUserAccount(txtUser.getText(), txtPword.getText(), emplo,bS_CustomerRole);
+        UserAccount ua=system.getUserAccountDirectory().createUserAccount(txtUser.getText(), txtPword.getText(), emplo,bS_CustomerRole,txtAddress.getText());
        
         JOptionPane.showMessageDialog(null, "Create Useraccount Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
         dB4OUtil.storeSystem(system);
@@ -254,6 +271,8 @@ public class AddNewCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtPword;
     private javax.swing.JTextField txtRePword;
     private javax.swing.JTextField txtUser;

@@ -5,15 +5,13 @@
  */
 package userinterface.BSSecondHand;
 
-import Business.OrderSystem.Book;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
-import java.awt.CardLayout;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import userinterface.BookStoreManagement.OrderBookToPublisherJPanel;
+import java.awt.*;
+import java.util.List;
 
 /**
  *
@@ -36,10 +34,10 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
         DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
         model.setRowCount(0);
 
-        ArrayList<WorkRequest> requestList = shBookstoreManager.getWorkQueue().getWorkRequestCusToSHBSList();
+        List<WorkRequest> requestList = shBookstoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestCusToSHBSList();
         for(WorkRequest request : requestList){
-            Object row[] = new Object[7];
-            row[0] = request.getOrder();
+            Object[] row = new Object[7];
+            row[0] = request;
             row[1] = request.getSenderUserAccount();
             row[2] = request.getSenderUserAccount().getAddress();
             row[3] = request.getRequestDate();
@@ -145,6 +143,7 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
               JOptionPane.showMessageDialog(null, "please select a Order!","Warning",JOptionPane.WARNING_MESSAGE);
               return;
           }
+        
         WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
         
         SecondHandProcessJPanel secondHandProcessJPanel = new SecondHandProcessJPanel(container,shBookstoreManager,workRequest);

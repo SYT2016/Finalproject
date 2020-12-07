@@ -9,12 +9,11 @@ import Business.OrderSystem.Order;
 import Business.OrderSystem.OrderItem;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
-import java.awt.CardLayout;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
 
 /**
  *
@@ -37,12 +36,12 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
         DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
         model.setRowCount(0);
         
-        ArrayList<WorkRequest> requestList = bookStoreManager.getWorkQueue().getWorkRequestBSToPBList();
+        List<WorkRequest> requestList = bookStoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestBSToPBList();
         for(WorkRequest request : requestList){
             Object row[] = new Object[6];
             row[0] = request;
-            row[1] = request.getSenderUserAccount().getUsername();
-            row[2] = request.getReceiverEnterprise().getEnterpriseName();
+            row[1] = request.getSenderEnterprise();
+            row[2] = request.getReceiverEnterprise();
             row[3] = request.getRequestDate();
             //row[4] = request.getStatus();
             row[4] = request.getOrder().getStatus();
@@ -177,7 +176,9 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
             return;
         }
 
-        Order order = (Order)tblOrder.getValueAt(selectedRow, 0);
+        WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+        Order order = workRequest.getOrder();
+        //Order order = (Order)tblOrder.getValueAt(selectedRow, 0);
 
         DefaultTableModel model=(DefaultTableModel)tblOrderItem.getModel();
         model.setRowCount(0);

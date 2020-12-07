@@ -354,13 +354,13 @@ public class MainJFrame extends javax.swing.JFrame {
         container.add("blank", blankJP);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
-       // dB4OUtil.storeSystem(system);
+        dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //CustomerCreateJPanel customerCreate = new CustomerCreateJPanel(container,system);
         //container.add("CustomerCreateJPanel", customerCreate);
-         AddNewCustomer addNewCustomer = new AddNewCustomer(container);
+        AddNewCustomer addNewCustomer = new AddNewCustomer(container);
         container.add("addNewCustomer", addNewCustomer);
         CardLayout layout = (CardLayout) container.getLayout();
         layout.next(container);

@@ -7,10 +7,11 @@ package userinterface.BScustomerLogin;
 
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
-import java.awt.CardLayout;
-import java.util.ArrayList;
-import javax.swing.JPanel;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
 
 /**
  *
@@ -23,9 +24,9 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
      * Creates new form OrderSellingHistoryJPanel
      */
     public OrderSellingHistoryJPanel(JPanel container,UserAccount customer) {
+        initComponents();
         this.container = container;
         this.customer = customer;
-        initComponents();
         populateTable();
     }
     
@@ -33,9 +34,9 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
         DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
         model.setRowCount(0);
 
-        ArrayList<WorkRequest> requestList = customer.getWorkQueue().getWorkRequestCusToSHBSList();
+        List<WorkRequest> requestList = customer.getWorkQueue().getWorkRequestCusToSHBSList();
         for(WorkRequest request : requestList){
-            Object row[] = new Object[7];
+            Object[] row = new Object[7];
             row[0] = request.getOrder();
             row[1] = request.getReceiverEnterprise().getEnterpriseName();
             row[2] = request.getReceiverEnterprise().getAddress();
@@ -62,7 +63,7 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
         tblOrder = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setText("View Order History");
+        jLabel1.setText("View Selling Order History");
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -94,32 +95,30 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(btnBack)
-                .addGap(95, 95, 95)
-                .addComponent(jLabel1)
-                .addContainerGap(232, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(76, 76, 76)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(77, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btnBack)
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
-                    .addComponent(btnBack))
-                .addContainerGap(242, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(107, 107, 107)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(108, Short.MAX_VALUE)))
+                        .addGap(35, 35, 35)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel1)))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
