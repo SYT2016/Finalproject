@@ -44,7 +44,7 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
                       <Component id="btnOrder" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -160,7 +160,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnOrder">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Order to Express!"/>
+        <Property name="text" type="java.lang.String" value="sure!"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderActionPerformed"/>
