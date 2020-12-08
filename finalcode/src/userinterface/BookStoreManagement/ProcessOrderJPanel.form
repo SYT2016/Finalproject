@@ -53,7 +53,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="60" max="32767" attributes="0"/>
+              <EmptySpace pref="94" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -139,7 +139,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnOrder">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Order to Express!"/>
+        <Property name="text" type="java.lang.String" value="Sure"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderActionPerformed"/>

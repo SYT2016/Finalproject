@@ -36,6 +36,8 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
         initComponents();
         txtExpectedPrice.setText(workRequest.getOrder().getExpectedPrice());
         populateCombo();
+        
+        
     }
     
     public void populateCombo(){
@@ -96,7 +98,7 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel4.setText("Supply Information:");
 
-        btnOrder.setText("Order to Express!");
+        btnOrder.setText("sure!");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
@@ -142,7 +144,7 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
                         .addGap(120, 120, 120)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
+                        .addGap(260, 260, 260)
                         .addComponent(btnOrder)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -200,7 +202,9 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
                 deliOrg = (Deli_ManagementOrganization)org;
             }
         }
-
+        
+        if(processStatus.equals("Recieved")){       
+        
         /*Set the Status information in order*/
         workRequest.getOrder().setStatus(processStatus);
         workRequest.getOrder().setComments(txtComment.getText());
@@ -217,10 +221,20 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
         deliOrg.getWorkQueue().addNewRequest(wq);
         shBookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewCusToSHBSRequest(wq);
         JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");
-
+        
+        }else{
+            
+        workRequest.getOrder().setStatus(processStatus);
+        workRequest.getOrder().setComments(txtComment.getText());
+        workRequest.setStatus("completed");
+        workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
+        JOptionPane.showMessageDialog(null, "have already reject the order!");
+        
+        }
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+
         container.remove(this);
         CardLayout layout=(CardLayout)container.getLayout();
         layout.previous(container);

@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManageBooksJPanel extends javax.swing.JPanel {
     private JPanel container;
     private UserAccount bookStoreManager;
-    private List<Book> bookList;
+    private List<Book> bookList = new ArrayList();
     /**
      * Creates new form UploadBooksJPanel
      */
@@ -37,7 +37,7 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
     
     public void populateTable(){
         
-        bookList = new ArrayList<>();
+        //bookList = new ArrayList<>();
         BS_BookManagementOrganization bsManager = (BS_BookManagementOrganization)bookStoreManager.getEmployee().getOrganization();
         bookList = bsManager.getBookDirectory().getBooklist();
         
@@ -135,6 +135,11 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         });
 
         btnDelete.setText("Delete Book");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -223,6 +228,18 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) container.getLayout();
         layout.next(container);
     }//GEN-LAST:event_btnOrderBookActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblBooks.getSelectedRow();
+        if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a Book!","Warning",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+        Book selectedBook = (Book) tblBooks.getValueAt(selectedRow, 0);
+        bookList.remove(selectedBook);
+        JOptionPane.showMessageDialog(null,"Delete Successfully.");
+        populateTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

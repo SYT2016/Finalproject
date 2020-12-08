@@ -83,6 +83,9 @@ public class UserAccount {
     }
 
     public String getAddress() {
+        if (address == null){
+            address = new String();
+        }
         return address;
     }
 

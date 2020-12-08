@@ -20,6 +20,9 @@ public class WorkQueue {
     }
 
     public List<WorkRequest> getWorkRequestCusToSHBSList() {
+        if (workRequestCusToSHBSList == null) {
+            workRequestCusToSHBSList = new ArrayList<>();
+        }
         return workRequestCusToSHBSList;
     }
 
