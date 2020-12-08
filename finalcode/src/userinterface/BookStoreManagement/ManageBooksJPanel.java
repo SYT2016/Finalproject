@@ -6,11 +6,14 @@
 package userinterface.BookStoreManagement;
 
 import Business.OrderSystem.Book;
+import Business.OrderSystem.Order;
 import Business.Organization.BS_BookManagementOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManageBooksJPanel extends javax.swing.JPanel {
     private JPanel container;
     private UserAccount bookStoreManager;
-    private List<Book> bookList;
+    private List<Book> bookList = new ArrayList();
     /**
      * Creates new form UploadBooksJPanel
      */
@@ -34,7 +37,7 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
     
     public void populateTable(){
         
-        bookList = new ArrayList<>();
+        //bookList = new ArrayList<>();
         BS_BookManagementOrganization bsManager = (BS_BookManagementOrganization)bookStoreManager.getEmployee().getOrganization();
         bookList = bsManager.getBookDirectory().getBooklist();
         
@@ -42,13 +45,19 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for(Book book:bookList){
             Object row[]=new Object[5];
-            row[0]= book.getBookname();
+            row[0]= book;
             row[1]= book.getEnterprise().getEnterpriseName();
-            row[2]= String.valueOf(book.getBookprice());
-            row[3]= String.valueOf(book.getTotalQuatity());
+            row[2]= String.valueOf(book.getPrice());
+            row[3]= String.valueOf(book.getTotalQuantity());
             row[4]= book.getStatus();
             model.addRow(row);
         }
+    }
+    
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        populateTable();
     }
 
     /**
@@ -66,6 +75,8 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         tblBooks = new javax.swing.JTable();
         btnAddBook = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        btnOrderBook = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +121,25 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         });
 
         btnUpdate.setText("Update Book");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnOrderBook.setText("Order Book");
+        btnOrderBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderBookActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete Book");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,10 +158,14 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(98, 98, 98))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAddBook)
-                        .addGap(46, 46, 46)
-                        .addComponent(btnUpdate)
-                        .addGap(108, 108, 108))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnOrderBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(110, 110, 110))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +180,11 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddBook)
                     .addComponent(btnUpdate))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOrderBook)
+                    .addComponent(btnDelete))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -163,10 +201,52 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_btnAddBookActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        int row=tblBooks.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a Book!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Book selectedBook = (Book) tblBooks.getValueAt(row, 0);
+        UpdateBookJPanel updateBookJPanel = new UpdateBookJPanel(container,bookStoreManager,selectedBook);
+        container.add("UpdateBookJPanel", updateBookJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnOrderBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderBookActionPerformed
+        int selectedRow = tblBooks.getSelectedRow();
+        if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a Book!","Warning",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+        Book selectedBook = (Book) tblBooks.getValueAt(selectedRow, 0);
+        
+        OrderBookToPublisherJPanel orderBookToPublisherJPanel = new OrderBookToPublisherJPanel(container,bookStoreManager,selectedBook);
+        container.add("OrderBookToPublisherJPanel", orderBookToPublisherJPanel);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+    }//GEN-LAST:event_btnOrderBookActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblBooks.getSelectedRow();
+        if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a Book!","Warning",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+        Book selectedBook = (Book) tblBooks.getValueAt(selectedRow, 0);
+        bookList.remove(selectedBook);
+        JOptionPane.showMessageDialog(null,"Delete Successfully.");
+        populateTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBook;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnOrderBook;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -9,9 +9,12 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import userinterface.MainJFrame;
 import static userinterface.MainJFrame.dB4OUtil;
 import static userinterface.MainJFrame.system;
@@ -26,14 +29,16 @@ public class MngEnterprise extends javax.swing.JPanel {
      */
     private Network selectednetwork;
     JPanel userProcessContainer;
-    public MngEnterprise() {
-        initComponents();
-    }
 
     public MngEnterprise(JPanel userProcessContainer) {
-         initComponents();
-         this.userProcessContainer=userProcessContainer;
-         populateCombo();
+        initComponents();
+        this.userProcessContainer=userProcessContainer;
+         this.selectednetwork=new Network();
+        JTableHeader head = mngcus.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 36));// 设置表格字体
+        
+        populateCombo();
         
     }
     public void populateCombo(){
@@ -48,6 +53,7 @@ public class MngEnterprise extends javax.swing.JPanel {
     
     private void populateTable(){
         //选择一个network
+        if(system.getNetworkDirectory().getNetworkList().size()!=0){
         String networkname=(String) b1.getSelectedItem();
         for(Network nt:system.getNetworkDirectory().getNetworkList()){
             if(nt.getName().equals(networkname))
@@ -57,13 +63,21 @@ public class MngEnterprise extends javax.swing.JPanel {
                 
         DefaultTableModel model=(DefaultTableModel)mngcus.getModel();
         model.setRowCount(0);
+        System.out.print(selectednetwork+"//");
+        
         for(Enterprise enterprise:selectednetwork.getEnterpriseDirectory().getEnterpriseList()){
-            Object row[]=new Object[1];
-            row[0]=enterprise;
+            Object row[]=new Object[5];
+            row[0]=enterprise.getEnterpriseID();
+            row[1]=enterprise;
+            row[2]=enterprise.getEnterpriseManager().getUsername();
+            row[3]=enterprise.getEnterpriseManager().getPassword();
+            row[4]=enterprise.getEnterpriseType();
+            
             
             model.addRow(row);
         }
-    
+        
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,7 +99,9 @@ public class MngEnterprise extends javax.swing.JPanel {
         b1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
-        jButton4.setFont(new java.awt.Font("宋体", 1, 36)); // NOI18N
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        jButton4.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton4.setText("Back");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +109,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("宋体", 1, 36)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton6.setText("Add New Enterprise");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +117,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("宋体", 0, 36)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tekton Pro Ext", 0, 30)); // NOI18N
         jButton3.setText("View Detail");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +125,7 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("宋体", 1, 36)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         jButton5.setText("Refresh");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,95 +133,102 @@ public class MngEnterprise extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("宋体", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
         jLabel1.setText("Manage All Enterprise");
 
-        jButton1.setFont(new java.awt.Font("宋体", 1, 36)); // NOI18N
-        jButton1.setText("delete");
+        jButton1.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
+        jButton1.setText("Delete");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        mngcus.setFont(new java.awt.Font("宋体", 0, 36)); // NOI18N
+        mngcus.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         mngcus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "UserName", "Password"
+                "ID", "Name", "Manager UName", "Manager PSW", "Type"
             }
         ));
-        mngcus.setRowHeight(36);
+        mngcus.setRowHeight(38);
         jScrollPane1.setViewportView(mngcus);
 
+        b1.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         b1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1ActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Choose one Network");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        jLabel2.setText("Choose Network");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jButton4)
+                        .addContainerGap()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
-                                .addComponent(jButton5))
-                            .addComponent(jButton3))))
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jLabel2)
-                .addGap(48, 48, 48)
-                .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2)
+                        .addGap(65, 65, 65)
+                        .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton5)
+                        .addGap(0, 52, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(189, 189, 189))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(85, 85, 85))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jButton3)
-                        .addGap(75, 75, 75)
-                        .addComponent(jButton6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton5)))
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton6))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,17 +239,22 @@ public class MngEnterprise extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a row!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-       
-        UserAccount ua=(UserAccount)mngcus.getValueAt(row, 0);    
-      
-                CardLayout layout  = (CardLayout) userProcessContainer.getLayout();
-                layout.next(userProcessContainer);
+       String networkname=(String) b1.getSelectedItem();
+        for(Network nt:system.getNetworkDirectory().getNetworkList()){
+            if(nt.getName().equals(networkname))
+               selectednetwork=nt; 
+        }
+        Enterprise en=(Enterprise)mngcus.getValueAt(row, 1);    
+        ViewEnterpriseDetail viewEnterpriseDetail=new ViewEnterpriseDetail(userProcessContainer,en,selectednetwork);
+        userProcessContainer.add("viewEnterpriseDetail", viewEnterpriseDetail);
+        CardLayout layout  = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
                   AddNewEnterprise addNewEnterprise = new AddNewEnterprise(userProcessContainer);
-                userProcessContainer.add("systemAdminWorkAreaJPanel", addNewEnterprise);
+                userProcessContainer.add("addNewEnterprise", addNewEnterprise);
                 CardLayout layout  = (CardLayout) userProcessContainer.getLayout();
                 layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -237,15 +265,15 @@ public class MngEnterprise extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-                userProcessContainer.remove(this);
+        // TODO add your handling code here:back
+        userProcessContainer.remove(this);
         
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:delete
          int row=mngcus.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -258,6 +286,11 @@ public class MngEnterprise extends javax.swing.JPanel {
          populateTable();
        dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_b1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

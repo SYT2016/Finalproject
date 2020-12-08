@@ -6,62 +6,98 @@
 package Business.OrderSystem;
 
 import Business.UserAccount.UserAccount;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
- * @author 16104,Cong Wang
+ * @author Cong Wang
  */
 public class Order {
     private int id;
     private String status;//"preparing“ ”“delivering”“received”
     private String comments;
-    private static int count=0;
+    private static int count = 1;
     private UserAccount userAccount; //一个订单的创始者
     private String totalPrice; //add a new attribute: total Price
+    private List<OrderItem> orderItems = new ArrayList<>();
+    private String expectedPrice;
+    private String finalPrice;
+    private int sellingNumber;
+    private String address;
+    
+    public Order() {
+        id = count++;
+    }
 
-    public String getTotalPrice() {
+    public int getSellingNumber() {
+        return sellingNumber;
+    }
+
+    public void setSellingNumber(int sellingNumber) {
+        this.sellingNumber = sellingNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+   
+
+    public String getExpectedPrice() {
+        return expectedPrice;
+    }
+
+    public void setExpectedPrice(String expectedPrice) {
+        this.expectedPrice = expectedPrice;
+    }
+
+    public String getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(String finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+    
+    
+    
+     public String getTotalPrice() {
         return totalPrice;
     }
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
-    ArrayList<OrderItem> orderitems;
-  
 
-    public Order(){    
-        orderitems = new ArrayList();
-        id=count++;
-        
-        
-    }
-    public OrderItem newOrderItem(Book b, int q,double pr){
-        OrderItem oi = new OrderItem(b, q,pr);
-        orderitems.add(oi);
+    public OrderItem newOrderItem(Book b, int q, double pr) {
+        OrderItem oi = new OrderItem(b, q, pr);
+        orderItems.add(oi);
         return oi;
     }
-    
-    public void deleteOrderItem(OrderItem oi){
-        orderitems.remove(oi);
+
+    public void deleteOrderItem(OrderItem oi) {
+        orderItems.remove(oi);
     }
-    
-    public double getOrderTotal(){    
+
+    public double getOrderTotal() {
         double sum = 0;
-        for(OrderItem oi: orderitems){
+        for (OrderItem oi : orderItems) {
             sum = sum + oi.getOrderItemTotal();
         }
         return sum;
-    }    
-
-   
-
-    public ArrayList<OrderItem> getOrderitems() {
-        return orderitems;
     }
 
-    public void setOrderitems(ArrayList<OrderItem> orderitems) {
-        this.orderitems = orderitems;
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public String getStatus() {
@@ -71,7 +107,6 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-
 
 
     public String getComments() {
@@ -98,11 +133,10 @@ public class Order {
         this.userAccount = userAccount;
     }
 
-    
-    
+
     @Override
     public String toString() {
-        return status ;
+        return String.valueOf(id);
     }
-       
+
 }

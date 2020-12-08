@@ -24,6 +24,7 @@ public class UserAccount {
     private Role role;
     private WorkQueue workQueue;
     private String address;
+    private String phone;
     private ArrayList<Order> userorderlist;
 
     public UserAccount() {
@@ -32,7 +33,10 @@ public class UserAccount {
         userorderlist=new ArrayList<Order>();
     }
     
-    
+    @Override
+    public String toString() {
+        return username;
+    }
     
     public String getUsername() {
         return username;
@@ -78,22 +82,22 @@ public class UserAccount {
         this.userorderlist = userorderlist;
     }
 
-//    public void setAddress(String address){
-//        this.address = address;
-//    }
-    @Override
-    public String toString() {
-        return username;
-    }
-
     public String getAddress() {
+        if (address == null){
+            address = new String();
+        }
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    
-    
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

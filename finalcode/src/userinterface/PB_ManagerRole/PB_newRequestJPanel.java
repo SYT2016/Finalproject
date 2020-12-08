@@ -36,8 +36,8 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         this.ua=ua;
         populate();
         for(Enterprise pe:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
-            if(pe.getEnterpriseType().equals("Printer") && pe.getNetwork().getNetworkID()==ua.getEmployee().getEnterprise().getNetwork().getNetworkID()){ 
-                comboPrint.addItem(pe.getEnterpriseName());
+            if(pe.getEnterpriseType().equals("Type-Printer") && pe.getNetwork().getNetworkID()==ua.getEmployee().getEnterprise().getNetwork().getNetworkID()){ 
+                comboPrint.addItem(pe.toString());
             }
         }
     }
@@ -45,7 +45,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
     public void populate(){
         DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
         dtm.setRowCount(0);
-        for(OrderItem oi:wr.getOrder().getOrderitems()){
+        for(OrderItem oi:wr.getOrder().getOrderItems()){
             Object[] row=new Object[4];
             row[0]=oi;
             row[1]=oi.getQuantity()+"";
@@ -114,7 +114,6 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         jLabel2.setText("Choose a Print Plant:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
 
-        comboPrint.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(comboPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
 
         btnCommit.setText("Commit");
@@ -126,6 +125,11 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, -1, -1));
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -133,7 +137,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         container.remove(this);
         Component[] coms=container.getComponents();
         Component c=(Component)coms[coms.length-1];
-        DeliMan_workAreaJpanel jp=(DeliMan_workAreaJpanel)c;
+        PB_workAreaJPanel jp=(PB_workAreaJPanel)c;
         jp.populate();
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
@@ -148,8 +152,8 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "The Quantity can not be less than 1", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
             OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
-            for(OrderItem o:wr.getOrder().getOrderitems()){
-                if(o==oi){
+            for(OrderItem o:wr.getOrder().getOrderItems()){
+                if(o.equals(oi)){
                     o.setQuantity(quan);
                 }
             }
@@ -158,31 +162,41 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQuantityActionPerformed
 
     private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
+
         PrinterEnterprise selectedPrint=(PrinterEnterprise)comboPrint.getSelectedItem();
         if(selectedPrint!=null){
-            for(Organization o:selectedPrint.getOrganizationDirectory().getOrganizationList()){
-                if(o.getOrgtypename().equals("PT_ManagementOrganization")){
-                    WorkRequest newReq=new WorkRequest();
-                    newReq.setOrder(wr.getOrder());
-                    newReq.setSender(ua);
-                    newReq.setStatus("Uncompleted");
-                    //发给印刷厂办公室第一个userAccount了
-                    newReq.setReceiver(o.getUserAccountDirectory().getUserAccountList().get(0));
-                    o.getWorkQueue().addNewRequest(newReq);
-                    //message
-                    int check=JOptionPane.YES_NO_OPTION;
-                    String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);        
-                    if(check==JOptionPane.YES_OPTION){
-                        newReq.setMessage(mesg);
-                        JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
-                        wr.setStatus("Completed");
-                    }                    
-                }
+            for(Enterprise e:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
+                if(e.equals(selectedPrint)){
+                    for(Organization o:e.getOrganizationDirectory().getOrganizationList()){
+                        if(o.getOrgtypename().equals("PT_ManagementOrganization")){
+                            WorkRequest newReq=new WorkRequest();
+                            newReq.setOrder(wr.getOrder());
+                            newReq.setSenderEnterprise(ua.getEmployee().getEnterprise());
+                            newReq.setStatus("Uncompleted");
+                            newReq.setReceiverEnterprise(e);
+                            
+                            //message
+                            int check=JOptionPane.YES_NO_OPTION;
+                            String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);        
+                            if(check==JOptionPane.YES_OPTION){
+                                newReq.setMessage(mesg);
+                                JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
+                                wr.setStatus("Completed");
+                            }
+                            o.getWorkQueue().addNewRequest(newReq);
+                        }
+                    }
+                }           
             }            
         }
+        
+        txtQuantity.setEnabled(false);
+        btnQuantity.setEnabled(false);
+        btnDelete.setEnabled(false);
+        comboPrint.setEnabled(false);
     }//GEN-LAST:event_btnCommitActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int row=tblOrderItem.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -196,7 +210,9 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Delete the order item successfully");       
             }          
         }
-    } 
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCommit;

@@ -12,6 +12,9 @@ import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
+
 /**
  *
  * @author wangcong
@@ -34,11 +37,11 @@ public class UpdateBookJPanel extends javax.swing.JPanel {
     }
     
         public void populateTxt(){
-           txtBookName.setText(selectedBook.getBookname());
-           txtPrice.setText(String.valueOf(selectedBook.getBookprice()));
+           txtBookName.setText(selectedBook.getName());
+           txtPrice.setText(String.valueOf(selectedBook.getPrice()));
            txtStatus.setText(selectedBook.getStatus());
            txtPress.setText(selectedBook.getEnterprise().getEnterpriseName());
-           txtTotalQuantity.setText(String.valueOf(selectedBook.getTotalQuatity()));
+           txtTotalQuantity.setText(String.valueOf(selectedBook.getTotalQuantity()));
         }
 
     /**
@@ -204,17 +207,16 @@ public class UpdateBookJPanel extends javax.swing.JPanel {
         PrinterEnterprise publisher = new PrinterEnterprise(txtPress.getText());
         String status = txtStatus.getText();
         int totalQuality = Integer.parseInt(txtTotalQuantity.getText());
+
+        selectedBook.setName(bookName);
+        selectedBook.setPrice(bookprice);
+        selectedBook.setEnterprise(publisher);
+        selectedBook.setStatus(status);
+        selectedBook.setTotalQuantity(totalQuality);
         
-        // 删除以后,再把更新的添加进去
         BS_BookManagementOrganization bsManager = (BS_BookManagementOrganization)bookStoreManager.getEmployee().getOrganization();
-        bsManager.getBookDirectory().deletedProductDirectory(selectedBook);
-        Book newBook = bsManager.getBookDirectory().addProduct();
-        
-        newBook.setBookname(bookName);
-        newBook.setBookprice(bookprice);
-        newBook.setEnterprise(publisher);
-        newBook.setStatus(status);
-        newBook.setTotalQuatity(totalQuality);
+        bsManager.getBookDirectory().update(selectedBook);
+        dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
