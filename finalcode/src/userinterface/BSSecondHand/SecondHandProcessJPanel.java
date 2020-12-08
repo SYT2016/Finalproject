@@ -227,6 +227,7 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
         workRequest.getOrder().setStatus(processStatus);
         workRequest.getOrder().setComments(txtComment.getText());
         workRequest.setStatus("completed");
+        workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
         JOptionPane.showMessageDialog(null, "have already reject the order!");
         
         }

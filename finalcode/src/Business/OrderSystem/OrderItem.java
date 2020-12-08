@@ -97,7 +97,7 @@ public class OrderItem {
     
     @Override
     public String toString() {
-        return "OrderItem{" + "selectedbook=" + selectedbook + ", quantity=" + quantity + ", price=" + price + ", bookname=" + bookname + '}';
+        return selectedbook.getName();
     }
 
 

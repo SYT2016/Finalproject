@@ -94,7 +94,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnOrder.setText("Order to Express!");
+        btnOrder.setText("Sure");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
@@ -138,7 +138,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(comboExpress, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +185,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
                 deliOrg = (Deli_ManagementOrganization)org;
             }
         }
-        
+        if(processStatus.equals("Recieved")){
         /*Set the Status information in order*/
         workRequest.getOrder().setStatus(processStatus);
         workRequest.setStatus("completed");
@@ -200,7 +200,11 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         deliOrg.getWorkQueue().addNewRequest(wq);
         bookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewBSToPublisherRequest(wq);
         JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");
-        
+        }else{
+            workRequest.getOrder().setStatus(processStatus);
+            workRequest.setStatus("completed");
+            JOptionPane.showMessageDialog(null, "have already turned down the order.");
+        }
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void comboExpressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboExpressActionPerformed

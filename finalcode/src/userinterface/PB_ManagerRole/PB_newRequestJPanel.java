@@ -126,6 +126,11 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, -1, -1));
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -192,7 +197,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         comboPrint.setEnabled(false);
     }//GEN-LAST:event_btnCommitActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int row=tblOrderItem.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -206,7 +211,9 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Delete the order item successfully");       
             }          
         }
-    } 
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCommit;

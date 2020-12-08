@@ -254,6 +254,7 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         order.setStatus("prepared");
         /*方便user更改地址*/
         order.setAddress(address);
+        order.setComments(extraInfo);
         
         /*new workRequest to customer*/
         customer.getUserorderlist().add(order);
