@@ -60,6 +60,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnManageNetwork" pref="630" max="32767" attributes="0"/>
                               <Component id="btnManageEnterprise" max="32767" attributes="0"/>
+                              <Component id="btnManageEnterprise1" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -76,7 +77,9 @@
                   <Component id="btnManageNetwork" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                   <Component id="btnManageEnterprise" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="311" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                  <Component id="btnManageEnterprise1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="158" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -111,6 +114,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value=" System Administrator Work Area"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnManageEnterprise1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tekton Pro Ext" size="36" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Manage Customer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageEnterprise1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

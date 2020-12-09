@@ -8,6 +8,7 @@ package userinterface.SYS_ManageRole;
 
 import Business.Network.Network;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static userinterface.MainJFrame.dB4OUtil;
@@ -132,9 +133,12 @@ public class AddNewNet extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
-        
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
+        Component[] coms=userProcessContainer.getComponents();
+        Component c=(Component)coms[coms.length-1];
+        MngNet jp=(MngNet)c;
+        jp.populateTable();
+        CardLayout l=(CardLayout)userProcessContainer.getLayout();
+        l.previous(userProcessContainer);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
