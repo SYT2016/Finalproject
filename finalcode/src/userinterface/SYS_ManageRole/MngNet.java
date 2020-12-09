@@ -29,9 +29,6 @@ public class MngNet extends javax.swing.JPanel {
     JPanel userProcessContainer;
     private UserAccount ac;
  
-    public MngNet() {
-        initComponents();
-    }
 
     public MngNet(JPanel userProcessContainer) {
          initComponents();
@@ -41,7 +38,7 @@ public class MngNet extends javax.swing.JPanel {
         head.setFont(new Font("Times New Roman", Font.PLAIN, 48));// 设置表格字体
          populateTable();
     }
- private void populateTable(){
+ public void populateTable(){
         DefaultTableModel model=(DefaultTableModel)mngcus.getModel();
         model.setRowCount(0);
         for(Network nt:system.getNetworkDirectory().getNetworkList()){
@@ -63,7 +60,6 @@ public class MngNet extends javax.swing.JPanel {
 
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -84,14 +80,6 @@ public class MngNet extends javax.swing.JPanel {
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
-        jButton3.setText("Delete");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -139,10 +127,8 @@ public class MngNet extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton6))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5)))
@@ -160,26 +146,10 @@ public class MngNet extends javax.swing.JPanel {
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton6)
-                    .addComponent(jButton3))
+                    .addComponent(jButton6))
                 .addGap(90, 90, 90))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-            int row=mngcus.getSelectedRow();
-        if(row<0){
-            JOptionPane.showMessageDialog(null, "Please select a row!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        UserAccount ua=(UserAccount)mngcus.getValueAt(row, 0);    
-       
-             //     UpdateOne updateOne = new UpdateOne(userProcessContainer,"Res",p);
-             //   userProcessContainer.add("systemAdminWorkAreaJPanel2", updateOne);
-                CardLayout layout  = (CardLayout) userProcessContainer.getLayout();
-                layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -204,7 +174,6 @@ public class MngNet extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

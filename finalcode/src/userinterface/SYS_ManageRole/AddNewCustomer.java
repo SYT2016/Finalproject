@@ -11,6 +11,7 @@ import Business.Role.BS_CustomerRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -234,12 +235,19 @@ public class AddNewCustomer extends javax.swing.JPanel {
            jLabel1.setForeground(Color.black); jLabel3.setForeground(Color.black);
            jLabel2.setForeground(Color.red);
         }
+        else if(!(system.getUserAccountDirectory().checkIfUsernameIsUnique(txtUser.getText()))){
+             JOptionPane.showMessageDialog(null,"The username already exists","warning",JOptionPane.WARNING_MESSAGE);
+             
+            jLabel1.setForeground(Color.red);
+            jLabel3.setForeground(Color.black);
+            jLabel2.setForeground(Color.black);
+        }
         else{
             jLabel1.setForeground(Color.black);
             jLabel2.setForeground(Color.black);
             jLabel3.setForeground(Color.black);
         
-            BS_CustomerRole bS_CustomerRole  =new BS_CustomerRole();
+        BS_CustomerRole bS_CustomerRole  =new BS_CustomerRole();
         Employee emplo=new Employee();
         UserAccount ua=system.getUserAccountDirectory().createUserAccount(txtUser.getText(), txtPword.getText(), emplo,bS_CustomerRole,txtAddress.getText());
        
@@ -253,9 +261,15 @@ public class AddNewCustomer extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        userProcessContainer.remove(this);        
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
+        
+        userProcessContainer.remove(this);
+        Component[] coms=userProcessContainer.getComponents();
+        Component c=(Component)coms[coms.length-1];
+        MngCus jp=(MngCus)c;
+        jp.populateTable();
+        CardLayout l=(CardLayout)userProcessContainer.getLayout();
+        l.previous(userProcessContainer);
+        
     }//GEN-LAST:event_btnBackActionPerformed
 
     
