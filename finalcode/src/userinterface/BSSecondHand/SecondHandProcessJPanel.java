@@ -203,33 +203,30 @@ public class SecondHandProcessJPanel extends javax.swing.JPanel {
             }
         }
         
-        if(processStatus.equals("Recieved")){       
-        
-        /*Set the Status information in order*/
-        workRequest.getOrder().setStatus(processStatus);
-        workRequest.getOrder().setComments(txtComment.getText());
-        workRequest.setStatus("completed");
-        workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
+        if(processStatus.equals("Recieved")){              
+            /*Set the Status information in order*/
+            workRequest.getOrder().setStatus(processStatus);
+            workRequest.getOrder().setComments(txtComment.getText());
+            workRequest.setStatus("Completed");
+            workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
 
-        /*set workRequest*/
-        WorkRequest wq = new WorkRequest();
-        wq.setOrder(workRequest.getOrder());
-        wq.setSenderEnterprise(shBookstoreManager.getEmployee().getEnterprise());
-        wq.setReceiverEnterprise(deliveryCompany);
-        wq.setStatus("Uncompleted");
-        wq.setMessage(txtComment.getText());
-        deliOrg.getWorkQueue().addNewRequest(wq);
-        shBookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewCusToSHBSRequest(wq);
-        JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");
-        
-        }else{
-            
-        workRequest.getOrder().setStatus(processStatus);
-        workRequest.getOrder().setComments(txtComment.getText());
-        workRequest.setStatus("completed");
-        workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
-        JOptionPane.showMessageDialog(null, "have already reject the order!");
-        
+            /*set workRequest*/
+            WorkRequest wq = new WorkRequest();
+            wq.setOrder(workRequest.getOrder());
+            wq.setSenderEnterprise(shBookstoreManager.getEmployee().getEnterprise());
+            wq.setReceiverEnterprise(deliveryCompany);
+            wq.setStatus("Uncompleted");
+            wq.setMessage(txtComment.getText());
+            wq.setMark(1);
+            deliOrg.getWorkQueue().addNewRequest(wq);
+            shBookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewCusToSHBSRequest(wq);
+            JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");      
+        }else{          
+            workRequest.getOrder().setStatus(processStatus);
+            workRequest.getOrder().setComments(txtComment.getText());
+            workRequest.setStatus("Completed");
+            workRequest.getOrder().setFinalPrice(txtFinalPrice.getText());
+            JOptionPane.showMessageDialog(null, "have already reject the order!");        
         }
     }//GEN-LAST:event_btnOrderActionPerformed
 

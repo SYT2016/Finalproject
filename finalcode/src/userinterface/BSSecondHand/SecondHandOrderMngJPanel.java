@@ -38,12 +38,10 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
         for(WorkRequest request : requestList){
             Object[] row = new Object[7];
             row[0] = request;
-            row[1] = request.getSenderUserAccount();
-           
-            //row[2]=0;
-            
-           
-            row[2] = request.getSenderUserAccount().getAddress();
+            //row[1] = request.getOrder().getUserAccount().getUsername();
+            row[1]=request.getSenderUserAccount();
+            //row[2]=0;         
+            row[2] = request.getOrder().getAddress();
             row[3] = request.getRequestDate();
             row[4] = request.getOrder().getStatus();
             row[5] = request.getOrder().getExpectedPrice();

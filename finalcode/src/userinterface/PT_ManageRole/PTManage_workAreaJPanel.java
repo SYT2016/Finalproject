@@ -40,14 +40,14 @@ public class PTManage_workAreaJPanel extends javax.swing.JPanel {
         labelUser.setText(user.getUsername());
         labelRole.setText(user.getEmployee().getEnterprise().getEnterpriseName()+" "+user.getEmployee().getOrganization().getOrgtypename());
         JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-        head.setFont(new Font("Times New Romans", Font.PLAIN, 36));// 设置表格字体
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Romans", Font.PLAIN, 24));// 设置表格字体
         JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
-        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
-        head1.setFont(new Font("Times New Romans", Font.PLAIN, 36));// 设置表格字体
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 24));// 设置表头大小
+        head1.setFont(new Font("Times New Romans", Font.PLAIN, 24));// 设置表格字体
         populate();
         
-        
+        comboPrintMan.removeAllItems();
         for(Organization or:user.getEmployee().getEnterprise().getOrganizationDirectory().getOrganizationList()){
             if(or.getOrgtypename().equals("PT_PrintingOrganization") ){
                 ptmanorg=or;
@@ -201,7 +201,7 @@ public class PTManage_workAreaJPanel extends javax.swing.JPanel {
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 1);
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 0);
             DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
             dtm.setRowCount(0);
             for(OrderItem oi:wr.getOrder().getOrderItems()){
@@ -260,7 +260,7 @@ public class PTManage_workAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please choose a pringting man", "Warning", JOptionPane.WARNING_MESSAGE);
             
         }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 1);
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 0);
             
             WorkRequest newReq=new WorkRequest();
             newReq.setOrder(wr.getOrder());

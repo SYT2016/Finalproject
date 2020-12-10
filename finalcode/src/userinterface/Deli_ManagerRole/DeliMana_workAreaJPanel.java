@@ -33,9 +33,9 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         labelUser.setText(ua.getUsername());
         labelRole.setText(ua.getEmployee().getEnterprise().getEnterpriseName()+" "+ua.getEmployee().getOrganization().getOrgtypename());
         
-//        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-//        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-//        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 18));// 设置表格字体
         populate();
         comboDeliveryman.removeAll();
         
@@ -282,26 +282,28 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             起地：bs 终点：cus
             */
             if(wr.getSenderEnterprise().getEnterpriseType().equals("Type-BookStore")){
-                txtSender.setText(wr.getSenderEnterprise().getEnterpriseName());
-                txtSenderAddr.setText(wr.getSenderEnterprise().getAddress());
-                txtSenderPhone.setText(wr.getSenderEnterprise().getPhone());
-                txtReceiver.setText(wr.getOrder().getUserAccount().getUsername());
-                txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
-                txtReceiverPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                if(wr.getMark()==0){
+                    txtSender.setText(wr.getSenderEnterprise().getEnterpriseName());
+                    txtSenderAddr.setText(wr.getSenderEnterprise().getAddress());
+                    txtSenderPhone.setText(wr.getSenderEnterprise().getPhone());
+                    txtReceiver.setText(wr.getOrder().getUserAccount().getUsername());
+                    txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
+                    txtReceiverPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                }else{
+                     /*顾客卖书：从顾客送到书店
+                    顾客创造order
+                    sender:bs receiver:deli
+                    起点：cus 终点：bs
+                    */
+                    txtSender.setText(wr.getOrder().getUserAccount().getUsername());
+                    txtSenderAddr.setText(wr.getOrder().getUserAccount().getAddress());
+                    txtSenderPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                    txtReceiver.setText(wr.getSenderEnterprise().getEnterpriseName());
+                    txtReceiverAddr.setText(wr.getSenderEnterprise().getAddress());
+                    txtReceiverPhone.setText(wr.getSenderEnterprise().getPhone());
+                }              
             }
-            /*顾客卖书：从顾客送到书店
-            顾客创造order
-            sender:bs receiver:deli
-            起点：cus 终点：bs
-            */
-            if(wr.getSenderEnterprise()==null){
-                txtSender.setText(wr.getOrder().getUserAccount().getUsername());
-                txtSenderAddr.setText(wr.getOrder().getUserAccount().getAddress());
-                txtSenderPhone.setText(wr.getOrder().getUserAccount().getPhone());
-                txtReceiver.setText(wr.getSenderEnterprise().getEnterpriseName());
-                txtReceiverAddr.setText(wr.getSenderEnterprise().getAddress());
-                txtReceiverPhone.setText(wr.getSenderEnterprise().getPhone());
-            }
+                     
             /*从印刷厂送到书店
             书店创造order
             sender:pt receiver:deli
@@ -334,7 +336,10 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             String deliMan=(String) comboDeliveryman.getSelectedItem(); 
             newWR.setOrder(wr.getOrder());
             newWR.setStatus("Uncompleted");
-            newWR.setResolveDate(new Date());
+            newWR.setRequestDate(new Date());
+            if(wr.getMark()==1){
+                newWR.setMark(1);
+            }          
             for(Organization o:ua.getEmployee().getEnterprise().getOrganizationDirectory().getOrganizationList()){
                 if(o.getOrgtypename().equals("Deli_DeliveryManOrganization")){
                     for(UserAccount u:o.getUserAccountDirectory().getUserAccountList()){

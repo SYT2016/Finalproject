@@ -72,7 +72,7 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         jLabel4.setText("jLabel4");
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setText("Seeling Your Book");
+        jLabel1.setText("Selling Your Book");
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {

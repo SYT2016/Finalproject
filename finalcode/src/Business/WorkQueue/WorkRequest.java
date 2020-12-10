@@ -24,6 +24,7 @@ public class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
     private Order order;
+    private int mark;//顾客买书还是卖书的标记，用于deli区分用.0买书，1卖书
     
     public WorkRequest(){
         requestDate = new Date();
@@ -31,6 +32,7 @@ public class WorkRequest {
         senderEnterprise=null;
         receiverUserAccount=null;
         receiverEnterprise=null;
+        mark=0;
     }
 
     @Override
@@ -38,6 +40,15 @@ public class WorkRequest {
         //return this.requestDate.toString();
         return String.valueOf(order.getId());
     }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
+    
     
     public String getMessage() {
         return message;
