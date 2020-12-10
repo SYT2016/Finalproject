@@ -5,7 +5,10 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.Enterprise.Enterprise;
 import Business.Enterprise.PrinterEnterprise;
+import Business.Enterprise.PublisherEnterprise;
+import Business.Network.Network;
 import Business.OrderSystem.Book;
 import Business.Organization.BS_BookManagementOrganization;
 import Business.UserAccount.UserAccount;
@@ -32,6 +35,17 @@ public class AddBookJPanel extends javax.swing.JPanel {
 //        this.bookList = bookList;
         this.container = container;
         this.bookStoreManager = bookStoreManager;
+        
+        box1.removeAllItems();
+        for(Network nt:system.getNetworkDirectory().getNetworkList()){//把现有的network名字加到combox里面，因为要在network里面创建enterprise
+            for(Enterprise en:nt.getEnterpriseDirectory().getEnterpriseList()){
+                if(en.getEnterpriseType().equals("Type-Publisher"))
+                box1.addItem(en.toString());  
+            
+            }
+        }
+        
+        
     }
 
     /**
@@ -52,10 +66,10 @@ public class AddBookJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnUpload = new javax.swing.JButton();
         txtBookName = new javax.swing.JTextField();
-        txtPress = new javax.swing.JTextField();
         txtPrice = new javax.swing.JTextField();
         txtStatus = new javax.swing.JTextField();
         txtTotalQuantity = new javax.swing.JTextField();
+        box1 = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("ADD BOOK FOR BOOKSTORE");
@@ -79,7 +93,7 @@ public class AddBookJPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel5.setText("Book Status:");
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel6.setText("Book TotalQuality:");
 
         btnUpload.setText("Upload!");
@@ -88,6 +102,8 @@ public class AddBookJPanel extends javax.swing.JPanel {
                 btnUploadActionPerformed(evt);
             }
         });
+
+        box1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -109,11 +125,11 @@ public class AddBookJPanel extends javax.swing.JPanel {
                                 .addGap(31, 31, 31)
                                 .addComponent(txtTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtPress, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(27, 27, 27)
@@ -128,7 +144,7 @@ public class AddBookJPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel5)
                                         .addGap(18, 18, 18)
                                         .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(422, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnUpload)
@@ -151,13 +167,13 @@ public class AddBookJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(txtPress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 378, Short.MAX_VALUE)
                 .addComponent(btnUpload)
                 .addGap(79, 79, 79))
         );
@@ -173,7 +189,19 @@ public class AddBookJPanel extends javax.swing.JPanel {
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
         String bookName = txtBookName.getText();
         double bookprice = Double.parseDouble(txtPrice.getText());
-        PrinterEnterprise publisher = new PrinterEnterprise(txtPress.getText());
+        String pb=(String)box1.getSelectedItem();
+        Enterprise publisher=null;
+         for(Network nt:system.getNetworkDirectory().getNetworkList()){//把现有的network名字加到combox里面，因为要在network里面创建enterprise
+            for(Enterprise en:nt.getEnterpriseDirectory().getEnterpriseList()){
+                if(en.getEnterpriseName().equals(pb))
+                    publisher=en;
+               
+            }
+        }
+        
+      //  PrinterEnterprise publisher = new PrinterEnterprise(txtPress.getText());
+      
+       
         String status = txtStatus.getText();
         int totalQuality = Integer.parseInt(txtTotalQuantity.getText());
         
@@ -193,6 +221,7 @@ public class AddBookJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> box1;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpload;
     private javax.swing.JLabel jLabel1;
@@ -202,7 +231,6 @@ public class AddBookJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtBookName;
-    private javax.swing.JTextField txtPress;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtTotalQuantity;

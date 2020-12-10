@@ -36,8 +36,8 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         this.ua=ua;
         populate();
         for(Enterprise pe:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
-            if(pe.getEnterpriseType().equals("Printer") && pe.getNetwork().getNetworkID()==ua.getEmployee().getEnterprise().getNetwork().getNetworkID()){ 
-                comboPrint.addItem(pe.getEnterpriseName());
+            if(pe.getEnterpriseType().equals("Type-Printer") && pe.getNetwork().getNetworkID()==ua.getEmployee().getEnterprise().getNetwork().getNetworkID()){ 
+                comboPrint.addItem(pe.toString());
             }
         }
     }
@@ -114,7 +114,6 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         jLabel2.setText("Choose a Print Plant:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
 
-        comboPrint.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(comboPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
 
         btnCommit.setText("Commit");
@@ -154,7 +153,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         }else{
             OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
             for(OrderItem o:wr.getOrder().getOrderItems()){
-                if(o==oi){
+                if(o.equals(oi)){
                     o.setQuantity(quan);
                 }
             }
@@ -163,8 +162,13 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQuantityActionPerformed
 
     private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
-
-        PrinterEnterprise selectedPrint=(PrinterEnterprise)comboPrint.getSelectedItem();
+        String printer=(String)comboPrint.getSelectedItem();
+        Enterprise selectedPrint=null;
+        for(Enterprise e:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
+            if(e.getEnterpriseName().equals(printer)){
+                selectedPrint=e;
+            }
+        }
         if(selectedPrint!=null){
             for(Enterprise e:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
                 if(e.equals(selectedPrint)){

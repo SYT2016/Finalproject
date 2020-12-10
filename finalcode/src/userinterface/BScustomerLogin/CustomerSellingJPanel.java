@@ -20,6 +20,7 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static userinterface.MainJFrame.dB4OUtil;
 import static userinterface.MainJFrame.system;
 
 /**
@@ -273,15 +274,19 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"The book does not have second-hand service!");
             return;
         }
-
+        BS_SecondHandOrganization bookstoreOrg=null;
         for (Organization org : bookManageList) {
             if (org.getOrgtypename().equals("BS_SecondHandOrganization")) {
-                BS_SecondHandOrganization bookstoreOrg = (BS_SecondHandOrganization) org;
+                bookstoreOrg = (BS_SecondHandOrganization) org;
                 bookstoreOrg.getWorkQueue().addNewCusToSHBSRequest(workRequest);
+                JOptionPane.showMessageDialog(null, "The Order Has been sent to the bookstore. The bookstore will reply you in 7 days");
+                dB4OUtil.storeSystem(system); 
             }
         }
-
-        JOptionPane.showMessageDialog(null, "The Order Has been sent to the bookstore. The bookstore will reply you in 7 days");
+        if(bookstoreOrg==null){
+            JOptionPane.showMessageDialog(null,"The book does not have second-hand service!");
+        }
+        
         
     }//GEN-LAST:event_btnOrderActionPerformed
 

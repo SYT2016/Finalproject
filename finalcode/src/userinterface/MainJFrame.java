@@ -8,6 +8,7 @@ import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.OrderSystem.Order;
 import Business.Organization.Organization;
 import Business.Role.SYS_ManageRole;
 import Business.UserAccount.UserAccount;
@@ -33,7 +34,8 @@ import userinterface.PT_PrintingMemberRole.PTMan_workAreaJpanel;
 
 import userinterface.SYS_ManageRole.AddNewCustomer;
 import userinterface.SYS_ManageRole.SYSAdminWorkAreaJPanel;
-import zMusic.playMusic;
+import zOthers.playMusic;
+
 
 
 /**
@@ -54,10 +56,20 @@ public class MainJFrame extends javax.swing.JFrame {
     
     public MainJFrame() {
         initComponents();
-       
+        jPanel1.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
+        container.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
         system = dB4OUtil.retrieveSystem();          
         userAccountDirectory=system.getUserAccountDirectory();
+        Order order=new Order("a");
+        int lastorderid=order.getLastorderid();
+        if(lastorderid!=0){
+            System.out.println(lastorderid+"lastorderid");
+           order.count=(lastorderid+1);
         
+        }
+      else      
+            System.out.println("=0 last Order id is"+lastorderid );
+       
         this.setSize(1200, 800);
       //  JSplitPane.setDividerLocation(300);
       if(userAccountDirectory.getUserAccountList().isEmpty())
@@ -126,7 +138,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
-        jButton1.setText("Rigister");
+        jButton1.setText("Register");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -226,8 +238,10 @@ public class MainJFrame extends javax.swing.JFrame {
         }
          Enterprise.counter=maxen+1;
          Organization.counter=maxor+1;
+         
          System.out.println("last Enterprise id is"+Enterprise.counter);
          System.out.println("last Organinization id is"+Organization.counter);
+       
        
        
     

@@ -37,8 +37,8 @@ public class MngEnterprise extends javax.swing.JPanel {
         this.userProcessContainer=userProcessContainer;
          this.selectednetwork=new Network();
         JTableHeader head = mngcus.getTableHeader(); // 创建表格标题对象
-        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-        head.setFont(new Font("Times New Roman", Font.PLAIN, 36));// 设置表格字体
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
         
         populateCombo();
         

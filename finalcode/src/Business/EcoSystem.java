@@ -28,6 +28,7 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private NetworkDirectory networkDirectory;
+    private  int lastorderid;
 
 
     public static EcoSystem getInstance(){
@@ -41,14 +42,11 @@ public class EcoSystem extends Organization{
    private EcoSystem(){
        super();
         networkDirectory=new NetworkDirectory();
-      
+      lastorderid=0;
     }
 
     
-    public boolean checkIfUserIsUnique(String userName){
-       //
-       return false;
-    }
+
 
     public static EcoSystem getBusiness() {
         return business;
@@ -65,6 +63,15 @@ public class EcoSystem extends Organization{
     public void setNetworkDirectory(NetworkDirectory networkDirectory) {
         this.networkDirectory = networkDirectory;
     }
+
+    public int getLastorderid() {
+        return lastorderid;
+    }
+
+    public  void setLastorderid(int lastorderid) {
+        this.lastorderid = lastorderid;
+    }
+
     
     
 

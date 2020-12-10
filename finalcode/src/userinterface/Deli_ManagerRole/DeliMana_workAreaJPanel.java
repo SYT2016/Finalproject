@@ -33,9 +33,9 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         labelUser.setText(ua.getUsername());
         labelRole.setText(ua.getEmployee().getEnterprise().getEnterpriseName()+" "+ua.getEmployee().getOrganization().getOrgtypename());
         
-        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+//        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+//        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+//        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
         populate();
         comboDeliveryman.removeAll();
         
@@ -51,10 +51,10 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     public void populate(){
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
         dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){
+        for(WorkRequest wr:ua.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){
             if(wr.getStatus().equals(("Uncompleted"))){
-                Object[] row=new Object[6];
-                row[0]=wr;
+                Object[] row=new Object[7];
+                row[0]=wr.getRequestDate().toString();
                 if(wr.getSenderEnterprise()!=null){
                     row[1]=wr.getSenderEnterprise().getEnterpriseName();              
                 }else{
@@ -67,7 +67,8 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
                 }
                 row[3]=wr.getStatus();
                 row[4]=wr.getMessage();
-                row[5]=wr.getResolveDate().toString();
+                row[5]=wr.getResolveDate()==null?"":wr.getResolveDate().toString();
+                row[6]=wr;
                 dtm.addRow(row);   
             }           
         }
@@ -120,9 +121,19 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
 
         btnUnfinished.setText("Unfinished");
+        btnUnfinished.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnfinishedActionPerformed(evt);
+            }
+        });
         add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, -1, -1));
 
         btnAll.setText("All");
+        btnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllActionPerformed(evt);
+            }
+        });
         add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
@@ -130,11 +141,11 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "RequestDate", "Sender", "Receiver", "Status", "Message", "ResolveDate"
+                "RequestDate", "Sender", "Receiver", "Status", "Message", "ResolveDate", "Order ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -163,7 +174,6 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         jLabel8.setText("Choose a delivery man:");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 600, -1, -1));
 
-        comboDeliveryman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(comboDeliveryman, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, -1, -1));
 
         btnCommit.setText("Commit");
@@ -177,7 +187,7 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Sender:");
+        jLabel2.setText("Contact：");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         txtSender.setEnabled(false);
@@ -195,13 +205,13 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         jLabel3.setText("Phone:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
-        jTabbedPane1.addTab("Sender", jPanel1);
+        jTabbedPane1.addTab("Depart", jPanel1);
 
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 340, 220));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setText("Receiver:");
+        jLabel4.setText("Contact：");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         txtReceiver.setEnabled(false);
@@ -219,76 +229,23 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         txtReceiverPhone.setEnabled(false);
         jPanel2.add(txtReceiverPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 200, 30));
 
-        jTabbedPane2.addTab("Receiver", jPanel2);
+        jTabbedPane2.addTab("Arrive", jPanel2);
 
         add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 350, 220));
 
         labelRole.setText("jLabel2");
-        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
+        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 240, 20));
 
         jLabel9.setText("Work Area");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        int selected=tblQueue.getSelectedRow();
-        if(selected<0){
-            JOptionPane.showMessageDialog(null, "Please select a work request", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 0);   
-            if(wr.getSenderEnterprise()!=null){
-                txtSender.setText(wr.getSenderEnterprise().getEnterpriseName());
-                txtSenderAddr.setText(wr.getSenderEnterprise().getAddress());
-                txtSenderPhone.setText(wr.getSenderEnterprise().getPhone());
-            }else{
-                txtSender.setText(wr.getSenderUserAccount().getUsername());
-                txtSenderAddr.setText(wr.getSenderUserAccount().getAddress());
-                txtSenderPhone.setText(wr.getSenderUserAccount().getPhone());
-            }
-            if(wr.getReceiverEnterprise()!=null){
-                txtReceiver.setText(wr.getReceiverEnterprise().getEnterpriseName());
-                txtReceiverAddr.setText(wr.getReceiverEnterprise().getAddress());
-                txtReceiverPhone.setText(wr.getReceiverEnterprise().getPhone());
-            }else{
-                txtReceiver.setText(wr.getReceiverUserAccount().getUsername());
-                txtReceiverAddr.setText(wr.getReceiverUserAccount().getAddress());
-                txtReceiverPhone.setText(wr.getReceiverUserAccount().getPhone());
-            }          
-        }
-    }//GEN-LAST:event_btnDetailsActionPerformed
-
-    private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
-        int selected=tblQueue.getSelectedRow();
-        WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 0);      
-        WorkRequest newWR=new WorkRequest();
-        newWR.setSenderUserAccount(ua);
-        UserAccount deliMan=(UserAccount)comboDeliveryman.getSelectedItem();               
-        newWR.setOrder(wr.getOrder());
-        newWR.setStatus("Uncompleted");
-        newWR.setRequestDate(new Date());
-        for(UserAccount u:ua.getEmployee().getOrganization().getUserAccountDirectory().getUserAccountList()){
-            if(u.equals(deliMan)){
-                newWR.setReceiverUserAccount(u);
-                u.getWorkQueue().addNewRequest(newWR);
-            }
-        }
-
-        int check=JOptionPane.YES_NO_OPTION;
-        String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);
-        if(check==JOptionPane.YES_OPTION){
-            newWR.setMessage(mesg);
-            JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
-            wr.setStatus("Completed");
-        }
-        populate();
-    }//GEN-LAST:event_btnCommitActionPerformed
-
-    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
         dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getWorkQueue().getWorkRequestList()){           
-            Object[] row=new Object[6];
-            row[0]=wr;
+        for(WorkRequest wr:ua.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){           
+            Object[] row=new Object[7];
+            row[0]=wr.getRequestDate().toString();
             if(wr.getSenderEnterprise()!=null){
                 row[1]=wr.getSenderEnterprise().getEnterpriseName();              
             }else{
@@ -301,14 +258,110 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             }
             row[3]=wr.getStatus();
             row[4]=wr.getMessage();
-            row[5]=wr.getResolveDate().toString();
+            if(row[5]!=null){
+                row[5]=wr.getResolveDate().toString();
+            }else{
+                row[5]="";
+            }            
+            row[6]=wr;
             dtm.addRow(row);                         
         }
-    }                                      
+    }//GEN-LAST:event_btnAllActionPerformed
 
-    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
+        int selected=tblQueue.getSelectedRow();
+        if(selected<0){
+            JOptionPane.showMessageDialog(null, "Please select a work request", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 6);   
+            //确定取货地址和送达地址
+            
+            /*顾客买书：从书店送到顾客
+            顾客创造order
+            sender:bs receiver:deli
+            起地：bs 终点：cus
+            */
+            if(wr.getSenderEnterprise().getEnterpriseType().equals("Type-BookStore")){
+                txtSender.setText(wr.getSenderEnterprise().getEnterpriseName());
+                txtSenderAddr.setText(wr.getSenderEnterprise().getAddress());
+                txtSenderPhone.setText(wr.getSenderEnterprise().getPhone());
+                txtReceiver.setText(wr.getOrder().getUserAccount().getUsername());
+                txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
+                txtReceiverPhone.setText(wr.getOrder().getUserAccount().getPhone());
+            }
+            /*顾客卖书：从顾客送到书店
+            顾客创造order
+            sender:bs receiver:deli
+            起点：cus 终点：bs
+            */
+            if(wr.getSenderEnterprise()==null){
+                txtSender.setText(wr.getOrder().getUserAccount().getUsername());
+                txtSenderAddr.setText(wr.getOrder().getUserAccount().getAddress());
+                txtSenderPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                txtReceiver.setText(wr.getSenderEnterprise().getEnterpriseName());
+                txtReceiverAddr.setText(wr.getSenderEnterprise().getAddress());
+                txtReceiverPhone.setText(wr.getSenderEnterprise().getPhone());
+            }
+            /*从印刷厂送到书店
+            书店创造order
+            sender:pt receiver:deli
+            起点：pt 终点：bs
+            */
+            if(wr.getSenderEnterprise().getEnterpriseType().equals("Type-Printer")){
+                txtSender.setText(wr.getSenderEnterprise().getEnterpriseName());
+                txtSenderAddr.setText(wr.getSenderEnterprise().getAddress());
+                txtSenderPhone.setText(wr.getSenderEnterprise().getPhone());
+                txtReceiver.setText(wr.getOrder().getUserAccount().getEmployee().getEnterprise().getEnterpriseName());
+                txtReceiverAddr.setText(wr.getOrder().getUserAccount().getEmployee().getEnterprise().getAddress());
+                txtReceiverPhone.setText(wr.getOrder().getUserAccount().getEmployee().getEnterprise().getPhone());
+            }
+        }
+    }//GEN-LAST:event_btnDetailsActionPerformed
+
+    private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
+        int selected=tblQueue.getSelectedRow();
+        if(selected<0){
+            JOptionPane.showMessageDialog(null, "Please select a work request", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(selected, 6);      
+            WorkRequest newWR=new WorkRequest();
+            if(wr.getSenderEnterprise()!=null){
+                newWR.setSenderEnterprise(wr.getSenderEnterprise());
+            }else{
+                newWR.setSenderUserAccount(wr.getOrder().getUserAccount());
+            }
+                    
+            String deliMan=(String) comboDeliveryman.getSelectedItem(); 
+            newWR.setOrder(wr.getOrder());
+            newWR.setStatus("Uncompleted");
+            newWR.setResolveDate(new Date());
+            for(Organization o:ua.getEmployee().getEnterprise().getOrganizationDirectory().getOrganizationList()){
+                if(o.getOrgtypename().equals("Deli_DeliveryManOrganization")){
+                    for(UserAccount u:o.getUserAccountDirectory().getUserAccountList()){
+                        if(u.getUsername().equals(deliMan)){
+                            newWR.setReceiverUserAccount(u);
+                            u.getWorkQueue().addNewRequest(newWR);
+                        }
+                    }
+                }               
+            }
+
+            int check=JOptionPane.YES_NO_OPTION;
+            String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);
+            if(check==JOptionPane.YES_OPTION){
+                newWR.setMessage(mesg);
+                JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
+                wr.setStatus("Completed");
+            }
+            populate();
+        }
+        
+    }//GEN-LAST:event_btnCommitActionPerformed
+
+    private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnfinishedActionPerformed
         populate();
-    } 
+    }//GEN-LAST:event_btnUnfinishedActionPerformed
+                                    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAll;

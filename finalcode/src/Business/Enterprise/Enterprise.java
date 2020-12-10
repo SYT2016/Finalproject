@@ -22,7 +22,7 @@ public abstract class Enterprise {
     private String EnterpriseName;//unique name不可重复 在整个系统里面不可重复
     private String EnterpriseType; 
     private Network network;
-//Five type "BookStore""DeliveryCompany" "Printer" "Publisher" "Population" 
+//Five type "Type-BookStore""Type-DeliveryCompany" "Type-Printer" "Type-Publisher" "Population" 
 //PopulationEnterprise只有一个不可创建多个
     private String Address;
     private String phone;

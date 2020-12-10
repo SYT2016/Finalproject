@@ -16,6 +16,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
 
 /**
  *
@@ -47,6 +49,7 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
             Object row[]=new Object[5];
             row[0]= book;
             row[1]= book.getEnterprise().getEnterpriseName();
+           
             row[2]= String.valueOf(book.getPrice());
             row[3]= String.valueOf(book.getTotalQuantity());
             row[4]= book.getStatus();
@@ -239,6 +242,7 @@ public class ManageBooksJPanel extends javax.swing.JPanel {
         bookList.remove(selectedBook);
         JOptionPane.showMessageDialog(null,"Delete Successfully.");
         populateTable();
+        dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zMusic;
+package zOthers;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -12,7 +12,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -22,8 +25,16 @@ import sun.audio.AudioStream;
  */
 public class playMusic {
     public static void play() throws FileNotFoundException, IOException{
-        FileInputStream fileau=new FileInputStream("C:/Users/admin/Desktop/Finalproject/Finalproject/finalcode/src/alert.wav");
-        AudioStream as=new AudioStream(fileau);
-        AudioPlayer.player.start(as);
+        File f=new File("src/zOthers/alert.wav");
+        URI uri=f.toURI();
+        URL url;
+        AudioClip ac;
+        try {
+            url=uri.toURL();          
+            ac=Applet.newAudioClip(url);
+            ac.play();
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        } 
     }
 }

@@ -32,12 +32,14 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         this.user=user;
         labelUser.setText(user.getUsername());
         labelRole.setText(user.getEmployee().getEnterprise().getEnterpriseName()+" "+user.getEmployee().getOrganization().getOrgtypename());
-        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
-        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
-        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
-        head1.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+//        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+//        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+//        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+//        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+//        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
+//        head1.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+
+//user.getEmployee().getOrganization().getWorkQueue().g
         populate();
     }
     
@@ -46,8 +48,8 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         for(WorkRequest wr:user.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){
             if(wr.getStatus().equals("Uncompleted")){
-                Object[] row=new Object[5];
-                row[0]=wr;
+                Object[] row=new Object[6];
+                row[0]=wr.getRequestDate().toString();
                 if(wr.getSenderEnterprise()!=null){
                     row[1]=wr.getSenderEnterprise().getEnterpriseName();
                     row[2]=wr.getSenderEnterprise().getPhone();               
@@ -57,6 +59,7 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
                 }           
                 row[3]=wr.getStatus();
                 row[4]=wr.getMessage();
+                row[5]=wr;
                 dtm.addRow(row);
             }            
         }
@@ -97,11 +100,11 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "RequestDate", "Sender", "phone", "Status", "Message"
+                "RequestDate", "Sender", "phone", "Status", "Message", "Order ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false
+                false, true, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -168,7 +171,7 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 1);
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 5);
             DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
             dtm.setRowCount(0);
             for(OrderItem oi:wr.getOrder().getOrderItems()){
@@ -189,7 +192,7 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
         }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 1);
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 5);
             PB_newRequestJPanel jp=new PB_newRequestJPanel(container,wr,user);
             CardLayout l=(CardLayout)container.getLayout();
             container.add(jp);
@@ -205,8 +208,8 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
         dtm.setRowCount(0);
         for(WorkRequest wr:user.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){
-            Object[] row=new Object[5];
-            row[0]=wr;
+            Object[] row=new Object[6];
+            row[0]=wr.getRequestDate().toString();
             if(wr.getReceiverEnterprise()!=null){
                 row[1]=wr.getReceiverEnterprise().getEnterpriseName();
                 row[2]=wr.getReceiverEnterprise().getPhone();               
@@ -216,6 +219,7 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
             }           
             row[3]=wr.getStatus();
             row[4]=wr.getMessage();
+            row[5]=wr;
             dtm.addRow(row);
         }
     }//GEN-LAST:event_btnAllActionPerformed

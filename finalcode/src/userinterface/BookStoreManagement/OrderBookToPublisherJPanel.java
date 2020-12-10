@@ -20,6 +20,7 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static userinterface.MainJFrame.dB4OUtil;
 import static userinterface.MainJFrame.system;
 
 /**
@@ -227,7 +228,6 @@ public class OrderBookToPublisherJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        
         int wanttedQuantity = Integer.parseInt(txtWanttedQuantity.getText());
         double selectedBookPrice = Double.parseDouble(txtPrice.getText());
         double totalPrice = wanttedQuantity * selectedBookPrice;
@@ -239,7 +239,7 @@ public class OrderBookToPublisherJPanel extends javax.swing.JPanel {
         /*set order*/
         Order order = new Order();
         order.setOrderItems(new ArrayList<>(orderItemList));
-        order.setStatus("Prepare");
+        order.setStatus("preparing");
         order.setUserAccount(bookstoreManager);
         order.setTotalPrice(String.valueOf(totalPrice));
         order.setComments(txtComment.getText());
@@ -247,38 +247,47 @@ public class OrderBookToPublisherJPanel extends javax.swing.JPanel {
         
         /*find the publisher*/
         PublisherEnterprise Publisher = null;
-        ArrayList<Network> networkList = system.getNetworkDirectory().getNetworkList();
-        for(Network net : networkList){
-            ArrayList<Enterprise> enterPriseList = net.getEnterpriseDirectory().getEnterpriseList();
-            for(Enterprise enterprise: enterPriseList){
-                if(enterprise.getEnterpriseType().equals("Type-Publisher")){
-                    Publisher = (PublisherEnterprise)enterprise;
+
+        for(Enterprise e:bookstoreManager.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
+              
+            if(e.getEnterpriseType().equals("Type-Publisher") && e.getEnterpriseName().equals(txtPress.getText())){
+
+                Publisher = (PublisherEnterprise)e;
+                System.out.println(e.getOrganizationDirectory().getOrganizationList().size());
+                /*find the publisher organization*/
+                System.out.println(Publisher.getEnterpriseName());
+                PB_ManagementOrganization PublisherOrg = null;
+                ArrayList<Organization> publisherList =  Publisher.getOrganizationDirectory().getOrganizationList();
+                
+                for(Organization org : publisherList){
+                   if(org.getOrgtypename().equals("PB_ManagementOrganization")){
+                        PublisherOrg = (PB_ManagementOrganization)org;
+                         /*set workRequest*/
+                        WorkRequest workRequest = new WorkRequest();
+                        workRequest.setOrder(order);
+                        workRequest.setSenderEnterprise(bookstoreManager.getEmployee().getEnterprise());
+                        workRequest.setReceiverEnterprise(Publisher);
+                        workRequest.setStatus("Uncompleted");
+                        workRequest.setMessage(txtComment.getText());
+                        PublisherOrg.getWorkQueue().addNewRequest(workRequest);
+                        bookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewBSToPublisherRequest(workRequest);
+  System.out.println("给 "+Publisher.getEnterpriseName()+"的部门"+PublisherOrg.getOrgtypename()+"添加了request");
+                        JOptionPane.showMessageDialog(null, "The request have already send the order to Publiser "+e.getEnterpriseName()+" "+org.getOrgtypename());
+                         dB4OUtil.storeSystem(system);
+                        break;
+                    }
+                }
+                if(PublisherOrg==null){
+                    JOptionPane.showMessageDialog(null, "没有这个org");
                 }
             }
+            
+        } 
+        if(Publisher==null){
+            JOptionPane.showMessageDialog(null, "The Press does not exist", "Error", JOptionPane.WARNING_MESSAGE);
         }
-        
-        /*find the publisher organization*/
-        PB_ManagementOrganization PublisherOrg = null;
-        ArrayList<Organization> publisherList =  Publisher.getOrganizationDirectory().getOrganizationList();
-        for(Organization org : publisherList){
-            if(org.getOrgtypename().equals("PB_ManagementOrganization")){
-                PublisherOrg = (PB_ManagementOrganization)org;
-            }
-        }
-        
-        /*set workRequest*/
-        WorkRequest workRequest = new WorkRequest();
-        workRequest.setOrder(order);
-        workRequest.setSenderEnterprise(bookstoreManager.getEmployee().getEnterprise());
-        workRequest.setReceiverEnterprise(Publisher);
-        workRequest.setStatus("Uncompleted");
-        workRequest.setMessage(txtComment.getText());
-        PublisherOrg.getWorkQueue().addNewRequest(workRequest);
-        bookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewBSToPublisherRequest(workRequest);
-        
-        JOptionPane.showMessageDialog(null, "have already send the order to Publiser!");
     }//GEN-LAST:event_btnOrderActionPerformed
-
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

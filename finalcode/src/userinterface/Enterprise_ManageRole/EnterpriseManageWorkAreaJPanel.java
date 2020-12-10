@@ -191,7 +191,7 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(950, 800));
 
-        t2.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
+        t2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         t2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -203,7 +203,7 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
                 "UserAccount", "Password", "Name", "Gender", "Organization Name"
             }
         ));
-        t2.setRowHeight(36);
+        t2.setRowHeight(25);
         jScrollPane1.setViewportView(t2);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
@@ -358,7 +358,7 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(950, 800));
 
-        tb1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        tb1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tb1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -378,7 +378,7 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tb1.setRowHeight(36);
+        tb1.setRowHeight(25);
         jScrollPane3.setViewportView(tb1);
         if (tb1.getColumnModel().getColumnCount() > 0) {
             tb1.getColumnModel().getColumn(0).setMinWidth(200);

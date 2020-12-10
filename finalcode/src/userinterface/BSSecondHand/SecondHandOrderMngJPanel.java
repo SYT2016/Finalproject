@@ -39,6 +39,10 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
             Object[] row = new Object[7];
             row[0] = request;
             row[1] = request.getSenderUserAccount();
+           
+            //row[2]=0;
+            
+           
             row[2] = request.getSenderUserAccount().getAddress();
             row[3] = request.getRequestDate();
             row[4] = request.getOrder().getStatus();
@@ -68,10 +72,14 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrder = new javax.swing.JTable();
         btnProcess = new javax.swing.JButton();
+        Delete = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(950, 800));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Welcome! Second-hand center!");
 
+        tblOrder.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tblOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -88,6 +96,7 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblOrder.setRowHeight(25);
         jScrollPane1.setViewportView(tblOrder);
         if (tblOrder.getColumnModel().getColumnCount() > 0) {
             tblOrder.getColumnModel().getColumn(0).setResizable(false);
@@ -99,10 +108,19 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
             tblOrder.getColumnModel().getColumn(6).setResizable(false);
         }
 
+        btnProcess.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
         btnProcess.setText("Process!");
         btnProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProcessActionPerformed(evt);
+            }
+        });
+
+        Delete.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
+        Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
             }
         });
 
@@ -113,27 +131,29 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(111, 111, 111)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(590, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnProcess)
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Delete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnProcess))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btnProcess)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProcess)
+                    .addComponent(Delete))
+                .addContainerGap(297, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,8 +172,21 @@ public class SecondHandOrderMngJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_btnProcessActionPerformed
 
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+              JOptionPane.showMessageDialog(null, "please select a Order!","Warning",JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+        WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+        shBookstoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestCusToSHBSList().remove(workRequest);
+         populateTable();
+    }//GEN-LAST:event_DeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Delete;
     private javax.swing.JButton btnProcess;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

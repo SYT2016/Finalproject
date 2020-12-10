@@ -46,8 +46,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
             for(Enterprise enterprise: enterPriseList){
                 if(enterprise.getEnterpriseType().equals("Type-DeliveryCompany")){
                     DeliveryEnterprise deliveryEnterprise = (DeliveryEnterprise)enterprise;
-                    comboExpress.addItem(deliveryEnterprise);
-                    
+                    comboExpress.addItem(deliveryEnterprise);                   
                 }
             }
         }

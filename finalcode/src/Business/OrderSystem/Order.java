@@ -9,6 +9,8 @@ import Business.UserAccount.UserAccount;
 
 import java.util.ArrayList;
 import java.util.List;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
 
 /**
  * @author Cong Wang
@@ -17,7 +19,7 @@ public class Order {
     private int id;
     private String status;//"preparing“ ”“delivering”“received”
     private String comments;
-    private static int count = 1;
+    public static int count = 1;
     private UserAccount userAccount; //一个订单的创始者
     private String totalPrice; //add a new attribute: total Price
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -26,10 +28,15 @@ public class Order {
     private int sellingNumber;
     private String address;
     
+    private static int lastorderid;
     public Order() {
         id = count++;
+        lastorderid=id;
+     
     }
+        public Order(String test){
 
+        }
     public int getSellingNumber() {
         return sellingNumber;
     }
@@ -131,6 +138,22 @@ public class Order {
 
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        Order.count = count;
+    }
+
+    public int getLastorderid() {
+        return lastorderid;
+    }
+
+    public void setLastorderid(int lastorderid) {
+        this.lastorderid = lastorderid;
     }
 
 

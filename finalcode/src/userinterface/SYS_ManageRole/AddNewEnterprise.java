@@ -32,9 +32,7 @@ public class AddNewEnterprise extends javax.swing.JPanel {
     JPanel userProcessContainer;
     private Network selectednetwork;
     String[] EnterpriseType = {"Type-BookStore","Type-DeliveryCompany","Type-Printer","Type-Publisher"};
-    public AddNewEnterprise() {
-        initComponents();
-    }
+
 
     public AddNewEnterprise(JPanel userProcessContainer) {
          initComponents();
