@@ -13,10 +13,15 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
 
 /**
@@ -34,6 +39,9 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         this.container=container;
         this.wr=wr;
         this.ua=ua;
+        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
+        head1.setFont(new Font("Times New Roman", Font.PLAIN, 18));// 设置表格字体
         populate();
         for(Enterprise pe:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
             if(pe.getEnterpriseType().equals("Type-Printer") && pe.getNetwork().getNetworkID()==ua.getEmployee().getEnterprise().getNetwork().getNetworkID()){ 
@@ -79,6 +87,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         jLabel1.setText("New Request To Print Plant");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
 
@@ -90,6 +99,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         });
         add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
+        tblOrderItem.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -111,10 +121,11 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         add(btnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
         add(txtQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 50, 30));
 
+        jLabel2.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         jLabel2.setText("Choose a Print Plant:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
 
-        add(comboPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
+        add(comboPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
 
         btnCommit.setText("Commit");
         btnCommit.addActionListener(new java.awt.event.ActionListener() {
@@ -139,31 +150,53 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         Component c=(Component)coms[coms.length-1];
         PB_workAreaJPanel jp=(PB_workAreaJPanel)c;
         jp.populate();
+        jp.populateItems(null);       
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuantityActionPerformed
         int row=tblOrderItem.getSelectedRow();
-        int quan=Integer.parseInt(txtQuantity.getText());
-        if(row<0){
-            JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else if(quan<=0){
-            JOptionPane.showMessageDialog(null, "The Quantity can not be less than 1", "Warning", JOptionPane.WARNING_MESSAGE);
+        String quantity=txtQuantity.getText();
+        boolean check=false;
+        if(quantity.equals("")){
+            JOptionPane.showMessageDialog(null, "Please input a number", "Warning", JOptionPane.WARNING_MESSAGE);              
         }else{
-            OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
-            for(OrderItem o:wr.getOrder().getOrderItems()){
-                if(o.equals(oi)){
-                    o.setQuantity(quan);
+            for(char c:quantity.toCharArray()){
+                if(!Character.isDigit(c)){
+                    check=true;
+                    JOptionPane.showMessageDialog(null, "The information contains invalid character. Please input again", "Warning", JOptionPane.WARNING_MESSAGE);
+                    txtQuantity.setText("");
                 }
             }
-            populate();
         }
+        
+        if(check==false){
+            int quan=Integer.parseInt(txtQuantity.getText());
+            if(row<0){
+                JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
+            }else if(quan<=0){
+                JOptionPane.showMessageDialog(null, "The Quantity can not be less than 1", "Warning", JOptionPane.WARNING_MESSAGE);
+            }else{
+                OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
+                for(OrderItem o:wr.getOrder().getOrderItems()){
+                    if(o.equals(oi)){
+                        o.setQuantity(quan);
+                    }
+                }
+                populate();
+            }
+        }       
     }//GEN-LAST:event_btnQuantityActionPerformed
 
     private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
-
-        PrinterEnterprise selectedPrint=(PrinterEnterprise)comboPrint.getSelectedItem();
+        String printer=(String)comboPrint.getSelectedItem();
+        Enterprise selectedPrint=null;
+        for(Enterprise e:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
+            if(e.getEnterpriseName().equals(printer)){
+                selectedPrint=e;
+            }
+        }
         if(selectedPrint!=null){
             for(Enterprise e:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
                 if(e.equals(selectedPrint)){
@@ -182,6 +215,11 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
                                 newReq.setMessage(mesg);
                                 JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
                                 wr.setStatus("Completed");
+                                txtQuantity.setEnabled(false);
+                                btnQuantity.setEnabled(false);
+                                btnDelete.setEnabled(false);
+                                comboPrint.setEnabled(false);
+                              
                             }
                             o.getWorkQueue().addNewRequest(newReq);
                         }
@@ -190,10 +228,7 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
             }            
         }
         
-        txtQuantity.setEnabled(false);
-        btnQuantity.setEnabled(false);
-        btnDelete.setEnabled(false);
-        comboPrint.setEnabled(false);
+        
     }//GEN-LAST:event_btnCommitActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

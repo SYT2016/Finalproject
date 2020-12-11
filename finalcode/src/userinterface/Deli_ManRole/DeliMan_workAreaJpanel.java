@@ -32,9 +32,9 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
         this.ua=user;
         labelUser.setText(ua.getUsername());   
         labelRole.setText(ua.getEmployee().getEnterprise().getEnterpriseName()+" "+ua.getEmployee().getOrganization().getOrgtypename());      
-//        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-//        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-//        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 18));// 设置表格字体
         populate();
     }
 
@@ -106,12 +106,13 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Welcome! ");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        labelUser.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
+        labelUser.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         labelUser.setText("labelUser");
-        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
+        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 150, 20));
 
         btnUnfinished.setText("Unfinished");
         btnUnfinished.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +130,7 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
         });
         add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
 
+        tblQueue.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -213,9 +215,11 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
 
         add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 350, 220));
 
+        labelRole.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         labelRole.setText("jLabel2");
-        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
+        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 250, 20));
 
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Work Area");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -248,25 +252,28 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
             起地：bs 终点：cus
             */
             if(wr.getSenderEnterprise().getEnterpriseType().equals("Type-BookStore")){
-                txtSender.setText(wr.getSenderUserAccount().getUsername());
-                txtSenderAddr.setText(wr.getSenderUserAccount().getAddress());
-                txtSenderPhone.setText(wr.getSenderUserAccount().getPhone());
-                txtReceiver.setText(wr.getOrder().getUserAccount().getUsername());
-                txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
-                txtReceiverPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                if(wr.getMark()==0){
+                    txtSender.setText(wr.getSenderEnterprise().getEnterpriseName());
+                    txtSenderAddr.setText(wr.getSenderEnterprise().getAddress());
+                    txtSenderPhone.setText(wr.getSenderEnterprise().getPhone());
+                    txtReceiver.setText(wr.getOrder().getUserAccount().getUsername());
+                    txtReceiverAddr.setText(wr.getOrder().getUserAccount().getAddress());
+                    txtReceiverPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                }else{
+                     /*顾客卖书：从顾客送到书店
+                    顾客创造order
+                    sender:bs receiver:deli
+                    起点：cus 终点：bs
+                    */
+                    txtSender.setText(wr.getOrder().getUserAccount().getUsername());
+                    txtSenderAddr.setText(wr.getOrder().getUserAccount().getAddress());
+                    txtSenderPhone.setText(wr.getOrder().getUserAccount().getPhone());
+                    txtReceiver.setText(wr.getSenderEnterprise().getEnterpriseName());
+                    txtReceiverAddr.setText(wr.getSenderEnterprise().getAddress());
+                    txtReceiverPhone.setText(wr.getSenderEnterprise().getPhone());
+                }
             }
-            /*顾客卖书：从顾客送到书店
-            sender:bs receiver:deli
-            起点：cus 终点：bs
-            */
-            if(wr.getSenderEnterprise()==null){
-                txtSender.setText(wr.getOrder().getUserAccount().getUsername());
-                txtSenderAddr.setText(wr.getOrder().getUserAccount().getAddress());
-                txtSenderPhone.setText(wr.getOrder().getUserAccount().getPhone());
-                txtReceiver.setText(wr.getSenderEnterprise().getEnterpriseName());
-                txtReceiverAddr.setText(wr.getSenderEnterprise().getAddress());
-                txtReceiverPhone.setText(wr.getSenderEnterprise().getPhone());
-            }
+            
             /*从印刷厂送到书店
             sender:pt receiver:deli
             起点：pt 终点：bs
@@ -293,7 +300,7 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
             }else{
                 row[1]=wr.getSenderUserAccount().getUsername();
             }
-            if(wr.getSenderEnterprise()!=null){
+            if(wr.getReceiverEnterprise()!=null){
                 row[2]=wr.getReceiverEnterprise().getEnterpriseName();
             }else{
                 row[2]=wr.getReceiverUserAccount().getUsername();
@@ -304,10 +311,10 @@ public class DeliMan_workAreaJpanel extends javax.swing.JPanel {
                 row[5]="";
             }else{
                 row[5]=wr.getResolveDate().toString();
-            } 
+            }               
             row[6]=wr;
-            dtm.addRow(row);                      
-        }
+            dtm.addRow(row);   
+        }                  
     }//GEN-LAST:event_btnAllActionPerformed
 
     private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnfinishedActionPerformed

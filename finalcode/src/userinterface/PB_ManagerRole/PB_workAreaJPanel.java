@@ -32,12 +32,13 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         this.user=user;
         labelUser.setText(user.getUsername());
         labelRole.setText(user.getEmployee().getEnterprise().getEnterpriseName()+" "+user.getEmployee().getOrganization().getOrgtypename());
-//        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-//        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-//        head.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
-//        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
-//        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
-//        head1.setFont(new Font("楷体", Font.PLAIN, 36));// 设置表格字体
+        JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 18));// 设置表格字体
+        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 36));// 设置表头大小
+        head1.setFont(new Font("Times New Roman", Font.PLAIN, 18));// 设置表格字体
+
         populate();
     }
     
@@ -87,12 +88,15 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         jLabel1.setText("Welcome! ");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        labelUser.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         labelUser.setText("labelUser");
-        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
+        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 150, 20));
 
+        tblQueue.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -121,6 +125,7 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         });
         add(btnDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
+        tblOrderItem.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -141,11 +146,13 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         });
         add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, -1, -1));
 
+        labelRole.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         labelRole.setText("jLabel2");
-        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
+        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 240, 20));
 
+        jLabel2.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         jLabel2.setText("Work Area");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
 
         btnUnfinished.setText("Unfinished");
         btnUnfinished.addActionListener(new java.awt.event.ActionListener() {
@@ -164,12 +171,8 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
         add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        int row=tblQueue.getSelectedRow();
-        if(row<0){
-            JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
-            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 5);
+    public void populateItems(WorkRequest wr){
+        if(wr!=null){
             DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
             dtm.setRowCount(0);
             for(OrderItem oi:wr.getOrder().getOrderItems()){
@@ -182,6 +185,17 @@ public class PB_workAreaJPanel extends javax.swing.JPanel {
                 r[3]=price.multiply(quantity).intValue()+"";
                 dtm.addRow(r);
             }
+        }
+        
+    }
+    
+    private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
+        int row=tblQueue.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            WorkRequest wr=(WorkRequest)tblQueue.getValueAt(row, 5);
+            populateItems(wr);
         }
     }//GEN-LAST:event_btnDetailsActionPerformed
 
