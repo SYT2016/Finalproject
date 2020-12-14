@@ -9,10 +9,12 @@ import Business.EcoSystem;
 
 import Business.Organization.Organization;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import static userinterface.MainJFrame.log;
 import userinterface.SYS_ManageRole.MngEnterprise;
 import userinterface.SYS_ManageRole.MngNet;
 
@@ -29,9 +31,10 @@ public class SYSAdminWorkAreaJPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
     public SYSAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
+        log.info("Login: System Manager");
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
-      
+        this.setBackground(new Color(253,251,239));
     }
     
 
@@ -52,6 +55,7 @@ public class SYSAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(900, 800));
 
+        jPanel2.setBackground(new java.awt.Color(253, 251, 239));
         jPanel2.setPreferredSize(new java.awt.Dimension(950, 800));
 
         btnManageNetwork.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N

@@ -5,12 +5,14 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import static userinterface.MainJFrame.log;
 
 /**
  *
@@ -25,8 +27,15 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
      */
     public BSManagerMngJPanel(JPanel container,UserAccount bookStoreManager) {
         initComponents();
+        log.info("Login: BookStore Manager User: "+bookStoreManager.getUsername());
         this.container = container;
         this.bookStoreManager = bookStoreManager;
+        this.setBackground(new Color(253,251,239));
+          Enterprise ua_enterprise=bookStoreManager.getEmployee().getEnterprise();
+    
+        l1.setText("Enterprise: "+ua_enterprise.getEnterpriseName());
+        l2.setText("Type: "+ua_enterprise.getEnterpriseType());
+        l3.setText("Network: "+ua_enterprise.getNetwork().getName());
     }
 
     /**
@@ -42,11 +51,17 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
         btnViewOrders = new javax.swing.JButton();
         btnManageBook = new javax.swing.JButton();
         btnViewPublisherOrders = new javax.swing.JButton();
+        l1 = new javax.swing.JLabel();
+        l2 = new javax.swing.JLabel();
+        l3 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
         jLabel1.setText("Welcome! Book Store Manager");
 
-        btnViewOrders.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnViewOrders.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         btnViewOrders.setText("Manage Customer Orders");
         btnViewOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +69,7 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnManageBook.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnManageBook.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         btnManageBook.setText("Manage Books");
         btnManageBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +77,7 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnViewPublisherOrders.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnViewPublisherOrders.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         btnViewPublisherOrders.setText("Manage Publisher Orders");
         btnViewPublisherOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,38 +85,64 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
             }
         });
 
+        l1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        l1.setText("jLabel2");
+
+        l2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        l2.setText("jLabel2");
+
+        l3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        l3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        l3.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(146, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(140, 140, 140))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnViewOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnViewPublisherOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(130, 130, 130))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(btnManageBook)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnViewOrders)
+                                    .addComponent(btnManageBook, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnViewPublisherOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(253, 253, 253))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(69, 69, 69))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(l2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 555, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(l1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(l3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(l1)
+                    .addComponent(l3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(l2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(btnManageBook)
-                .addGap(18, 18, 18)
+                .addGap(57, 57, 57)
                 .addComponent(btnViewOrders)
-                .addGap(18, 18, 18)
+                .addGap(70, 70, 70)
                 .addComponent(btnViewPublisherOrders)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(209, 209, 209))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,5 +175,8 @@ public class BSManagerMngJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnViewOrders;
     private javax.swing.JButton btnViewPublisherOrders;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel l1;
+    private javax.swing.JLabel l2;
+    private javax.swing.JLabel l3;
     // End of variables declaration//GEN-END:variables
 }

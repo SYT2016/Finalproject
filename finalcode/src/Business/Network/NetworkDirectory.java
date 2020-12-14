@@ -5,6 +5,7 @@
  */
 package Business.Network;
 
+import Business.Enterprise.Enterprise;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class NetworkDirectory {
     private ArrayList<Network> networkList; 
     private int lastid;//记录最后一个存进来的network的id
+    private int lastorid;
     public NetworkDirectory(){
         networkList=new ArrayList<Network>();
     
@@ -37,12 +39,49 @@ public class NetworkDirectory {
         return network;
     
     }
+    public boolean checkEnterpriceUnique(String enname){
+        boolean b=true;
+        for(Network nt:networkList){
+            for(Enterprise e:nt.getEnterpriseDirectory().getEnterpriseList()){
+                if(e.getEnterpriseName().equals(enname)){
+                    b=false;
+                    return b;
+                }
+            
+            }
+        
+        }
+        return b;
+        
+    
+    }
+    public boolean checkNetworkUnique(String ntname){
+        boolean b=true;
+        for(Network nt:networkList){
+            if(nt.getName().equals(ntname)){
+                b=false;
+                return b;
+            
+            }
+        
+        }
+        return b;
+    
+    }
     public ArrayList<Network> getNetworkList() {
         return networkList;
     }
 
     public void setNetworkList(ArrayList<Network> networkList) {
         this.networkList = networkList;
+    }
+
+    public int getLastorid() {
+        return lastorid;
+    }
+
+    public void setLastorid(int lastorid) {
+        this.lastorid = lastorid;
     }
 
     public int getLastid() {

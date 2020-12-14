@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Desktop/finalcode(1)/finalcode/src/userinterface/MainJFrame.java</file>
-            <file>file:/C:/Users/admin/Desktop/finalcode(1)/finalcode/src/userinterface/BSSecondHand/SecondHandProcessJPanel.java</file>
-            <file>file:/C:/Users/admin/Desktop/finalcode(1)/finalcode/src/userinterface/BSSecondHand/SecondHandOrderMngJPanel.java</file>
-            <file>file:/C:/Users/admin/Desktop/finalcode(1)/finalcode/src/userinterface/BScustomerLogin/CustomerSellingJPanel.java</file>
-            <file>file:/C:/Users/admin/Desktop/finalcode(1)/finalcode/src/userinterface/Deli_ManagerRole/DeliMana_workAreaJPanel.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/zOthers/Log.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/userinterface/BookStoreManagement/ManageBooksJPanel.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/zOthers/LogFormatter.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/userinterface/MainJFrame.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/userinterface/BookStoreManagement/UpdateBookJPanel.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/userinterface/SYS_ManageRole/AddNewCustomer.java</file>
+            <file>file:/C:/Users/16104/Desktop/Git/finalcode/src/zOthers/changeDate.java</file>
         </group>
     </open-files>
 </project-private>

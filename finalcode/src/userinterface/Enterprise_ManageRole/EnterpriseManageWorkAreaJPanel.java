@@ -18,11 +18,16 @@ import Business.Role.PB_ManageRole;
 import Business.Role.PT_ManageRole;
 import Business.Role.PT_PrintingMemberRole;
 import Business.UserAccount.UserAccount;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.log;
 import static userinterface.MainJFrame.system;
 
 /**
@@ -41,9 +46,10 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
      */
     public EnterpriseManageWorkAreaJPanel(JPanel userProcessContainer,UserAccount ua) {
         initComponents();
+        log.info("Login: Enterprise Manager User:"+ua.getUsername());
         this.userProcessContainer=userProcessContainer;
         this.ua=ua; 
-     
+        this.setBackground(new Color(253,251,239));
         populateCombo();
         
     }
@@ -58,10 +64,20 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         b2.removeAllItems();
         ua_enterprise=ua.getEmployee().getEnterprise();//根据老板的账号，判断是哪家enterprise
         //"Type-BookStore","Type-DeliveryCompany","Type-Printer","Type-Publisher"
-        tt22.setText("Enterprise Name: "+ua_enterprise.getEnterpriseName());
+        tt22.setText("Enterprise: "+ua_enterprise.getEnterpriseName());
         tt23.setText("Type: "+ua_enterprise.getEnterpriseType());
-        tt33.setText("Enterprise Name: "+ua_enterprise.getEnterpriseName());
+        tt33.setText("Enterprise: "+ua_enterprise.getEnterpriseName());
         tt34.setText("Type: "+ua_enterprise.getEnterpriseType());
+        
+        JTableHeader head = t2.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
+        
+        JTableHeader head1 = tb1.getTableHeader(); // 创建表格标题对象
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 24));// 设置表头大小
+        head1.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
+        
+        
         //根据enterprise的类型不同给出可以创建的organization类型
         if(ua_enterprise.getEnterpriseType().equals("Type-BookStore")){
             //如果这是个书店
@@ -187,8 +203,9 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(950, 800));
 
-        jTabbedPane1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
 
+        jPanel2.setBackground(new java.awt.Color(253, 251, 239));
         jPanel2.setPreferredSize(new java.awt.Dimension(950, 800));
 
         t2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -225,7 +242,7 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         b2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton2.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
-        jButton2.setText("Add New Employee");
+        jButton2.setText("Add Employee");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -249,14 +266,14 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnrrr.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
-        btnrrr.setText("Refresh");
+        btnrrr.setText("Delete");
         btnrrr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnrrrActionPerformed(evt);
             }
         });
 
-        tt33.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        tt33.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tt33.setText("jLabel1");
 
         buttonGroup1.add(jb1);
@@ -267,13 +284,28 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         jb2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         jb2.setText(" Female");
 
-        tt34.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        tt34.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tt34.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tt34, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tt33, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnrrr))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,35 +330,17 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
                                 .addComponent(jb2))
                             .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(98, 98, 98))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tt34, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(tt33, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnrrr))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(288, 288, 288)
-                        .addComponent(jButton2)))
-                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tt33)
-                    .addComponent(btnrrr))
-                .addGap(8, 8, 8)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnrrr)
+                    .addComponent(tt33))
+                .addGap(2, 2, 2)
                 .addComponent(tt34)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -349,13 +363,14 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
                     .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manage Employee", jPanel2);
 
+        jPanel1.setBackground(new java.awt.Color(253, 251, 239));
         jPanel1.setPreferredSize(new java.awt.Dimension(950, 800));
 
         tb1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -389,8 +404,13 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         jLabel10.setText("Organization Type");
 
-        b1.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        b1.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
         b1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1ActionPerformed(evt);
+            }
+        });
 
         addneworg.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         addneworg.setText("Add Organization");
@@ -408,10 +428,10 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        tt22.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        tt22.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tt22.setText("Enterprise:");
 
-        tt23.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
+        tt23.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tt23.setText("Type:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -419,46 +439,46 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addneworg, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addneworg))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tt23, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tt22, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(128, 128, 128)
+                        .addComponent(btnre)))
+                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tt22, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tt23, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnre)
-                .addGap(51, 51, 51))
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnre))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tt22)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tt23)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnre)
+                    .addComponent(tt22))
+                .addGap(0, 0, 0)
+                .addComponent(tt23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(32, 32, 32)
                 .addComponent(addneworg)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manage Organization", jPanel1);
@@ -467,9 +487,7 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,12 +508,20 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
          String selectorganizationtype=(String) b1.getSelectedItem();
          Network nt=system.getNetworkDirectory().searchNetwork(ua_enterprise.getNetwork());
          Enterprise enter=nt.getEnterpriseDirectory().searchEnterprise(ua_enterprise);
-         Organization newOrg=enter.getOrganizationDirectory().createOrganization(selectorganizationtype);
+         if(!enter.getOrganizationDirectory().checkOrgUnique(selectorganizationtype)){
+             JOptionPane.showMessageDialog(null, "This Organization Already Exists!", "Warning", JOptionPane.INFORMATION_MESSAGE);
+         
+         }
+         else{
+        
+             Organization newOrg=enter.getOrganizationDirectory().createOrganization(selectorganizationtype);
       
         JOptionPane.showMessageDialog(null, "Add New Organization Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
         dB4OUtil.storeSystem(system);
         populateCombo();
         populateOrgTable();
+         
+         }
     }//GEN-LAST:event_addneworgActionPerformed
 
     private void btnreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreActionPerformed
@@ -517,7 +543,13 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
             
         
         }
-
+         if(tt1.getText().equals("")||tt2.getText().equals("")||tt3.getText().equals("")){
+             JOptionPane.showMessageDialog(null, "Please fill all the information !", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        }
+         else if(!system.getUserAccountDirectory().checkIfUsernameIsUnique(tt1.getText())){
+         JOptionPane.showMessageDialog(null, "The Username already exists !", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
         Employee employee=new Employee();
         employee.setEnterprise(enter);
         employee.setRealname(tt3.getText());
@@ -571,19 +603,41 @@ public class EnterpriseManageWorkAreaJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Add New Employee Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
         populateEmpTable();
         dB4OUtil.storeSystem(system);
+        tt1.setText("");
+        tt2.setText("");
+        tt3.setText("");
 
-        
+         }
         
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnrrrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrrrActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:delete
+        
+         int row=t2.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select an employee!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int mesg = JOptionPane.showConfirmDialog(null, "Are you sure to delete this employee?", " WarningDialog!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(mesg==JOptionPane.YES_OPTION){
+            
+            UserAccount em=(UserAccount)t2.getValueAt(row, 0);
+            system.getUserAccountDirectory().deleteUa(em.getUsername());
+            em.getEmployee().getOrganization().deleteemployee(em);
+            }
+        }
+        
+        
         populateCombo();
         
         populateEmpTable();
     }//GEN-LAST:event_btnrrrActionPerformed
+
+    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_b1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

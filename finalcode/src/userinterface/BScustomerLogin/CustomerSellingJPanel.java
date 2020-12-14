@@ -17,6 +17,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,7 +35,7 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
      * Creates new form CustomerSellingJPanel
      */
     public CustomerSellingJPanel(JPanel container,UserAccount customer) {
-        
+        this.setBackground(new Color(253,251,239));
         this.container = container;
         this.customer = customer;
         initComponents();
@@ -42,7 +43,13 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         populateCombo();
         
     }
+public static boolean isNumeric(String str){
 
+        String reg = "^[0-9]+(.[0-9]+)?$";
+
+        return str.matches(reg);
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,12 +75,18 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
         txtExpectedPrice = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtComment = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
 
         jLabel4.setText("jLabel4");
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
         jLabel1.setText("Selling Your Book");
 
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,50 +94,73 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnOrder.setText("Order!");
+        btnOrder.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
+        btnOrder.setText("Commit");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel5.setText("Select your location:");
 
+        comboNetwork.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         comboNetwork.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboNetworkItemStateChanged(evt);
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel3.setText("Select your wanted bookstore:");
 
+        comboBookStore.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel2.setText("Number of Second-hand book:");
 
+        txtNumber.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel6.setText("Customer Address:");
 
+        txtCustomerAddress.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel7.setText("Expected Price:");
 
-        jLabel8.setText("Extra:");
+        txtExpectedPrice.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
 
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel8.setText("Extra Information:");
+
+        txtComment.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         txtComment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCommentActionPerformed(evt);
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel10.setText("Book Name:");
+
+        txtName.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 56, Short.MAX_VALUE)
                         .addComponent(btnBack)
+                        .addGap(510, 510, 510)
+                        .addComponent(btnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(268, 268, 268)
+                        .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(46, 46, 46)
@@ -134,37 +170,25 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10))
+                        .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(73, 73, 73)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtExpectedPrice, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCustomerAddress)
-                                    .addComponent(txtNumber)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 53, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(comboBookStore, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtName)
+                            .addComponent(txtExpectedPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCustomerAddress)
+                            .addComponent(txtNumber)
+                            .addComponent(txtComment)
+                            .addComponent(comboNetwork, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboBookStore, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(48, 48, 48))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnOrder)
-                .addGap(239, 239, 239))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(btnBack)
-                .addGap(17, 17, 17)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(comboNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -172,27 +196,31 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(comboBookStore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCustomerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtExpectedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOrder)
-                .addGap(56, 56, 56))
+                    .addComponent(jLabel8)
+                    .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(btnOrder))
+                .addGap(95, 95, 95))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -238,23 +266,38 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCommentActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        
+         String str=txtNumber.getText();
+          String str1=txtExpectedPrice.getText();
+        if(!isNumeric(str)||!isNumeric(str1)){
+              JOptionPane.showMessageDialog(null, "Please input a valid number!", "Warning", JOptionPane.WARNING_MESSAGE);
+          
+        }
+        else if(txtName.getText().equals("")||txtExpectedPrice.getText().equals("")||txtNumber.getText().equals("")||txtCustomerAddress.getText().equals("")){
+             JOptionPane.showMessageDialog(null, "Please fill the infomation!", "Warning", JOptionPane.WARNING_MESSAGE);
+          
+        }
+        else{
+        
+        
         Network network = (Network)comboNetwork.getSelectedItem();
         BookstoreEnterprise bookstore = (BookstoreEnterprise)comboBookStore.getSelectedItem();
         int number = Integer.parseInt(txtNumber.getText());
-        String address = customer.getAddress();
+        
         String expectedPrice = txtExpectedPrice.getText();
         String FinalPrice = null;
         String extraInfo = txtComment.getText();
         
         /*new order*/
         Order order = new Order();
+        order.setSellBookName(txtName.getText());
         order.setUserAccount(customer);
         order.setExpectedPrice(expectedPrice);
         order.setFinalPrice(FinalPrice);
         order.setSellingNumber(number);
-        order.setStatus("prepared");
+        order.setStatus("Waiting Bookstore Process");
         /*方便user更改地址*/
-        order.setAddress(address);
+        order.setAddress(txtCustomerAddress.getText());
         order.setComments(extraInfo);
         
         /*new workRequest to customer*/
@@ -281,12 +324,18 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
                 bookstoreOrg.getWorkQueue().addNewCusToSHBSRequest(workRequest);
                 JOptionPane.showMessageDialog(null, "The Order Has been sent to the bookstore. The bookstore will reply you in 7 days");
                 dB4OUtil.storeSystem(system); 
+                txtName.setEnabled(false);
+                 txtNumber.setEnabled(false);
+                  txtComment.setEnabled(false);
+                   txtCustomerAddress.setEnabled(false);
+                    txtExpectedPrice.setEnabled(false);
+                    btnOrder.setEnabled(false);
             }
         }
         if(bookstoreOrg==null){
             JOptionPane.showMessageDialog(null,"The book does not have second-hand service!");
         }
-        
+     } 
         
     }//GEN-LAST:event_btnOrderActionPerformed
 
@@ -297,6 +346,7 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<BookstoreEnterprise> comboBookStore;
     private javax.swing.JComboBox<Network> comboNetwork;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -307,6 +357,7 @@ public class CustomerSellingJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCustomerAddress;
     private javax.swing.JTextField txtExpectedPrice;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNumber;
     // End of variables declaration//GEN-END:variables
 }

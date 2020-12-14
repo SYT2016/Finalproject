@@ -6,6 +6,7 @@ package Business.Organization;
 
 import Business.EcoSystem;
 import Business.OrderSystem.BookDirectory;
+import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
 
@@ -46,7 +47,10 @@ public abstract class Organization {
         ++counter;
 
        }
-
+public void deleteemployee(UserAccount em){
+    userAccountDirectory.deleteUa(em.getUsername());
+    
+}
     public static int getCounter() {
         return counter;
     }

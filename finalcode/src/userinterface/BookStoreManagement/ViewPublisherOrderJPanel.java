@@ -5,8 +5,10 @@
  */
 package userinterface.BookStoreManagement;
 
+import Business.OrderSystem.Book;
 import Business.OrderSystem.Order;
 import Business.OrderSystem.OrderItem;
+import Business.Organization.BS_BookManagementOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 
@@ -14,6 +16,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.table.JTableHeader;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
+import zOthers.changeDate;
 
 /**
  *
@@ -29,26 +35,76 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
         this.container = container;
         this.bookStoreManager = bookStoreManager;
         initComponents();
-        populateOrderTable();
+        this.setBackground(new Color(253,251,239));
+                JTableHeader head = tblOrder.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
+        
+                JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 24));// 设置表头大小
+        head1.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
+        populatePendingOrderTable();
+        in.setEnabled(false);
     }
     
-    public void populateOrderTable(){
+    public void populateOrderTable(){//finish print
         DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
         model.setRowCount(0);
         
         List<WorkRequest> requestList = bookStoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestBSToPBList();
         for(WorkRequest request : requestList){
+            if(request.getOrder().getStatus().equals("Finished Print")){
             Object row[] = new Object[6];
             row[0] = request;
             row[1] = request.getSenderEnterprise();
             row[2] = request.getReceiverEnterprise();
-            row[3] = request.getRequestDate();
+            row[3] = new changeDate().change(request.getRequestDate());
             //row[4] = request.getStatus();
             row[4] = request.getOrder().getStatus();
             row[5] = request.getOrder().getTotalPrice();
             model.addRow(row);
+            }
         }
     }
+    public void populatePendingOrderTable(){//pending
+        DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
+        model.setRowCount(0);
+        
+        List<WorkRequest> requestList = bookStoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestBSToPBList();
+        for(WorkRequest request : requestList){
+            if(!(request.getOrder().getStatus().equals("Finished Print"))&&!(request.getOrder().getStatus().equals("Closed"))){
+            Object row[] = new Object[6];
+            row[0] = request;
+            row[1] = request.getSenderEnterprise();
+            row[2] = request.getReceiverEnterprise();
+            row[3] = new changeDate().change(request.getRequestDate());
+            //row[4] = request.getStatus();
+            row[4] = request.getOrder().getStatus();
+            row[5] = request.getOrder().getTotalPrice();
+            model.addRow(row);
+            }
+        }
+    }
+public void populateCloseOrderTable(){//close
+        DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
+        model.setRowCount(0);
+        
+        List<WorkRequest> requestList = bookStoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestBSToPBList();
+        for(WorkRequest request : requestList){
+            if(request.getOrder().getStatus().equals("Closed")){
+            Object row[] = new Object[5];
+            row[0] = request;
+            row[1] = request.getSenderEnterprise();
+            row[2] = request.getReceiverEnterprise();
+            row[3] = new changeDate().change(request.getRequestDate());
+            //row[4] = request.getStatus();
+            row[4] = request.getOrder().getStatus();
+        
+            model.addRow(row);
+            }
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,25 +122,28 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
         btnViewDetails = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblOrderItem = new javax.swing.JTable();
+        pd = new javax.swing.JButton();
+        fi = new javax.swing.JButton();
+        in = new javax.swing.JButton();
+        cl = new javax.swing.JButton();
+        pd1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        tblOrder.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tblOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Order Id", "Sender", "reciever", "Date", "status", "Total Price"
+                "Order Id", "Sender", "Reciever", "Date", "OrderStatus"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
+        tblOrder.setRowHeight(25);
         jScrollPane1.setViewportView(tblOrder);
 
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,9 +151,10 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 42)); // NOI18N
         jLabel1.setText("View Publisher Order");
 
+        btnViewDetails.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
         btnViewDetails.setText("View Details");
         btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,63 +162,118 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblOrderItem.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "BookName", "Bookstore", "Book Price", "Book Quantity", "status"
+                "BookName", "BookPublisher", "Wantted Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblOrderItem.setRowHeight(25);
         jScrollPane2.setViewportView(tblOrderItem);
+
+        pd.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
+        pd.setText("Pending");
+        pd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pdActionPerformed(evt);
+            }
+        });
+
+        fi.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
+        fi.setText("Unprocess");
+        fi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fiActionPerformed(evt);
+            }
+        });
+
+        in.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
+        in.setText("Increase Stock");
+        in.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inActionPerformed(evt);
+            }
+        });
+
+        cl.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
+        cl.setText("Closed");
+        cl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clActionPerformed(evt);
+            }
+        });
+
+        pd1.setFont(new java.awt.Font("Tekton Pro Ext", 1, 24)); // NOI18N
+        pd1.setText("Delete");
+        pd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pd1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnViewDetails)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(449, 449, 449)))
-                .addGap(120, 120, 120))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(269, 269, 269)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(pd, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fi, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cl, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(in))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pd1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(btnBack)
-                .addGap(7, 7, 7)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnViewDetails)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pd)
+                    .addComponent(fi)
+                    .addComponent(cl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(in))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,6 +285,7 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
 
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
 
+        
         int selectedRow = tblOrder.getSelectedRow();
         if (selectedRow < 0){
             JOptionPane.showMessageDialog(null, "please select a Order!","Warning",JOptionPane.WARNING_MESSAGE);
@@ -185,23 +301,111 @@ public class ViewPublisherOrderJPanel extends javax.swing.JPanel {
 
         List<OrderItem> orderItemList = order.getOrderItems();
         for(OrderItem orderItem : orderItemList) {
-            Object row[] = new Object[5];
+            Object row[] = new Object[3];
             row[0] = orderItem.getBookname();
-            row[1] = orderItem.getBookstore();
-            row[2] = orderItem.getPrice();
-            row[3] = orderItem.getQuantity();
-            row[4] = orderItem.getSelectedbook().getStatus();
+            row[1] = orderItem.getSelectedbook().getEnterprise();
+         
+            row[2] = orderItem.getQuantity();
+         
             model.addRow(row);
         }
     }//GEN-LAST:event_btnViewDetailsActionPerformed
+
+    private void pdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdActionPerformed
+        // TODO add your handling code here:pending
+        populatePendingOrderTable();
+         in.setEnabled(false);
+    }//GEN-LAST:event_pdActionPerformed
+
+    private void fiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiActionPerformed
+        // TODO add your handling code here:
+         in.setEnabled(true);
+          populateOrderTable();
+    }//GEN-LAST:event_fiActionPerformed
+
+    private void inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select an Order!","Warning",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        else{
+             int mesg = JOptionPane.showConfirmDialog(null, "Are you sure to increase stock?", " WarningDialog!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(mesg==JOptionPane.YES_OPTION){
+            
+           WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+              Order order = workRequest.getOrder();
+              String bkname="";
+              int wquantity=0;
+            
+              List<OrderItem> orderItemList = order.getOrderItems();
+                for(OrderItem orderItem : orderItemList) {
+                
+               bkname = orderItem.getBookname();
+              
+               wquantity = orderItem.getQuantity();
+                }
+            BS_BookManagementOrganization bsManager = (BS_BookManagementOrganization)bookStoreManager.getEmployee().getOrganization();
+            Book bk= bsManager.getBookDirectory().searchBook(bkname);
+            System.out.println(bk.getName());
+            System.out.println(bk.getTotalQuantity());
+            bk.setTotalQuantity(bk.getTotalQuantity()+wquantity);
+       
+         JOptionPane.showMessageDialog(null, "You have increased stock!", "Warning", JOptionPane.WARNING_MESSAGE);
+          order.setStatus("Closed");
+          populateOrderTable();
+        dB4OUtil.storeSystem(system);
+        DefaultTableModel model=(DefaultTableModel)tblOrderItem.getModel();
+        model.setRowCount(0);
+            
+            }
+        
+        
+        }
+        
+        
+    }//GEN-LAST:event_inActionPerformed
+
+    private void clActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clActionPerformed
+        // TODO add your handling code here:
+         in.setEnabled(false);
+         populateCloseOrderTable();
+    }//GEN-LAST:event_clActionPerformed
+
+    private void pd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pd1ActionPerformed
+        // TODO add your handling code here:delete
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select an Order!","Warning",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        else{
+             int mesg = JOptionPane.showConfirmDialog(null, "Are you sure to delete this order?", " WarningDialog!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(mesg==JOptionPane.YES_OPTION){
+            
+           WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+            bookStoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestBSToPBList().remove(workRequest);
+            }
+            populateCloseOrderTable();
+            populateOrderTable();
+            populatePendingOrderTable();
+            dB4OUtil.storeSystem(system);
+        }
+    }//GEN-LAST:event_pd1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnViewDetails;
+    private javax.swing.JButton cl;
+    private javax.swing.JButton fi;
+    private javax.swing.JButton in;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton pd;
+    private javax.swing.JButton pd1;
     private javax.swing.JTable tblOrder;
     private javax.swing.JTable tblOrderItem;
     // End of variables declaration//GEN-END:variables

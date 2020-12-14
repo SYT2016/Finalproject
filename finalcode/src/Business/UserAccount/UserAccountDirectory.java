@@ -46,7 +46,7 @@ public class UserAccountDirectory {
     
     public UserAccount authenticateUser(String username, String password){
         for (UserAccount ua : userAccountList){
-             System.out.println("数据库中"+ua.getUsername()+ua.getPassword());
+            
             if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
                 return ua;
             }

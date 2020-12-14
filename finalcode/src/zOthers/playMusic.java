@@ -24,8 +24,9 @@ import sun.audio.AudioStream;
  * @author admin
  */
 public class playMusic {
-    public static void play() throws FileNotFoundException, IOException{
-        File f=new File("src/zOthers/alert.wav");
+    public static void play(String path) throws FileNotFoundException, IOException{
+        //"src/zOthers/alert.wav"
+        File f=new File(path);
         URI uri=f.toURI();
         URL url;
         AudioClip ac;

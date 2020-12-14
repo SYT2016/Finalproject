@@ -9,6 +9,7 @@ package userinterface.SYS_ManageRole;
 import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JOptionPane;
@@ -37,6 +38,7 @@ public class MngNet extends javax.swing.JPanel {
         head.setPreferredSize(new Dimension(head.getWidth(), 48));// 设置表头大小
         head.setFont(new Font("Times New Roman", Font.PLAIN, 48));// 设置表格字体
          populateTable();
+        this.setBackground(new Color(253,251,239));
     }
  public void populateTable(){
         DefaultTableModel model=(DefaultTableModel)mngcus.getModel();
@@ -65,6 +67,7 @@ public class MngNet extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         mngcus = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(253, 251, 239));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         jButton4.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N

@@ -13,10 +13,15 @@ import Business.Organization.BS_BookManagementOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import static userinterface.MainJFrame.log;
 import static userinterface.MainJFrame.system;
 
 /**
@@ -31,9 +36,14 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
      */
     public CustomerManageJPanel(JPanel container, UserAccount customer) {
         initComponents();
+        log.info("Login: Customer User:"+customer.getUsername());
         this.container = container;
         this.customer = customer;
-        populateTable();
+        this.setBackground(new Color(253,251,239));
+       // JTableHeader head = tblBookStore.getTableHeader(); // 创建表格标题对象
+      //  head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+      //  head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
+      //  populateTable();
     }
     
     public void populateTable(){
@@ -41,8 +51,8 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
         networkList = system.getNetworkDirectory().getNetworkList();
         List<Book> sBookList = new ArrayList<>();
 
-        DefaultTableModel model=(DefaultTableModel)tblBookStore.getModel();
-        model.setRowCount(0);
+       // DefaultTableModel model=(DefaultTableModel)tblBookStore.getModel();
+      //  model.setRowCount(0);
 
         for (Network network : networkList){
             List<Enterprise> enterpriseList = new ArrayList<>();
@@ -63,7 +73,7 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
                                     row[3]= String.valueOf(book.getPrice());
                                     row[4]= book.getStatus();
                                     row[5] = book.getTotalQuantity();
-                                    model.addRow(row);
+                                //    model.addRow(row);
                                 }}
                             }
                         }
@@ -74,7 +84,7 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
     @Override
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
-        populateTable();
+        //populateTable();
     }
 
     /**
@@ -86,20 +96,16 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         btnBuying = new javax.swing.JButton();
         btnSelling = new javax.swing.JButton();
         btnOrderHistory = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblBookStore = new javax.swing.JTable();
-        txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setText("Welcome Customer!");
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+        setRequestFocusEnabled(false);
 
-        btnBuying.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnBuying.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
         btnBuying.setText("Go to buy!");
         btnBuying.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +113,7 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSelling.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnSelling.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
         btnSelling.setText("Go to sell!");
         btnSelling.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +121,7 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnOrderHistory.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        btnOrderHistory.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
         btnOrderHistory.setText("Order History");
         btnOrderHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,87 +129,41 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblBookStore.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "BookName", "Network", "Bookstore", "price", "status", "Quantity"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblBookStore);
-
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-
-        btnSearch.setText("Search!");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Have the target book? ");
+        jLabel6.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
+        jLabel6.setText("Welcome to Online Bookstore !");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBuying)
-                                .addGap(57, 57, 57)
-                                .addComponent(btnSelling)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnOrderHistory)))
-                .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 80, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(91, 91, 91))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(233, 233, 233))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(190, 190, 190)
-                        .addComponent(btnSearch)
-                        .addGap(144, 144, 144))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(345, 345, 345)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSelling)
+                            .addComponent(btnBuying)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(btnOrderHistory)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuying)
-                    .addComponent(btnSelling)
-                    .addComponent(btnOrderHistory))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(76, 76, 76)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addComponent(btnBuying)
+                .addGap(105, 105, 105)
+                .addComponent(btnSelling)
+                .addGap(94, 94, 94)
+                .addComponent(btnOrderHistory)
+                .addGap(227, 227, 227))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -231,57 +191,11 @@ public class CustomerManageJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_btnOrderHistoryActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String bookName = txtSearch.getText();
-        List<Network> networkList = new ArrayList<>();
-        networkList = system.getNetworkDirectory().getNetworkList();
-        List<Book> sBookList = new ArrayList<>();
-
-        DefaultTableModel model=(DefaultTableModel)tblBookStore.getModel();
-        model.setRowCount(0);
-
-        for (Network network : networkList){
-            List<Enterprise> enterpriseList = new ArrayList<>();
-            enterpriseList = network.getEnterpriseDirectory().getEnterpriseList();
-            for(Enterprise enterprise : enterpriseList){
-                if(enterprise.getEnterpriseType().equals("Type-BookStore")){
-                    BookstoreEnterprise bookstore = (BookstoreEnterprise)enterprise;
-                    ArrayList<Organization> organizations = bookstore.getOrganizationDirectory().getOrganizationList();
-                    for (Organization organization : organizations) {
-                        if (organization instanceof BS_BookManagementOrganization) {
-                            BS_BookManagementOrganization bso = (BS_BookManagementOrganization) organization;
-                            sBookList= bso.getBookDirectory().getBooklist();
-                            for(Book book : sBookList){
-                                if(book.getName().equals(bookName)){
-                                    Object row[]=new Object[6];
-                                    row[0]= book;
-                                    row[1] = network;
-                                    row[2] = bookstore;
-                                    row[3]= String.valueOf(book.getPrice());
-                                    row[4]= book.getStatus();
-                                    row[5] = book.getTotalQuantity();
-                                    model.addRow(row);
-                                }}}
-                            }
-                        }
-                    }
-                }
-    }//GEN-LAST:event_btnSearchActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuying;
     private javax.swing.JButton btnOrderHistory;
-    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSelling;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBookStore;
-    private javax.swing.JTextField txtSearch;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

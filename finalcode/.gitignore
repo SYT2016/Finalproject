@@ -29,3 +29,5 @@ hs_err_pid*
 
 # Project exclude paths
 /out/
+/dist/
+/build/

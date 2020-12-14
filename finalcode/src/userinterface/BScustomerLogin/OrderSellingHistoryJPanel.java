@@ -12,6 +12,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.table.JTableHeader;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
+import zOthers.changeDate;
 
 /**
  *
@@ -25,8 +29,12 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
      */
     public OrderSellingHistoryJPanel(JPanel container,UserAccount customer) {
         initComponents();
+        this.setBackground(new Color(253,251,239));
         this.container = container;
         this.customer = customer;
+            JTableHeader head = tblOrder.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
         populateTable();
     }
     
@@ -37,10 +45,10 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
         List<WorkRequest> requestList = customer.getWorkQueue().getWorkRequestCusToSHBSList();
         for(WorkRequest request : requestList){
             Object[] row = new Object[7];
-            row[0] = request.getOrder();
+            row[0] = request;
             row[1] = request.getReceiverEnterprise().getEnterpriseName();
             row[2] = request.getReceiverEnterprise().getAddress();
-            row[3] = request.getRequestDate();
+            row[3] = new changeDate().change(request.getRequestDate());
             row[4] = request.getOrder().getStatus();
             row[5] = request.getOrder().getExpectedPrice();
             row[6] = request.getOrder().getFinalPrice();
@@ -61,10 +69,15 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrder = new javax.swing.JTable();
+        btnBack1 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 0, 48)); // NOI18N
         jLabel1.setText("View Selling Order History");
 
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 0, 36)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +85,7 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblOrder.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tblOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -88,7 +102,16 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblOrder.setRowHeight(25);
         jScrollPane1.setViewportView(tblOrder);
+
+        btnBack1.setFont(new java.awt.Font("Tekton Pro Ext", 0, 36)); // NOI18N
+        btnBack1.setText("Delete");
+        btnBack1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,28 +120,33 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addContainerGap()
                         .addComponent(btnBack)
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel1)))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1)
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(btnBack1))
+                .addGap(93, 93, 93))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -128,9 +156,30 @@ public class OrderSellingHistoryJPanel extends javax.swing.JPanel {
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+        // TODO add your handling code here:delete
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select an Order!","Warning",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        else{
+             int mesg = JOptionPane.showConfirmDialog(null, "Are you sure to delete this order?", " WarningDialog!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(mesg==JOptionPane.YES_OPTION){
+            
+           WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+            customer.getWorkQueue().getWorkRequestCusToSHBSList().remove(workRequest);
+            }
+            populateTable();
+            System.out.println("Customer Delete One Selling Order");
+            dB4OUtil.storeSystem(system);
+        }
+    }//GEN-LAST:event_btnBack1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblOrder;

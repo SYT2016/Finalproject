@@ -11,6 +11,7 @@ import Business.Network.Network;
 import Business.Role.Enterprise_ManageRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -37,7 +38,7 @@ public class AddNewEnterprise extends javax.swing.JPanel {
     public AddNewEnterprise(JPanel userProcessContainer) {
          initComponents();
          this.userProcessContainer=userProcessContainer;
-        
+        this.setBackground(new Color(253,251,239));
          populateCombo();
     }
       public void populateCombo(){
@@ -78,6 +79,7 @@ public class AddNewEnterprise extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         t5 = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(253, 251, 239));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
@@ -230,6 +232,17 @@ public class AddNewEnterprise extends javax.swing.JPanel {
         }
         //选择enterprise的类型
         String selectEnterpriseTypeName=(String) boxxx.getSelectedItem();
+        if(t1.getText().equals("")||t2.getText().equals("")||t3.getText().equals("")||t4.getText().equals("")||t5.getText().equals("")){
+             JOptionPane.showMessageDialog(null, "Please fill all the information !", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(!system.getNetworkDirectory().checkEnterpriceUnique(t1.getText())){
+             JOptionPane.showMessageDialog(null, "The Enterprise Name already exists !", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        }
+       
+        else if(!system.getUserAccountDirectory().checkIfUsernameIsUnique(t2.getText())){
+         JOptionPane.showMessageDialog(null, "The Username already exists !", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
         //并创建新的enterprise
         Enterprise newEnterprise=selectednetwork.getEnterpriseDirectory().createAndAddEnterprise(t1.getText(), selectEnterpriseTypeName);
         //并把该新的enterprise所属于的network存入进去以备不时之需
@@ -247,6 +260,13 @@ public class AddNewEnterprise extends javax.swing.JPanel {
         newEnterprise.setPhone(t5.getText());
         JOptionPane.showMessageDialog(null, "Add New Enterprise Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
         dB4OUtil.storeSystem(system);
+        t1.setText("");
+        t2.setText("");
+        t3.setText("");
+        t4.setText("");
+        t5.setText("");
+        
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

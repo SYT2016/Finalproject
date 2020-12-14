@@ -9,13 +9,23 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import userinterface.MainJFrame;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.log;
+import static userinterface.MainJFrame.system;
+import zOthers.changeDate;
+import zOthers.playMusic;
 
 /**
  *
@@ -28,14 +38,14 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     //WorkRequest wr;
     public DeliMana_workAreaJPanel( JPanel container,UserAccount ua) {
         initComponents();
+        log.info("Login: Delivery Manager User:"+ua.getUsername());
         this.container=container;
         this.ua=ua;
-        labelUser.setText(ua.getUsername());
-        labelRole.setText(ua.getEmployee().getEnterprise().getEnterpriseName()+" "+ua.getEmployee().getOrganization().getOrgtypename());
-        
+         labelUser.setText("Enterprise: "+ua.getEmployee().getEnterprise().getEnterpriseName()+"("+ua.getEmployee().getEnterprise().getNetwork().getName()+")");   
+        this.setBackground(new Color(253,251,239));
         JTableHeader head = tblQueue.getTableHeader(); // 创建表格标题对象
-        head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
-        head.setFont(new Font("Times New Roman", Font.PLAIN, 18));// 设置表格字体
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
         populate();
         comboDeliveryman.removeAll();
         
@@ -54,7 +64,7 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         for(WorkRequest wr:ua.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){
             if(wr.getStatus().equals(("Uncompleted"))){
                 Object[] row=new Object[7];
-                row[0]=wr.getRequestDate().toString();
+                row[0]=new changeDate().change(wr.getRequestDate());
                 if(wr.getSenderEnterprise()!=null){
                     row[1]=wr.getSenderEnterprise().getEnterpriseName();              
                 }else{
@@ -67,7 +77,7 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
                 }
                 row[3]=wr.getStatus();
                 row[4]=wr.getMessage();
-                row[5]=wr.getResolveDate()==null?"":wr.getResolveDate().toString();
+                row[5]=wr.getResolveDate()==null?"":new changeDate().change(wr.getResolveDate());
                 row[6]=wr;
                 dtm.addRow(row);   
             }           
@@ -83,8 +93,6 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        labelUser = new javax.swing.JLabel();
         btnUnfinished = new javax.swing.JButton();
         btnAll = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -109,33 +117,32 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
         txtReceiverAddr = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtReceiverPhone = new javax.swing.JTextField();
-        labelRole = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Welcome! ");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        labelUser.setText("labelUser");
-        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, 20));
-
+        btnUnfinished.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnUnfinished.setText("Unfinished");
         btnUnfinished.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUnfinishedActionPerformed(evt);
             }
         });
-        add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, -1, -1));
+        add(btnUnfinished, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
-        btnAll.setText("All");
+        btnAll.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        btnAll.setText("Finished");
         btnAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllActionPerformed(evt);
             }
         });
-        add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+        add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
 
+        tblQueue.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         tblQueue.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -143,39 +150,28 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             new String [] {
                 "RequestDate", "Sender", "Receiver", "Status", "Message", "ResolveDate", "Order ID"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(tblQueue);
-        if (tblQueue.getColumnModel().getColumnCount() > 0) {
-            tblQueue.getColumnModel().getColumn(0).setResizable(false);
-            tblQueue.getColumnModel().getColumn(1).setResizable(false);
-            tblQueue.getColumnModel().getColumn(2).setResizable(false);
-            tblQueue.getColumnModel().getColumn(3).setResizable(false);
-            tblQueue.getColumnModel().getColumn(4).setResizable(false);
-        }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 780, 160));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 860, 190));
 
-        btnDetails.setText("Detials");
+        btnDetails.setFont(new java.awt.Font("Tekton Pro Ext", 0, 26)); // NOI18N
+        btnDetails.setText("Details");
         btnDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetailsActionPerformed(evt);
             }
         });
-        add(btnDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 120, -1, -1));
+        add(btnDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 350, -1, -1));
 
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 28)); // NOI18N
         jLabel8.setText("Choose a delivery man:");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 600, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 650, -1, -1));
 
-        add(comboDeliveryman, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, -1, -1));
+        comboDeliveryman.setFont(new java.awt.Font("Times New Roman", 0, 28)); // NOI18N
+        add(comboDeliveryman, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 650, 200, -1));
 
+        btnCommit.setFont(new java.awt.Font("Tekton Pro Ext", 0, 26)); // NOI18N
         btnCommit.setText("Commit");
         btnCommit.setActionCommand("");
         btnCommit.addActionListener(new java.awt.event.ActionListener() {
@@ -183,69 +179,90 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
                 btnCommitActionPerformed(evt);
             }
         });
-        add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 590, -1, -1));
+        add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 650, -1, -1));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Contact：");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setText("Contact:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
+        txtSender.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         txtSender.setEnabled(false);
-        jPanel1.add(txtSender, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 200, 30));
+        jPanel1.add(txtSender, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 170, 40));
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel7.setText("Address:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
+        txtSenderAddr.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         txtSenderAddr.setEnabled(false);
-        jPanel1.add(txtSenderAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 200, 30));
+        txtSenderAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenderAddrActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtSenderAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 170, 40));
 
+        txtSenderPhone.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         txtSenderPhone.setEnabled(false);
-        jPanel1.add(txtSenderPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 200, 30));
+        jPanel1.add(txtSenderPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 170, 40));
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel3.setText("Phone:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         jTabbedPane1.addTab("Depart", jPanel1);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 340, 220));
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 340, 240));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setText("Contact：");
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setText("Contact:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
+        txtReceiver.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         txtReceiver.setEnabled(false);
-        jPanel2.add(txtReceiver, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 200, 30));
+        jPanel2.add(txtReceiver, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 170, 40));
 
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel6.setText("Address:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
+        txtReceiverAddr.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         txtReceiverAddr.setEnabled(false);
-        jPanel2.add(txtReceiverAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 200, 30));
+        jPanel2.add(txtReceiverAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 170, 40));
 
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel5.setText("Phone:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
+        txtReceiverPhone.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         txtReceiverPhone.setEnabled(false);
-        jPanel2.add(txtReceiverPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 200, 30));
+        jPanel2.add(txtReceiverPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 170, 40));
 
         jTabbedPane2.addTab("Arrive", jPanel2);
 
-        add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 350, 220));
+        add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 350, 230));
 
-        labelRole.setText("jLabel2");
-        add(labelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 240, 20));
+        jLabel10.setFont(new java.awt.Font("Tekton Pro Ext", 3, 36)); // NOI18N
+        jLabel10.setText("Welcome! Delivery Manager!");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        jLabel9.setText("Work Area");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
+        labelUser.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        labelUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelUser.setText("labelUser");
+        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 350, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
         DefaultTableModel dtm=(DefaultTableModel)tblQueue.getModel();
         dtm.setRowCount(0);
-        for(WorkRequest wr:ua.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){           
+        for(WorkRequest wr:ua.getEmployee().getOrganization().getWorkQueue().getWorkRequestList()){     
+              if(wr.getStatus().equals(("Completed"))){
             Object[] row=new Object[7];
-            row[0]=wr.getRequestDate().toString();
+            row[0]=new changeDate().change(wr.getRequestDate());
             if(wr.getSenderEnterprise()!=null){
                 row[1]=wr.getSenderEnterprise().getEnterpriseName();              
             }else{
@@ -258,13 +275,9 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             }
             row[3]=wr.getStatus();
             row[4]=wr.getMessage();
-            if(row[5]!=null){
-                row[5]=wr.getResolveDate().toString();
-            }else{
-                row[5]="";
-            }            
+            row[5]=wr.getResolveDate()==null?"":new changeDate().change(wr.getResolveDate());            
             row[6]=wr;
-            dtm.addRow(row);                         
+            dtm.addRow(row);    }                     
         }
     }//GEN-LAST:event_btnAllActionPerformed
 
@@ -354,9 +367,18 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
             int check=JOptionPane.YES_NO_OPTION;
             String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);
             if(check==JOptionPane.YES_OPTION){
+                try {
+                    new playMusic().play("src/zOthers/ding.wav");
+                } catch (IOException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 newWR.setMessage(mesg);
                 JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
                 wr.setStatus("Completed");
+                wr.setResolveDate(new Date());
+                dB4OUtil.storeSystem(system);
+                wr.getOrder().setStatus("Delivering");
+                
             }
             populate();
         }
@@ -366,6 +388,10 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     private void btnUnfinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnfinishedActionPerformed
         populate();
     }//GEN-LAST:event_btnUnfinishedActionPerformed
+
+    private void txtSenderAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenderAddrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenderAddrActionPerformed
                                     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -374,7 +400,7 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnUnfinished;
     private javax.swing.JComboBox<String> comboDeliveryman;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -382,13 +408,11 @@ public class DeliMana_workAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JLabel labelRole;
     private javax.swing.JLabel labelUser;
     private javax.swing.JTable tblQueue;
     private javax.swing.JTextField txtReceiver;

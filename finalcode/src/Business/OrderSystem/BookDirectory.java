@@ -34,7 +34,25 @@ public class BookDirectory {
         }
         return null;
     }
-
+     public Book searchBook(String bookname) {
+        for (Book book : booklist) {
+            if (book.getName().equals(bookname)) {
+                return book;
+            }
+        }
+        System.out.println("No book");
+        return null;
+    }
+     public boolean checkBookUnique(String bookname) {
+        for (Book book : booklist) {
+            if (book.getName().equals(bookname)) {
+                 System.out.println("Book Name Exists");
+                return false;
+            }
+        }
+       
+        return true;
+    }
     public ArrayList<Book> getBooklist() {
         return booklist;
     }
@@ -44,6 +62,9 @@ public class BookDirectory {
     }
 
     public void update(Book book) {
-        booklist.set(book.getId(), book);
+        
+       // booklist.set(book.getId(), book);
+      
+       
     }
 }

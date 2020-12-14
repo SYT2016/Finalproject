@@ -7,6 +7,7 @@ package userinterface.BScustomerLogin;
 
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
@@ -23,6 +24,7 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         this.container = container;
         this.customer = customer;
         initComponents();
+        this.setBackground(new Color(253,251,239));
     }
 
     /**
@@ -37,7 +39,12 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         btnBuyingOrder = new javax.swing.JButton();
         btnSellingOrder = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 0, 36)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,48 +52,56 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnBuyingOrder.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        btnBuyingOrder.setText("Buying Order");
+        btnBuyingOrder.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        btnBuyingOrder.setText("Buying Orders");
         btnBuyingOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuyingOrderActionPerformed(evt);
             }
         });
 
-        btnSellingOrder.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        btnSellingOrder.setText("Selling Order");
+        btnSellingOrder.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        btnSellingOrder.setText("Selling Orders");
         btnSellingOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSellingOrderActionPerformed(evt);
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
+        jLabel6.setText("View Your Orders");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSellingOrder)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(btnBack))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(182, 182, 182)
-                            .addComponent(btnBuyingOrder))))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGap(245, 245, 245)
+                .addComponent(jLabel6)
+                .addContainerGap(265, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSellingOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuyingOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(btnBack)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(btnBack)
-                .addGap(30, 30, 30)
+                .addGap(85, 85, 85)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(171, 171, 171)
                 .addComponent(btnBuyingOrder)
-                .addGap(44, 44, 44)
+                .addGap(116, 116, 116)
                 .addComponent(btnSellingOrder)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(90, 90, 90))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,5 +130,6 @@ public class OrderHistoryJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnBuyingOrder;
     private javax.swing.JButton btnSellingOrder;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

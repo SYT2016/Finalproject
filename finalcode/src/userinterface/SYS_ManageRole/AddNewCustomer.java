@@ -34,7 +34,7 @@ public class AddNewCustomer extends javax.swing.JPanel {
     public AddNewCustomer(JPanel userProcessContainer) {
         initComponents();
         this. userProcessContainer =  userProcessContainer;
-      
+        this.setBackground(new Color(253,251,239));
     }
     private boolean checkusername(){
         Pattern p=Pattern.compile("^[a-zA-Z0-9]{6,}$");
@@ -82,14 +82,16 @@ public class AddNewCustomer extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        t1 = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(253, 251, 239));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         btnCreate.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
@@ -115,14 +117,6 @@ public class AddNewCustomer extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
         jLabel3.setText(" Re-enter Password:");
 
-        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
-        btnBack.setText("< BACK");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Tekton Pro Ext", 3, 42)); // NOI18N
         jLabel6.setText("Please Register Your New Account");
 
@@ -137,6 +131,11 @@ public class AddNewCustomer extends javax.swing.JPanel {
 
         txtAddress.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
 
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+        jLabel9.setText("Telephone Number:");
+
+        t1.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,74 +146,83 @@ public class AddNewCustomer extends javax.swing.JPanel {
                         .addGap(253, 253, 253)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(124, 124, 124)
                                 .addComponent(jLabel7))
                             .addComponent(jLabel5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnBack)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel9))
+                                        .addGap(3, 3, 3))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel1)
-                                                    .addComponent(jLabel8))
-                                                .addGap(108, 108, 108))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addGap(105, 105, 105)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtPword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                                            .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtRePword)
-                                            .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING))))))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(txtRePword, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(t1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel6))))
+                .addContainerGap(96, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(54, 54, 54)
                 .addComponent(jLabel6)
-                .addGap(108, 108, 108)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnBack))
-                .addGap(82, 82, 82)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63)
+                .addComponent(btnCreate)
+                .addGap(125, 125, 125)
                 .addComponent(jLabel4))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-        if(!(txtRePword.getText().equals(txtPword.getText()))){
+        if(txtRePword.getText().equals("")||txtPword.getText().equals("")||txtUser.getText().equals("")||txtAddress.getText().equals("")||t1.getText().equals("")){
+               JOptionPane.showMessageDialog(null,"Please fill all the information !","warning",JOptionPane.WARNING_MESSAGE);
+        }
+        else if(!(txtRePword.getText().equals(txtPword.getText()))){
             jLabel2.setForeground(Color.red);
             jLabel3.setForeground(Color.red);
             
@@ -250,9 +258,14 @@ public class AddNewCustomer extends javax.swing.JPanel {
         BS_CustomerRole bS_CustomerRole  =new BS_CustomerRole();
         Employee emplo=new Employee();
         UserAccount ua=system.getUserAccountDirectory().createUserAccount(txtUser.getText(), txtPword.getText(), emplo,bS_CustomerRole,txtAddress.getText());
-       
+       ua.setPhone(t1.getText());
         JOptionPane.showMessageDialog(null, "Create Useraccount Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
         dB4OUtil.storeSystem(system);
+        txtUser.setText("");
+        txtPword.setText("");
+        txtRePword.setText("");
+        txtAddress.setText("");
+        t1.setText("");
         
         }
 
@@ -260,22 +273,9 @@ public class AddNewCustomer extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        
-        userProcessContainer.remove(this);
-        Component[] coms=userProcessContainer.getComponents();
-        Component c=(Component)coms[coms.length-1];
-        MngCus jp=(MngCus)c;
-        jp.populateTable();
-        CardLayout l=(CardLayout)userProcessContainer.getLayout();
-        l.previous(userProcessContainer);
-        
-    }//GEN-LAST:event_btnBackActionPerformed
-
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
@@ -286,6 +286,8 @@ public class AddNewCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField t1;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtPword;
     private javax.swing.JTextField txtRePword;

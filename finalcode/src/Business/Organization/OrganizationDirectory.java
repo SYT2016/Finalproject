@@ -22,6 +22,17 @@ public class OrganizationDirectory {
     public ArrayList<Organization> getOrganizationList() {
         return organizationList;
     }
+    public boolean checkOrgUnique(String oranme){
+        for(Organization o:organizationList){
+            if(oranme.equals(o.getOrgtypename()))
+                return false;
+        
+        
+        }
+        return true;
+        
+    
+    }
     public Organization searchOrganization(Organization o){
         for(Organization or:organizationList){
             if(or.getOrganizationID()==o.getOrganizationID())

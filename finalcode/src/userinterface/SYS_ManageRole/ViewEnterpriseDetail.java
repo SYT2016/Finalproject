@@ -9,6 +9,7 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,6 +31,7 @@ public class ViewEnterpriseDetail extends javax.swing.JPanel {
     UserAccount useraccount;
     public ViewEnterpriseDetail(JPanel userProcessContainer,Enterprise enterprise,Network network) {
         initComponents();
+        this.setBackground(new Color(253,251,239));
         this.enterprise=enterprise;
         this.userProcessContainer=userProcessContainer;
         this.useraccount=system.getUserAccountDirectory().searchAccount(enterprise.getEnterpriseManager().getUsername());
@@ -83,6 +85,7 @@ public class ViewEnterpriseDetail extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         t77 = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(253, 251, 239));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N

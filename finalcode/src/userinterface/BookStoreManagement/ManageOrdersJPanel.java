@@ -7,16 +7,24 @@ package userinterface.BookStoreManagement;
 
 import Business.Enterprise.BookstoreEnterprise;
 import Business.OrderSystem.Order;
+import Business.OrderSystem.OrderItem;
 import Business.Organization.BS_BookManagementOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import userinterface.BScustomerLogin.CustomerSellingJPanel;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
+import zOthers.changeDate;
 
 /**
  *
@@ -32,28 +40,81 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         this.container = container;
         this.bookStoreManager = bookStoreManager;
         initComponents();
+        this.setBackground(new Color(253,251,239));
+        JTableHeader head = tblOrder.getTableHeader(); // 创建表格标题对象
+        head.setPreferredSize(new Dimension(head.getWidth(), 24));// 设置表头大小
+        head.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
+        
+        JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+        head1.setPreferredSize(new Dimension(head1.getWidth(), 24));// 设置表头大小
+        head1.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
         populateOrderTable();
+         btnProcess.setEnabled(true);
         
     }
+        public void cleartable(){
+         DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
+            dtm.setRowCount(0);
+   
+    }
+ public void populateItems(WorkRequest wr){
+        if(wr!=null){
+            DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
+            dtm.setRowCount(0);
+            for(OrderItem oi:wr.getOrder().getOrderItems()){
+                Object[] r=new Object[4];
+                r[0]=oi;
+                r[1]=oi.getQuantity()+"";
+                r[2]=oi.getPrice();
+                r[3]=oi.getSelectedbook().getStatus();
+                dtm.addRow(r);
 
-    public void populateOrderTable(){
+            }
+        }
+        
+    }
+    public void populateOrderTable(){//unfinished
         DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
         model.setRowCount(0);
         
         BS_BookManagementOrganization bookOrg= (BS_BookManagementOrganization) bookStoreManager.getEmployee().getOrganization();
         ArrayList<WorkRequest> requestList = bookOrg.getWorkQueue().getWorkRequestList();
         for(WorkRequest request : requestList){
+            if(request.getOrder().getStatus().equals("Waiting Bookstore Process")){
             Object row[] = new Object[6];
             row[0] = request;
             row[1] = request.getSenderUserAccount();
-            row[2] = request.getReceiverEnterprise().getEnterpriseName();
-            row[3] = request.getRequestDate();
-            row[4] = request.getOrder().getStatus();
-            row[5] = request.getOrder().getTotalPrice();
+           
+            row[2] = new changeDate().change(request.getRequestDate());
+            row[3]=request.getOrder().getComments();
+            row[5] = request.getOrder().getStatus();
+            row[4] = request.getOrder().getTotalPrice();
             model.addRow(row);
+            
+            }
         }
     }
-    
+    public void populateFinishedOrderTable(){//finished
+        DefaultTableModel model=(DefaultTableModel)tblOrder.getModel();
+        model.setRowCount(0);
+        
+        BS_BookManagementOrganization bookOrg= (BS_BookManagementOrganization) bookStoreManager.getEmployee().getOrganization();
+        ArrayList<WorkRequest> requestList = bookOrg.getWorkQueue().getWorkRequestList();
+        for(WorkRequest request : requestList){
+            if(!request.getOrder().getStatus().equals("Waiting Bookstore Process")){
+            Object row[] = new Object[6];
+            row[0] = request;
+            row[1] = request.getSenderUserAccount();
+           
+            row[2] = new changeDate().change(request.getRequestDate());
+            row[3]=request.getOrder().getComments();
+            row[5] = request.getOrder().getStatus();
+            row[4] = request.getOrder().getTotalPrice();
+            model.addRow(row);
+            
+            }
+        }
+    }
     @Override
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
@@ -73,7 +134,17 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrder = new javax.swing.JTable();
         btnProcess = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblOrderItem = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        un = new javax.swing.JButton();
+        f = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,31 +152,78 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
         jLabel1.setText("Manage Customer Orders");
 
+        tblOrder.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         tblOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Order Id", "Sender", "reciever", "Date", "status", "Total Price"
+                "OrderId", "Sender", "RequestDate", "Message", "TotalPrice", "OrderSatus"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                true, true, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblOrder.setRowHeight(25);
         jScrollPane1.setViewportView(tblOrder);
 
-        btnProcess.setText("process");
+        btnProcess.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
+        btnProcess.setText("Process");
         btnProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProcessActionPerformed(evt);
+            }
+        });
+
+        tblOrderItem.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "BookName", "Quantity", "Price", "Book Status"
+            }
+        ));
+        tblOrderItem.setRowHeight(25);
+        jScrollPane2.setViewportView(tblOrderItem);
+
+        jButton1.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
+        jButton1.setText("Details");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        un.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
+        un.setText("Unifinshed");
+        un.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unActionPerformed(evt);
+            }
+        });
+
+        f.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
+        f.setText("Finished");
+        f.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tekton Pro Ext", 1, 28)); // NOI18N
+        jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -114,37 +232,56 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnBack)
-                .addGap(62, 62, 62)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(136, 136, 136))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnBack)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnProcess))
+                            .addComponent(jScrollPane2))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(un)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(f)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnProcess)
-                        .addGap(65, 65, 65))))
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnBack)
-                        .addGap(48, 48, 48))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(29, 29, 29)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnProcess)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(jLabel1)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(un)
+                    .addComponent(f))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(btnProcess))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -169,12 +306,64 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_btnProcessActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int row=tblOrder.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a work reuqest", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            WorkRequest wr=(WorkRequest)tblOrder.getValueAt(row, 0);
+             System.out.println("222"+wr.getOrder().getLastorderid());
+             Order o=new Order("w");
+              System.out.println("333"+o.getLastorderid());
+            populateItems(wr);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
+        // TODO add your handling code here:
+         btnProcess.setEnabled(true);
+             populateOrderTable();
+    }//GEN-LAST:event_unActionPerformed
+
+    private void fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fActionPerformed
+        // TODO add your handling code here:
+        populateFinishedOrderTable();
+        btnProcess.setEnabled(false);
+    }//GEN-LAST:event_fActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:delete
+        int selectedRow = tblOrder.getSelectedRow();
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select an Order!","Warning",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        else{
+             int mesg = JOptionPane.showConfirmDialog(null, "Are you sure to delete this order?", " WarningDialog!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(mesg==JOptionPane.YES_OPTION){
+            
+           WorkRequest workRequest = (WorkRequest)tblOrder.getValueAt(selectedRow, 0);
+            bookStoreManager.getEmployee().getOrganization().getWorkQueue().getWorkRequestList().remove(workRequest);
+            }
+            populateOrderTable();
+            populateFinishedOrderTable();
+            dB4OUtil.storeSystem(system);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnProcess;
+    private javax.swing.JButton f;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblOrder;
+    private javax.swing.JTable tblOrderItem;
+    private javax.swing.JButton un;
     // End of variables declaration//GEN-END:variables
 }

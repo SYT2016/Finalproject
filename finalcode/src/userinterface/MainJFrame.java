@@ -16,13 +16,14 @@ import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import userinterface.BSSecondHand.SecondHandOrderMngJPanel;
-import userinterface.BScustomerLogin.CustomerCreateJPanel;
+import userinterface.BSbusiness.businessWorkAreaJPanel;
 import userinterface.BScustomerLogin.CustomerManageJPanel;
 import userinterface.BookStoreManagement.BSManagerMngJPanel;
 import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
@@ -34,6 +35,9 @@ import userinterface.PT_PrintingMemberRole.PTMan_workAreaJpanel;
 
 import userinterface.SYS_ManageRole.AddNewCustomer;
 import userinterface.SYS_ManageRole.SYSAdminWorkAreaJPanel;
+import zOthers.Log;
+import static zOthers.Log.log;
+import zOthers.LogFormatter;
 import zOthers.playMusic;
 
 
@@ -49,19 +53,24 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public static EcoSystem system;
     public static DB4OUtil dB4OUtil = DB4OUtil.getInstance();
-
-
-
     public static UserAccountDirectory userAccountDirectory;
+    public static Logger log=Logger.getLogger("records");
     
-    public MainJFrame() {
+    public MainJFrame() throws IOException {  
+        log.setLevel(Level.ALL);
+        FileHandler fileHandler=new FileHandler("records.log");
+        fileHandler.setLevel(Level.ALL);
+        fileHandler.setFormatter(new LogFormatter());
+        log.addHandler(fileHandler);
+        log.info("Project Startup");
         initComponents();
-        jPanel1.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
+        this.setTitle("Online Bookstore Business System");
         container.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
-        system = dB4OUtil.retrieveSystem();          
+        system = dB4OUtil.retrieveSystem();         
         userAccountDirectory=system.getUserAccountDirectory();
         Order order=new Order("a");
         int lastorderid=order.getLastorderid();
+        lastorderid=system.getNetworkDirectory().getLastorid();
         if(lastorderid!=0){
             System.out.println(lastorderid+"lastorderid");
            order.count=(lastorderid+1);
@@ -91,14 +100,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         loginJButton = new javax.swing.JButton();
         userNameJTextField = new javax.swing.JTextField();
-        passwordField = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         loginJLabel = new javax.swing.JLabel();
         logoutJButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jSplitPane1.setDividerLocation(250);
         jSplitPane1.setDividerSize(0);
@@ -108,6 +118,7 @@ public class MainJFrame extends javax.swing.JFrame {
         container.setLayout(new java.awt.CardLayout());
         jSplitPane1.setRightComponent(container);
 
+        jPanel1.setBackground(new java.awt.Color(237, 255, 244));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 800));
 
@@ -120,8 +131,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         userNameJTextField.setFont(new java.awt.Font("宋体", 1, 30)); // NOI18N
-
-        passwordField.setFont(new java.awt.Font("宋体", 1, 30)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 30)); // NOI18N
         jLabel1.setText("User Name");
@@ -145,6 +154,8 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        passwordField.setFont(new java.awt.Font("宋体", 1, 30)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -158,18 +169,14 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(logoutJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(87, 87, 87)
                         .addComponent(loginJLabel))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(loginJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(13, 13, 13)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(userNameJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                                    .addComponent(passwordField))
-                                .addComponent(jLabel2)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(loginJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(passwordField))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,21 +188,21 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(userNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(158, 158, 158)
                         .addComponent(loginJLabel)
                         .addGap(35, 35, 35))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(loginJButton)
-                        .addGap(18, 18, 18)
+                        .addGap(21, 21, 21)
                         .addComponent(logoutJButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jButton1)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -247,24 +254,24 @@ public class MainJFrame extends javax.swing.JFrame {
     
     }
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
-        try {
-            new playMusic().play();
-        } catch (IOException ex) {
-            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
+     loginJButton.setEnabled(false);
+      userNameJTextField.setEnabled(false);
+       passwordField.setEnabled(false);
+       logoutJButton.setEnabled(true);
 
 // Get user name    
         String username=userNameJTextField.getText();
-        String password=passwordField.getText();
-       
+       String password=String.copyValueOf(passwordField.getPassword());
+       //String password=passwordField.getText();
+      
         system = dB4OUtil.retrieveSystem();
     //    System.out.println("你输入的账号和密码是："+username+password);
         UserAccount useraccount=system.getUserAccountDirectory().authenticateUser(username, password);
         if(useraccount!=null){
             //获得useraccount里面存储的rolename=roletype，以此来判断是哪一种role在登陆
             String rolename=useraccount.getRole().getRolename();
-        System.out.println("你输入的用户名对应的rolemname是："+rolename);
+    
 //Role Type包括：
 //"BS_BookManageRole","BS_CustomerRole","BS_SecondHandManageRole"
 //"Deli_DeliveryManRole","Deli_DeliveryManageRole"
@@ -278,6 +285,12 @@ public class MainJFrame extends javax.swing.JFrame {
 
                 BSManagerMngJPanel BSManageRole = new BSManagerMngJPanel(container,useraccount);
                 container.add("BSManagerMngJPanel", BSManageRole);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+            }
+            else if(rolename.equals("BS_SalesRole")){
+                businessWorkAreaJPanel BSbusinessRole = new businessWorkAreaJPanel(container,useraccount);
+                container.add("businessWorkAreaJPanel", BSbusinessRole);
                 CardLayout layout = (CardLayout) container.getLayout();
                 layout.next(container);
             }
@@ -349,25 +362,35 @@ public class MainJFrame extends javax.swing.JFrame {
             }
             
         }
-        else
+        else{
             JOptionPane.showMessageDialog(null, "Incorrect username or password !");
+             loginJButton.setEnabled(true);
+      userNameJTextField.setEnabled(true);
+       passwordField.setEnabled(true);
+       logoutJButton.setEnabled(false);
+        }
             
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
-     //   logoutJButton.setEnabled(false);
-    //    userNameJTextField.setEnabled(true);
-   //     passwordField.setEnabled(true);
-   //     loginJButton.setEnabled(true);
+     logoutJButton.setEnabled(false);
+      userNameJTextField.setEnabled(true);
+       passwordField.setEnabled(true);
+       loginJButton.setEnabled(true);
 
         userNameJTextField.setText("");
         passwordField.setText("");
 
         container.removeAll();
         JPanel blankJP = new JPanel();
-        container.add("blank", blankJP);
+        //container.add("blank", blankJP);
+         container.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
+          
+       // jPanel1.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
+       // container.add(new FreedomPane("src/userinterface/glasses.jpg"));//添加背景图片
+        
         dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
@@ -418,7 +441,11 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJFrame().setVisible(true);
+                try {
+                    new MainJFrame().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

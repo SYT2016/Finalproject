@@ -8,6 +8,7 @@ package userinterface.SYS_ManageRole;
 
 import Business.Network.Network;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,7 +33,7 @@ public class AddNewNet extends javax.swing.JPanel {
     public AddNewNet(JPanel userProcessContainer) {
          initComponents();
          this.userProcessContainer=userProcessContainer;
-         
+        this.setBackground(new Color(253,251,239));
          
     
     }
@@ -51,6 +52,7 @@ public class AddNewNet extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(253, 251, 239));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
@@ -118,15 +120,25 @@ public class AddNewNet extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
       
+    if(t1.getText().equals("")){
+        JOptionPane.showMessageDialog(null, "Please fill the network name!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
 
+        
+    }
+    else if(!system.getNetworkDirectory().checkNetworkUnique(t1.getText())){
+         JOptionPane.showMessageDialog(null, "The network already exists!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+
+    
+    }
+    else{
         Network nt=system.getNetworkDirectory().createNetwork(t1.getText());
       
         
          JOptionPane.showMessageDialog(null, "Add Network Successfully!", "Successfully", JOptionPane.INFORMATION_MESSAGE);
-
+         t1.setText("");
          dB4OUtil.storeSystem(system);
        
-        
+    } 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -12,12 +12,26 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import userinterface.Deli_ManRole.DeliMan_workAreaJpanel;
+import userinterface.MainJFrame;
+import static userinterface.MainJFrame.dB4OUtil;
+import static userinterface.MainJFrame.system;
+import zOthers.playMusic;
 
 /**
  *
@@ -34,27 +48,42 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         this.container=container;
         this.wr=wr;
         this.ua=ua;
+        this.setBackground(new Color(253,251,239));
+       // JTableHeader head1 = tblOrderItem.getTableHeader(); // 创建表格标题对象
+       //head1.setPreferredSize(new Dimension(head1.getWidth(), 24));// 设置表头大小
+        //head1.setFont(new Font("Times New Roman", Font.PLAIN, 24));// 设置表格字体
         populate();
         for(Enterprise pe:ua.getEmployee().getEnterprise().getNetwork().getEnterpriseDirectory().getEnterpriseList()){
             if(pe.getEnterpriseType().equals("Type-Printer") && pe.getNetwork().getNetworkID()==ua.getEmployee().getEnterprise().getNetwork().getNetworkID()){ 
-                comboPrint.addItem(pe.toString());
+                if(pe.getOrganizationDirectory().getOrganizationList().size()!=0){
+                for(Organization or:pe.getOrganizationDirectory().getOrganizationList()){
+                    if(or.getOrgtypename().equals("PT_PrintingOrganization"))
+                    comboPrint.addItem(pe.toString());
+                
+                }
+                     
+                }
+               
             }
         }
     }
     
     public void populate(){
-        DefaultTableModel dtm=(DefaultTableModel)tblOrderItem.getModel();
-        dtm.setRowCount(0);
-        for(OrderItem oi:wr.getOrder().getOrderItems()){
-            Object[] row=new Object[4];
-            row[0]=oi;
-            row[1]=oi.getQuantity()+"";
-            row[2]=oi.getPrice()+"";
-            BigDecimal quantity=new BigDecimal(Double.toString(oi.getQuantity()));
-            BigDecimal price=new BigDecimal(Double.toString(oi.getPrice()));
-            row[3]=price.multiply(quantity).intValue()+"";
-            dtm.addRow(row);
-        }
+         for(OrderItem oi:wr.getOrder().getOrderItems()){
+                Object[] r=new Object[5];
+                t1.setText(oi.getBookname());
+                t2.setText(oi.getQuantity()+"");
+              
+             if(wr.getSenderEnterprise()!=null){
+                    t3.setText(wr.getSenderEnterprise().getEnterpriseName());
+                    t4.setText(wr.getSenderEnterprise().getPhone());               
+                }else{
+                    t3.setText(wr.getSenderUserAccount().getUsername());
+                    t4.setText(wr.getSenderUserAccount().getPhone());
+                }           
+                
+                t5.setText(wr.getOrder().getStatus());
+         }
     }
 
     /**
@@ -68,69 +97,97 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         javax.swing.JButton btnBack = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblOrderItem = new javax.swing.JTable();
-        btnQuantity = new javax.swing.JButton();
-        txtQuantity = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         comboPrint = new javax.swing.JComboBox<>();
         btnCommit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        t5 = new javax.swing.JTextField();
+        t1 = new javax.swing.JTextField();
+        t2 = new javax.swing.JTextField();
+        t3 = new javax.swing.JTextField();
+        t4 = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("New Request To Print Plant");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
+        jLabel1.setText("New Request To Printer!");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
-        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        tblOrderItem.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel2.setText("Choose a Printer:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 620, -1, -1));
 
-            },
-            new String [] {
-                "BookName", "Quantity", "Per Price", "Total Price"
-            }
-        ));
-        jScrollPane1.setViewportView(tblOrderItem);
+        comboPrint.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        add(comboPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 620, 220, -1));
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 530, 140));
-
-        btnQuantity.setText("Change Quantity To:");
-        btnQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuantityActionPerformed(evt);
-            }
-        });
-        add(btnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
-        add(txtQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 50, 30));
-
-        jLabel2.setText("Choose a Print Plant:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
-
-        add(comboPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
-
+        btnCommit.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
         btnCommit.setText("Commit");
         btnCommit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCommitActionPerformed(evt);
             }
         });
-        add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, -1, -1));
+        add(btnCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 620, -1, -1));
 
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("BookName:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Sender:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 110, 50));
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Quantity:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, -1, 50));
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Order Status:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 210, -1));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Sender Phone:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 210, -1));
+
+        t5.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        t5.setEnabled(false);
+        add(t5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 390, -1));
+
+        t1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        t1.setEnabled(false);
+        add(t1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 390, -1));
+
+        t2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        t2.setEnabled(false);
+        add(t2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 390, -1));
+
+        t3.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        t3.setEnabled(false);
+        add(t3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 390, -1));
+
+        t4.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        t4.setEnabled(false);
+        add(t4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 390, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -139,27 +196,11 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
         Component c=(Component)coms[coms.length-1];
         PB_workAreaJPanel jp=(PB_workAreaJPanel)c;
         jp.populate();
+        jp.populateItems(null);  
+        jp.cleartable();
         CardLayout l=(CardLayout)container.getLayout();
         l.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void btnQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuantityActionPerformed
-        int row=tblOrderItem.getSelectedRow();
-        int quan=Integer.parseInt(txtQuantity.getText());
-        if(row<0){
-            JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else if(quan<=0){
-            JOptionPane.showMessageDialog(null, "The Quantity can not be less than 1", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
-            OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
-            for(OrderItem o:wr.getOrder().getOrderItems()){
-                if(o.equals(oi)){
-                    o.setQuantity(quan);
-                }
-            }
-            populate();
-        }
-    }//GEN-LAST:event_btnQuantityActionPerformed
 
     private void btnCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommitActionPerformed
         String printer=(String)comboPrint.getSelectedItem();
@@ -179,55 +220,54 @@ public class PB_newRequestJPanel extends javax.swing.JPanel {
                             newReq.setSenderEnterprise(ua.getEmployee().getEnterprise());
                             newReq.setStatus("Uncompleted");
                             newReq.setReceiverEnterprise(e);
-                            
+                            newReq.setRequestDate(new Date());
                             //message
                             int check=JOptionPane.YES_NO_OPTION;
                             String mesg = JOptionPane.showInputDialog(null,"Message: \n","Mesg",check);        
                             if(check==JOptionPane.YES_OPTION){
                                 newReq.setMessage(mesg);
+                                try {
+                                    new playMusic().play("src/zOthers/ding.wav");
+                                } catch (IOException ex) {
+                                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 JOptionPane.showMessageDialog(null, "A new work request has been sent out successfully.");
-                                wr.setStatus("Completed");
+                               wr.setStatus("Completed");
+                               wr.setResolveDate(new Date());
+                               wr.getOrder().setStatus("Waiting Printer Process");
+                                comboPrint.setEnabled(false);
+                                o.getWorkQueue().addNewRequest(newReq);
+                                btnCommit.setEnabled(false);
+                                dB4OUtil.storeSystem(system); 
+                                populate();
+                              
                             }
-                            o.getWorkQueue().addNewRequest(newReq);
+                           // o.getWorkQueue().addNewRequest(newReq);
                         }
                     }
                 }           
             }            
         }
         
-        txtQuantity.setEnabled(false);
-        btnQuantity.setEnabled(false);
-        btnDelete.setEnabled(false);
-        comboPrint.setEnabled(false);
+        
     }//GEN-LAST:event_btnCommitActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int row=tblOrderItem.getSelectedRow();
-        if(row<0){
-            JOptionPane.showMessageDialog(null, "Please select a row", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
-            int dialogBtn=JOptionPane.YES_NO_OPTION;
-            int dialogRes=JOptionPane.showConfirmDialog(null, "Would you like to delete this one?","Warning",dialogBtn);
-            if(dialogRes==JOptionPane.YES_OPTION){
-                OrderItem oi=(OrderItem)tblOrderItem.getValueAt(row, 0);
-                wr.getOrder().deleteOrderItem(oi);
-                populate();
-                JOptionPane.showMessageDialog(null, "Delete the order item successfully");       
-            }          
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCommit;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnQuantity;
     private javax.swing.JComboBox<String> comboPrint;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblOrderItem;
-    private javax.swing.JTextField txtQuantity;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField t1;
+    private javax.swing.JTextField t2;
+    private javax.swing.JTextField t3;
+    private javax.swing.JTextField t4;
+    private javax.swing.JTextField t5;
     // End of variables declaration//GEN-END:variables
 }

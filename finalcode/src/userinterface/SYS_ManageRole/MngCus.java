@@ -9,8 +9,12 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +22,7 @@ import javax.swing.table.JTableHeader;
 import userinterface.MainJFrame;
 import static userinterface.MainJFrame.dB4OUtil;
 import static userinterface.MainJFrame.system;
+import zOthers.playMusic;
 /**
  *
  * @author 16104
@@ -37,7 +42,7 @@ public class MngCus extends javax.swing.JPanel {
         JTableHeader head = mngcus.getTableHeader(); // 创建表格标题对象
         head.setPreferredSize(new Dimension(head.getWidth(), 36));// 设置表头大小
         head.setFont(new Font("Times New Roman", Font.PLAIN, 36));// 设置表格字体
-        
+        this.setBackground(new Color(253,251,239));
       populateTable();
         
     }
@@ -73,6 +78,7 @@ public class MngCus extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         mngcus = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(253, 251, 239));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         jButton4.setFont(new java.awt.Font("Tekton Pro Ext", 1, 30)); // NOI18N
@@ -151,6 +157,11 @@ public class MngCus extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:delete
+        try {
+            new playMusic().play("src/zOthers/alert.wav");
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int row=mngcus.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!", "Warning", JOptionPane.WARNING_MESSAGE);

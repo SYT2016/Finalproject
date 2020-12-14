@@ -27,11 +27,13 @@ public class Order {
     private String finalPrice;
     private int sellingNumber;
     private String address;
-    
+    private String sellBookName;
     private static int lastorderid;
     public Order() {
         id = count++;
         lastorderid=id;
+        system.getNetworkDirectory().setLastorid(lastorderid);
+         dB4OUtil.storeSystem(system);
      
     }
         public Order(String test){
@@ -96,6 +98,14 @@ public class Order {
             sum = sum + oi.getOrderItemTotal();
         }
         return sum;
+    }
+
+    public String getSellBookName() {
+        return sellBookName;
+    }
+
+    public void setSellBookName(String sellBookName) {
+        this.sellBookName = sellBookName;
     }
 
 

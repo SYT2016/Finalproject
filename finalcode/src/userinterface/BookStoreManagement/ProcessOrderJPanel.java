@@ -14,10 +14,14 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static userinterface.MainJFrame.dB4OUtil;
 import static userinterface.MainJFrame.system;
+import userinterface.PB_ManagerRole.PB_workAreaJPanel;
 
 /**
  *
@@ -35,6 +39,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         this.bookstoreManager = bookstoreManager;
         this.workRequest = workRequest;
         initComponents();
+        this.setBackground(new Color(253,251,239));
         populateCombo();
     }
     
@@ -44,7 +49,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         for(Network net : networkList){
             ArrayList<Enterprise> enterPriseList = net.getEnterpriseDirectory().getEnterpriseList();
             for(Enterprise enterprise: enterPriseList){
-                if(enterprise.getEnterpriseType().equals("Type-DeliveryCompany")){
+                if(enterprise.getEnterpriseType().equals("Type-DeliveryCompany")&&bookstoreManager.getEmployee().getEnterprise().getNetwork().getName().equals(enterprise.getNetwork().getName())){
                     DeliveryEnterprise deliveryEnterprise = (DeliveryEnterprise)enterprise;
                     comboExpress.addItem(deliveryEnterprise);                   
                 }
@@ -71,6 +76,10 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         txtComment = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(253, 251, 239));
+        setPreferredSize(new java.awt.Dimension(950, 800));
+
+        btnBack.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,14 +87,16 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setText("Process Order");
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 3, 48)); // NOI18N
+        jLabel1.setText("Process Customer Order");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel2.setText("Process?");
 
+        comboStatus.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recieved", "Rejected" }));
 
+        comboExpress.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         comboExpress.setModel(new javax.swing.DefaultComboBoxModel<>(new DeliveryEnterprise[]{}));
         comboExpress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,81 +104,91 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnOrder.setText("Sure");
+        btnOrder.setFont(new java.awt.Font("Tekton Pro Ext", 1, 36)); // NOI18N
+        btnOrder.setText("Commit");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel3.setText("Select Express Delivering:");
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel4.setText("Supply Information:");
+        txtComment.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel4.setText("Message:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(213, 213, 213))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(308, 308, 308)
+                .addComponent(jLabel2)
+                .addGap(109, 109, 109)
+                .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnBack))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(109, 109, 109)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboExpress, 0, 247, Short.MAX_VALUE)
+                            .addComponent(txtComment))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(211, 211, 211)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4)))
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnOrder)
-                            .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(comboExpress, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addComponent(btnBack)
+                        .addGap(445, 445, 445)
+                        .addComponent(btnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(144, 144, 144)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(comboExpress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(jLabel4))
-                .addGap(27, 27, 27)
-                .addComponent(btnOrder)
-                .addGap(54, 54, 54))
+                    .addComponent(jLabel4)
+                    .addComponent(txtComment))
+                .addGap(154, 154, 154)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOrder)
+                    .addComponent(btnBack))
+                .addGap(134, 134, 134))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+
+        
         container.remove(this);
-        CardLayout layout=(CardLayout)container.getLayout();
-        layout.previous(container);
+        Component[] coms=container.getComponents();
+        Component c=(Component)coms[coms.length-1];
+        ManageOrdersJPanel jp=(ManageOrdersJPanel)c;
+        jp.populateOrderTable();
+        jp.populateItems(null);  
+        jp.cleartable();
+        CardLayout l=(CardLayout)container.getLayout();
+        l.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
@@ -187,7 +208,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         if(processStatus.equals("Recieved")){
         /*Set the Status information in order*/
         workRequest.getOrder().setStatus(processStatus);
-        workRequest.setStatus("completed");
+        workRequest.setStatus("Completed");
         
         /*set workRequest*/
         WorkRequest wq = new WorkRequest();
@@ -196,13 +217,19 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
         wq.setReceiverEnterprise(deliveryCompany);
         wq.setStatus("Uncompleted");
         wq.setMessage(txtComment.getText());
+        wq.getOrder().setStatus("Waiting DeliveryCompany Process");
         deliOrg.getWorkQueue().addNewRequest(wq);
-        bookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewBSToPublisherRequest(wq);
-        JOptionPane.showMessageDialog(null, "have already send the order to Delivery Company!");
+        //bookstoreManager.getEmployee().getOrganization().getWorkQueue().addNewBSToPublisherRequest(wq);
+        JOptionPane.showMessageDialog(null, "You have already send the order to Delivery Company!");
+        txtComment.setEnabled(false);
+        dB4OUtil.storeSystem(system);
         }else{
-            workRequest.getOrder().setStatus(processStatus);
-            workRequest.setStatus("completed");
-            JOptionPane.showMessageDialog(null, "have already turned down the order.");
+            workRequest.getOrder().setStatus("Bookstore Reject");
+            workRequest.setStatus("Completed");
+            workRequest.setMessage(txtComment.getText());
+            JOptionPane.showMessageDialog(null, "You have already turned down the order.");
+            txtComment.setEnabled(false);
+            dB4OUtil.storeSystem(system);
         }
     }//GEN-LAST:event_btnOrderActionPerformed
 
