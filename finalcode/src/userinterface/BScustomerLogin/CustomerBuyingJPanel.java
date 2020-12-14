@@ -69,6 +69,7 @@ return true;
         //populate the location option
         comboNetwork.removeAllItems();
         for (Network nt : system.getNetworkDirectory().getNetworkList()) {//把现有的network名字加到combox里面，因为要在network里面创建enterprise
+            if(checkbsexists(nt))
             comboNetwork.addItem(nt);
         }
 
@@ -327,7 +328,20 @@ return true;
         CardLayout layout = (CardLayout) container.getLayout();
         layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
-
+    public boolean checkbsexists(Network net){
+       
+        for (Enterprise enterprise : net.getEnterpriseDirectory().getEnterpriseList()) {
+            if (enterprise.getEnterpriseType().equals("Type-BookStore")) {
+               return true;
+            }
+        }
+      
+                System.out.println(net.getName()+"do not have bookstore");
+                return false;
+               
+        
+        
+    }
     private void comboNetworkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboNetworkItemStateChanged
         //make two comboBox related
         comboBookStore.removeAllItems();

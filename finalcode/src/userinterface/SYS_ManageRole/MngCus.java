@@ -58,7 +58,7 @@ public class MngCus extends javax.swing.JPanel {
             Object row[]=new Object[3];
             row[0]=ua;
             row[1]=ua.getPassword();
-            row[2]=ua.getPassword();
+            row[2]=ua.getAddress();
             model.addRow(row);
         }
        }
