@@ -8,16 +8,12 @@ package zOthers;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+
 
 /**
  *
